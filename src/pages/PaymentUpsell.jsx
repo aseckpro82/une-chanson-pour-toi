@@ -89,18 +89,22 @@ export default function PaymentUpsell() {
 
   const calculateUpsellTotal = () => {
     let total = 0;
-    if (selectedUpsells.add_calligraphy && !order?.add_calligraphy) total += 3.99;
-    if (selectedUpsells.express_delivery && !order?.express_delivery) total += 3.99;
+    if (selectedUpsells.add_calligraphy && !order?.add_calligraphy) total += 4.99;
     if (selectedUpsells.add_video && !order?.add_video) total += 19.99;
     if (selectedUpsells.add_letter && !order?.add_letter) total += 4.99;
+    if (selectedUpsells.add_qr_code && !order?.add_qr_code) total += 6.99;
+    if (selectedUpsells.add_client_video && !order?.add_client_video) total += 9.99;
+    if (selectedUpsells.add_album_cover && !order?.add_album_cover) total += 7.99;
     return total.toFixed(2);
   };
 
   const hasSelectedUpsells = () => {
     return (selectedUpsells.add_calligraphy && !order?.add_calligraphy) ||
-           (selectedUpsells.express_delivery && !order?.express_delivery) ||
            (selectedUpsells.add_video && !order?.add_video) || 
-           (selectedUpsells.add_letter && !order?.add_letter);
+           (selectedUpsells.add_letter && !order?.add_letter) ||
+           (selectedUpsells.add_qr_code && !order?.add_qr_code) ||
+           (selectedUpsells.add_client_video && !order?.add_client_video) ||
+           (selectedUpsells.add_album_cover && !order?.add_album_cover);
   };
 
   const handleAccept = async () => {
