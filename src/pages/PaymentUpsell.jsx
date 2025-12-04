@@ -257,33 +257,39 @@ export default function PaymentUpsell() {
         </Card>
 
         {/* Options upsell */}
-        <div className="space-y-4 mb-6">
+        <div className="space-y-3 mb-6">
           {upsellOptions.map((option) => (
             <Card 
               key={option.id}
-              className={`p-5 cursor-pointer transition-all ${
+              className={`p-4 cursor-pointer transition-all relative ${
                 selectedUpsells[option.id] 
                   ? 'border-2 border-purple-400 bg-purple-50 shadow-lg' 
                   : 'border-2 border-gray-200 hover:border-gray-300'
               }`}
               onClick={() => setSelectedUpsells(prev => ({ ...prev, [option.id]: !prev[option.id] }))}
             >
-              <div className="flex items-start gap-4">
-                <Checkbox
-                  checked={selectedUpsells[option.id]}
-                  onCheckedChange={(checked) => setSelectedUpsells(prev => ({ ...prev, [option.id]: checked }))}
-                  onClick={(e) => e.stopPropagation()}
-                  className="mt-1"
-                />
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold text-gray-900">{option.title}</h3>
-                    <div className="text-right">
-                      <span className="text-gray-400 line-through text-sm">{option.originalPrice}€</span>
-                      <span className="text-xl font-bold text-purple-600 ml-2">{option.price}€</span>
+              {option.popular && (
+                <Badge className="absolute -top-2 left-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] border-0">
+                  POPULAIRE
+                </Badge>
+              )}
+              <div className="flex items-start gap-3">
+                <div onClick={(e) => e.stopPropagation()}>
+                  <Checkbox
+                    checked={selectedUpsells[option.id]}
+                    onCheckedChange={(checked) => setSelectedUpsells(prev => ({ ...prev, [option.id]: checked }))}
+                    className="mt-0.5"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-bold text-gray-900 text-sm">{option.title}</h3>
+                    <div className="text-right flex-shrink-0">
+                      <span className="text-gray-400 line-through text-xs">{option.originalPrice}€</span>
+                      <span className="text-lg font-bold text-purple-600 ml-1">{option.price}€</span>
                     </div>
                   </div>
-                  <p className="text-gray-600 text-sm">{option.desc}</p>
+                  <p className="text-gray-500 text-xs">{option.desc}</p>
                 </div>
               </div>
             </Card>
