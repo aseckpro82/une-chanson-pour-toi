@@ -73,19 +73,19 @@ function ClientVideoMockup() {
 // Mockup Pochette Album
 function AlbumCoverMockup() {
   return (
-    <div className="relative w-28 h-28 mx-auto">
+    <div className="relative w-16 h-16 md:w-20 md:h-20 mx-auto">
       {/* Pochette */}
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-xl transform rotate-3 hover:rotate-0 transition-transform">
-        <div className="w-full h-full bg-gradient-to-br from-purple-600 via-rose-500 to-orange-400 p-2">
-          <div className="w-full h-full bg-black/20 rounded-lg flex flex-col items-center justify-center backdrop-blur-sm">
-            <Music className="w-8 h-8 text-white mb-1" />
-            <p className="text-white text-[8px] font-bold">Pour Marie</p>
-            <p className="text-white/70 text-[6px]">Une chanson unique</p>
+      <div className="w-full h-full rounded-lg overflow-hidden shadow-xl transform rotate-3">
+        <div className="w-full h-full bg-gradient-to-br from-purple-600 via-rose-500 to-orange-400 p-1 md:p-1.5">
+          <div className="w-full h-full bg-black/20 rounded flex flex-col items-center justify-center backdrop-blur-sm">
+            <Music className="w-5 h-5 md:w-6 md:h-6 text-white mb-0.5" />
+            <p className="text-white text-[6px] md:text-[7px] font-bold">Pour Marie</p>
+            <p className="text-white/70 text-[5px] md:text-[6px]">Une chanson unique</p>
           </div>
         </div>
       </div>
       {/* Badge */}
-      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[6px] md:text-[7px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
         ARTWORK HD
       </div>
     </div>
