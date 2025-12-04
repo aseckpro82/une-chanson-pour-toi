@@ -309,10 +309,38 @@ export default function MesCommandes() {
           {/* Résultat de la recherche */}
           {searchedOrder && (
             <div className="space-y-6">
-              <div className="flex items-center gap-2 text-green-600">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="font-medium">Commande trouvée !</span>
-              </div>
+              {/* Bandeau de bienvenue immersif */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-rose-500 via-purple-600 to-indigo-600 p-6 md:p-8 text-white shadow-2xl"
+              >
+                {/* Particules décoratives */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute top-4 left-4 w-20 h-20 bg-white/10 rounded-full blur-2xl" />
+                  <div className="absolute bottom-4 right-4 w-32 h-32 bg-white/10 rounded-full blur-3xl" />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white/5 rounded-full blur-3xl" />
+                </div>
+                
+                {/* Contenu */}
+                <div className="relative z-10 text-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <span className="text-3xl md:text-4xl mb-2 block">✨</span>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                      Bienvenue {searchedOrder.customer_name?.split(' ')[0] || 'cher client'} !
+                    </h2>
+                    <p className="text-white/80 text-sm md:text-base">
+                      Voici l'avancement de votre chanson personnalisée
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
+
               {renderOrderCard(searchedOrder)}
               
               <div className="text-center pt-4">
