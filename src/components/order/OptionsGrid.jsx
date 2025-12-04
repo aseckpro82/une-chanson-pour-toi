@@ -10,10 +10,10 @@ const qrPattern = [1,0,1,1,0,0,1,0,1,1,1,0,0,0,1,0,1,1,0,1,1,0,1,0,1];
 // Mockup QR Code
 function QRCodeMockup() {
   return (
-    <div className="relative w-28 h-28 mx-auto">
-      <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-200">
+    <div className="relative w-16 h-16 md:w-20 md:h-20 mx-auto">
+      <div className="bg-white rounded-lg p-1.5 md:p-2 shadow-lg border border-gray-200">
         {/* QR Code stylisé */}
-        <div className="w-full aspect-square bg-gray-900 rounded-lg p-2 relative">
+        <div className="w-full aspect-square bg-gray-900 rounded p-1 md:p-1.5 relative">
           <div className="grid grid-cols-5 gap-0.5 h-full">
             {qrPattern.map((val, i) => (
               <div 
@@ -24,14 +24,14 @@ function QRCodeMockup() {
           </div>
           {/* Logo centre */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 rounded bg-gradient-to-br from-rose-500 to-purple-600 flex items-center justify-center">
-              <Music className="w-3 h-3 text-white" />
+            <div className="w-4 h-4 md:w-5 md:h-5 rounded bg-gradient-to-br from-rose-500 to-purple-600 flex items-center justify-center">
+              <Music className="w-2 h-2 md:w-2.5 md:h-2.5 text-white" />
             </div>
           </div>
         </div>
       </div>
       {/* Label */}
-      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-[6px] md:text-[7px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
         SCANNEZ-MOI
       </div>
     </div>
