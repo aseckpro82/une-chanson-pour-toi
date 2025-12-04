@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { 
   Loader2, Video, Mail, Sparkles, Timer, Gift, 
-  CreditCard, Shield, ArrowRight, X, FileText, Zap
+  CreditCard, Shield, ArrowRight, X, FileText, QrCode, Image, Music
 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
