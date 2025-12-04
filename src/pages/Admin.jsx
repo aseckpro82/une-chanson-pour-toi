@@ -735,14 +735,34 @@ function TestimonialsTab({ testimonials, queryClient }) {
             <Card key={t.id} className="p-4">
               <div className="flex justify-between items-start mb-2">
                 <p className="font-semibold">{t.customer_name}</p>
-                <Button size="sm" variant="ghost" onClick={() => { if (confirm('Supprimer ?')) deleteMutation.mutate(t.id); }}>
-                  <Trash2 className="w-4 h-4 text-red-500" />
-                </Button>
+                <div className="flex gap-1">
+                  <Button 
+                    size="sm" 
+                    variant="ghost" 
+                    onClick={() => { 
+                      setEditingItem(t); 
+                      setFormData({ 
+                        customer_name: t.customer_name, 
+                        occasion: t.occasion || '', 
+                        message: t.message, 
+                        rating: t.rating, 
+                        approved: t.approved 
+                      }); 
+                      setShowForm(true); 
+                    }}
+                  >
+                    <Edit className="w-4 h-4 text-blue-500" />
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => { if (confirm('Supprimer ?')) deleteMutation.mutate(t.id); }}>
+                    <Trash2 className="w-4 h-4 text-red-500" />
+                  </Button>
+                </div>
               </div>
               <div className="flex gap-0.5 mb-2">
                 {[...Array(t.rating)].map((_, i) => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
               </div>
               <p className="text-sm text-gray-600 italic line-clamp-3">"{t.message}"</p>
+              {t.occasion && <Badge variant="outline" className="mt-2 text-xs">{t.occasion}</Badge>}
             </Card>
           ))}
         </div>
