@@ -170,9 +170,11 @@ Deno.serve(async (req) => {
         };
         
         if (add_calligraphy) updateData.add_calligraphy = true;
-        if (express_delivery) updateData.express_delivery = true;
         if (add_video) updateData.add_video = true;
         if (add_letter) updateData.add_letter = true;
+        if (add_qr_code) updateData.add_qr_code = true;
+        if (add_client_video) updateData.add_client_video = true;
+        if (add_album_cover) updateData.add_album_cover = true;
 
         // NE PAS mettre à jour la commande ici, attendre le paiement confirmé
         // Les metadata Stripe contiennent les infos pour la mise à jour après paiement
