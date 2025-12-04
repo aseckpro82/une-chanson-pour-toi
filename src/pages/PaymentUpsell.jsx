@@ -72,7 +72,8 @@ export default function PaymentUpsell() {
         
         // Si déjà toutes les options, aller directement au thank you
         if (response.order.add_video && response.order.add_letter && 
-            response.order.add_calligraphy && response.order.express_delivery) {
+            response.order.add_calligraphy && response.order.add_qr_code &&
+            response.order.add_client_video && response.order.add_album_cover) {
           navigate(createPageUrl("PaymentSuccess") + `?session_id=${sessionId}`);
           return;
         }
