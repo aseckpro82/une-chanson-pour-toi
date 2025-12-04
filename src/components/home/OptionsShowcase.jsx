@@ -329,41 +329,53 @@ export default function OptionsShowcase() {
           </p>
         </div>
 
-        {/* Options principales */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-12">
-          {mainOptions.map((option, index) => {
-            const MockupComponent = option.MockupComponent;
-            return (
-              <motion.div
-                key={option.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`relative rounded-2xl md:rounded-3xl bg-gradient-to-br ${option.bgGradient} border-2 ${option.borderColor} p-3 md:p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
-              >
-                {/* Mockup visuel */}
-                <div className="mb-3 md:mb-6 h-24 md:h-32 flex items-center justify-center">
-                  <MockupComponent />
-                </div>
-
-                {/* Contenu texte */}
-                <div className="text-center">
-                  <h3 className="font-bold text-gray-900 text-xs md:text-lg mb-0.5 md:mb-1 leading-tight">{option.title}</h3>
-                  <p className="text-[10px] md:text-sm text-gray-600 mb-1 md:mb-3">{option.subtitle}</p>
-                  <p className={`text-sm md:text-xl font-bold ${option.priceColor}`}>{option.price}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+        {/* Section incluse - Chanson + Streaming */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="relative rounded-3xl bg-gradient-to-br from-rose-50 via-purple-50 to-indigo-50 border-2 border-rose-200 p-6 md:p-8 shadow-lg">
+            {/* Badge inclus */}
+            <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-rose-500 to-purple-600 text-white text-sm font-bold border-0 px-4 py-1">
+              ✨ INCLUS DANS L'OFFRE
+            </Badge>
+            
+            <div className="grid grid-cols-2 gap-6 md:gap-8 mt-4">
+              {includedOptions.map((option, index) => {
+                const MockupComponent = option.MockupComponent;
+                return (
+                  <motion.div
+                    key={option.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                  >
+                    <div className="h-28 md:h-32 flex items-center justify-center mb-3">
+                      <MockupComponent />
+                    </div>
+                    <h3 className="font-bold text-gray-900 text-sm md:text-lg mb-1">{option.title}</h3>
+                    <p className="text-xs md:text-sm text-gray-600">{option.subtitle}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+            
+            {/* Prix */}
+            <div className="text-center mt-6 pt-6 border-t border-rose-200">
+              <div className="flex items-center justify-center gap-3">
+                <span className="text-lg text-gray-400 line-through">90€</span>
+                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">24,99€</span>
+                <Badge className="bg-green-100 text-green-700 border-green-200">-70%</Badge>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Options supplémentaires en grille */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <h3 className="text-xl font-bold text-gray-900 text-center mb-6">
-            ✨ Options supplémentaires
+            ✨ Personnalisez votre cadeau
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
             {additionalOptions.map((option, index) => {
               const MockupComponent = option.MockupComponent;
               return (
@@ -371,7 +383,7 @@ export default function OptionsShowcase() {
                   key={option.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                   viewport={{ once: true }}
                   className={`relative rounded-2xl bg-gradient-to-br ${option.bgGradient} border-2 ${option.borderColor} p-3 md:p-4 hover:shadow-lg transition-all duration-300`}
                 >
@@ -389,8 +401,8 @@ export default function OptionsShowcase() {
                   {/* Texte */}
                   <div className="text-center">
                     <p className="font-bold text-gray-900 text-[10px] md:text-xs leading-tight mb-0.5">{option.title}</p>
-                    <p className="text-[8px] md:text-[10px] text-gray-500 mb-1 md:mb-2">{option.subtitle}</p>
-                    <p className="text-xs md:text-sm font-bold text-gray-900">{option.price}</p>
+                    <p className="text-[8px] md:text-[10px] text-gray-500 mb-1 md:mb-2 hidden md:block">{option.subtitle}</p>
+                    <p className="text-xs md:text-sm font-bold text-rose-600">{option.price}</p>
                   </div>
                 </motion.div>
               );
