@@ -19,6 +19,7 @@ import PlaylistPlayer from "../components/audio/PlaylistPlayer";
 import FAQSection from "../components/FAQSection";
 import RatingStats from "../components/RatingStats";
 import ProductShowcase from "../components/ProductShowcase";
+import OptionsGrid from "../components/order/OptionsGrid";
 import { CreditCard, Lock } from "lucide-react";
 
 const musicalStyles = [
@@ -108,10 +109,8 @@ export default function Commander() {
     customer_phone: "",
     // Upsells
     add_calligraphy_pdf: false,
-    express_delivery: false,
     video_memory: false,
     add_letter: false,
-    add_karaoke_lyrics: false,
     add_qr_code: false,
     add_client_video: false,
     add_album_cover: false
@@ -162,10 +161,8 @@ export default function Commander() {
   const calculateTotal = () => {
     let total = 24.99;
     if (formData.add_calligraphy_pdf) total += 4.99;
-    if (formData.express_delivery) total += 4.99;
     if (formData.video_memory) total += 19.99;
     if (formData.add_letter) total += 4.99;
-    if (formData.add_karaoke_lyrics) total += 6.99;
     if (formData.add_qr_code) total += 6.99;
     if (formData.add_client_video) total += 9.99;
     if (formData.add_album_cover) total += 7.99;
@@ -181,10 +178,8 @@ export default function Commander() {
   const calculateTotalBeforeDiscount = () => {
     let total = 24.99;
     if (formData.add_calligraphy_pdf) total += 4.99;
-    if (formData.express_delivery) total += 4.99;
     if (formData.video_memory) total += 19.99;
     if (formData.add_letter) total += 4.99;
-    if (formData.add_karaoke_lyrics) total += 6.99;
     if (formData.add_qr_code) total += 6.99;
     if (formData.add_client_video) total += 9.99;
     if (formData.add_album_cover) total += 7.99;
@@ -296,8 +291,6 @@ export default function Commander() {
         add_calligraphy: formData.add_calligraphy_pdf,
         add_letter: formData.add_letter,
         add_video: formData.video_memory,
-        express_delivery: formData.express_delivery,
-        add_karaoke_lyrics: formData.add_karaoke_lyrics,
         add_qr_code: formData.add_qr_code,
         add_client_video: formData.add_client_video,
         add_album_cover: formData.add_album_cover
@@ -571,92 +564,8 @@ export default function Commander() {
                   </div>
 
                   {/* Section 2: Upsells */}
-                  <div className="space-y-3 pt-4 border-t border-gray-100">
-                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-purple-500" />
-                      Options supplémentaires
-                    </h3>
-
-                    {[
-                      { 
-                        id: 'add_calligraphy_pdf', 
-                        icon: FileText, 
-                        title: '🖋️ Paroles Calligraphiées (PDF)', 
-                        desc: 'Un PDF artistique à encadrer', 
-                        price: '4,99', 
-                        color: 'purple' 
-                      },
-                      { 
-                        id: 'express_delivery', 
-                        icon: Zap, 
-                        title: '⚡ Livraison Express 24h VIP', 
-                        desc: 'Recevez votre chanson en priorité (au lieu de 48h)', 
-                        price: '4,99', 
-                        color: 'orange' 
-                      },
-                      { 
-                        id: 'video_memory', 
-                        icon: Video, 
-                        title: '🎬 Vidéo Souvenir', 
-                        desc: 'Montage avec vos photos', 
-                        price: '19,99', 
-                        color: 'pink' 
-                      },
-                      { 
-                        id: 'add_letter', 
-                        icon: Mail, 
-                        title: '💌 Lettre personnalisée', 
-                        desc: 'Carte message pour accompagner', 
-                        price: '4,99', 
-                        color: 'rose' 
-                      },
-                      { 
-                        id: 'add_qr_code', 
-                        icon: Music, 
-                        title: '💬 QR Code Musical', 
-                        desc: 'QR code à imprimer pour partager la chanson', 
-                        price: '6,99', 
-                        color: 'indigo' 
-                      },
-                      { 
-                        id: 'add_client_video', 
-                        icon: Video, 
-                        title: '🎁 Carte Vidéo Personnalisée', 
-                        desc: 'Enregistrez un message vidéo diffusé avant la chanson', 
-                        price: '9,99', 
-                        color: 'amber',
-                        popular: true
-                      },
-                      { 
-                        id: 'add_album_cover', 
-                        icon: FileText, 
-                        title: '🎨 Pochette d\'Album Artistique', 
-                        desc: 'Artwork unique créé spécialement pour votre chanson', 
-                        price: '7,99', 
-                        color: 'emerald' 
-                      }
-                      ].map((upsell) => (
-                      <label 
-                        key={upsell.id}
-                        className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${
-                          formData[upsell.id] 
-                            ? `border-${upsell.color}-400 bg-${upsell.color}-50` 
-                            : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <Checkbox
-                            checked={formData[upsell.id]}
-                            onCheckedChange={(checked) => handleChange(upsell.id, checked)}
-                          />
-                          <div>
-                            <p className="font-semibold text-gray-900 text-sm">{upsell.title}</p>
-                            <p className="text-xs text-gray-600">{upsell.desc}</p>
-                          </div>
-                        </div>
-                        <span className="font-bold text-gray-900">+{upsell.price}€</span>
-                      </label>
-                    ))}
+                  <div className="pt-4 border-t border-gray-100">
+                    <OptionsGrid formData={formData} onToggle={handleChange} />
                   </div>
 
                   {/* Section 3: Contact */}
