@@ -41,8 +41,8 @@ function QRCodeMockup() {
 // Mockup Carte Vidéo
 function ClientVideoMockup() {
   return (
-    <div className="relative w-32 mx-auto">
-      <div className="bg-gray-900 rounded-xl shadow-xl overflow-hidden">
+    <div className="relative w-16 md:w-20 mx-auto">
+      <div className="bg-gray-900 rounded-lg shadow-xl overflow-hidden">
         <div className="relative aspect-[3/4]">
           <img 
             src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&h=280&fit=crop"
@@ -52,18 +52,18 @@ function ClientVideoMockup() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-              <Play className="w-5 h-5 text-rose-600 ml-0.5" />
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+              <Play className="w-3 h-3 md:w-4 md:h-4 text-rose-600 ml-0.5" />
             </div>
           </div>
           {/* Texte */}
-          <div className="absolute bottom-2 left-2 right-2">
-            <p className="text-white text-[9px] font-bold">Un message pour toi...</p>
-            <p className="text-white/70 text-[7px]">Avant ta surprise 💝</p>
+          <div className="absolute bottom-1 left-1 right-1">
+            <p className="text-white text-[6px] md:text-[7px] font-bold truncate">Un message pour toi...</p>
+            <p className="text-white/70 text-[5px] md:text-[6px]">Avant ta surprise 💝</p>
           </div>
         </div>
       </div>
-      <Badge className="absolute -top-2 -right-2 bg-amber-500 text-white text-[8px] border-0">
+      <Badge className="absolute -top-1.5 -right-1.5 bg-amber-500 text-white text-[6px] md:text-[7px] border-0 px-1">
         ÉMOTION
       </Badge>
     </div>
