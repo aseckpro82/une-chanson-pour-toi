@@ -289,8 +289,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
   const [localOrder, setLocalOrder] = useState(order);
   const [uploading, setUploading] = useState({});
   const [uploadSuccess, setUploadSuccess] = useState({});
-  const [showEmailPreview, setShowEmailPreview] = useState(false);
-  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [playingAudio, setPlayingAudio] = useState(null);
   const audioRef = useRef(null);
 
