@@ -501,7 +501,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                   variant="outline"
                   size="sm"
                   onClick={() => handleStatusChange(status)}
-                  disabled={localOrder.status === status}
+                  disabled={localOrder.status === status || isUpdatingStatus}
                   className={`justify-start ${localOrder.status === status ? 'opacity-50' : ''}`}
                 >
                   <Icon className={`w-4 h-4 mr-2 ${color}`} />
