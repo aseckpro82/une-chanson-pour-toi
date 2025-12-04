@@ -157,25 +157,25 @@ const letterWidths = [90, 65, 80, 55];
 // Mockup Lettre
 function LetterMockup() {
   return (
-    <div className="relative w-28 mx-auto">
-      <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg shadow-lg p-3 border border-rose-200 transform rotate-2">
-        <div className="text-center mb-2">
-          <Mail className="w-5 h-5 text-rose-500 mx-auto" />
+    <div className="relative w-16 md:w-20 mx-auto">
+      <div className="bg-gradient-to-br from-rose-100 to-pink-100 rounded-lg shadow-lg p-2 md:p-2.5 border border-rose-200 transform rotate-2">
+        <div className="text-center mb-1.5">
+          <Mail className="w-4 h-4 md:w-5 md:h-5 text-rose-500 mx-auto" />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-0.5 md:space-y-1">
           {letterWidths.map((width, i) => (
             <div 
               key={i} 
-              className="h-1 bg-rose-200 rounded"
+              className="h-0.5 md:h-1 bg-rose-200 rounded"
               style={{ width: `${width}%` }}
             />
           ))}
         </div>
-        <div className="mt-2 pt-1 border-t border-rose-200">
-          <div className="h-1 w-12 bg-rose-300 rounded mx-auto" />
+        <div className="mt-1.5 pt-1 border-t border-rose-200">
+          <div className="h-0.5 md:h-1 w-8 md:w-10 bg-rose-300 rounded mx-auto" />
         </div>
       </div>
-      <Badge className="absolute -top-2 -right-2 bg-rose-500 text-white text-[8px] border-0">
+      <Badge className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[6px] md:text-[7px] border-0 px-1">
         💌
       </Badge>
     </div>
