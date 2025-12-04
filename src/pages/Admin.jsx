@@ -26,7 +26,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import CustomAudioPlayer from "../components/audio/CustomAudioPlayer";
 import OrderDetailsModal from "@/components/admin/OrderDetailsModal";
-import EmailPreviewModal from "@/components/admin/EmailPreviewModal";
+
 
 const statusConfig = {
   pending_payment: { label: "Paiement en attente", color: "bg-gray-100 text-gray-700", icon: Clock },
