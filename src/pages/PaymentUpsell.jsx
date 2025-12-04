@@ -159,51 +159,61 @@ export default function PaymentUpsell() {
     );
   }
 
-  // Ne pas afficher si les 2 options sont déjà prises
-  if (order?.add_video && order?.add_letter) {
-    return null;
-  }
-
   const upsellOptions = [
     {
       id: 'add_calligraphy',
       icon: FileText,
-      title: '🖋️ Paroles Calligraphiées (PDF)',
-      desc: 'Un PDF artistique à encadrer, le cadeau parfait',
+      title: '🖋️ Paroles Calligraphiées',
+      desc: 'Un PDF artistique à encadrer',
       price: 4.99,
       originalPrice: 9.99,
-      hidden: order?.add_calligraphy,
-      color: 'purple'
-    },
-    {
-      id: 'express_delivery',
-      icon: Zap,
-      title: '⚡ Livraison Express 24h VIP',
-      desc: 'Recevez votre chanson en priorité (au lieu de 48h)',
-      price: 4.99,
-      originalPrice: 9.99,
-      hidden: order?.express_delivery,
-      color: 'orange'
+      hidden: order?.add_calligraphy
     },
     {
       id: 'add_video',
       icon: Video,
       title: '🎬 Vidéo Souvenir',
-      desc: 'Un montage émouvant avec vos photos préférées',
+      desc: 'Un montage émouvant avec vos photos',
       price: 19.99,
       originalPrice: 29.99,
-      hidden: order?.add_video,
-      color: 'pink'
+      hidden: order?.add_video
+    },
+    {
+      id: 'add_qr_code',
+      icon: QrCode,
+      title: '💬 QR Code Musical',
+      desc: 'Imprimez et partagez facilement',
+      price: 6.99,
+      originalPrice: 12.99,
+      hidden: order?.add_qr_code
+    },
+    {
+      id: 'add_client_video',
+      icon: Video,
+      title: '🎁 Carte Vidéo Personnalisée',
+      desc: 'Votre message avant la chanson',
+      price: 9.99,
+      originalPrice: 19.99,
+      hidden: order?.add_client_video,
+      popular: true
+    },
+    {
+      id: 'add_album_cover',
+      icon: Image,
+      title: '🎨 Pochette d\'Album',
+      desc: 'Artwork unique pour votre chanson',
+      price: 7.99,
+      originalPrice: 14.99,
+      hidden: order?.add_album_cover
     },
     {
       id: 'add_letter',
       icon: Mail,
-      title: '💌 Lettre personnalisée / Carte message',
-      desc: 'Une lettre manuscrite pour accompagner votre chanson',
+      title: '💌 Lettre Personnalisée',
+      desc: 'Carte message pour accompagner',
       price: 4.99,
       originalPrice: 9.99,
-      hidden: order?.add_letter,
-      color: 'rose'
+      hidden: order?.add_letter
     }
   ].filter(opt => !opt.hidden);
 
