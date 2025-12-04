@@ -42,9 +42,11 @@ export default function PaymentUpsell() {
   const [order, setOrder] = useState(null);
   const [selectedUpsells, setSelectedUpsells] = useState({
     add_calligraphy: false,
-    express_delivery: false,
     add_video: false,
-    add_letter: false
+    add_letter: false,
+    add_qr_code: false,
+    add_client_video: false,
+    add_album_cover: false
   });
 
   useEffect(() => {
