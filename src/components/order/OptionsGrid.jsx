@@ -98,25 +98,25 @@ const lyricsWidths = [85, 70, 95, 60, 80];
 // Mockup Paroles
 function LyricsMockup() {
   return (
-    <div className="relative w-28 mx-auto">
-      <div className="bg-white rounded-lg shadow-lg p-3 border border-gray-200 transform -rotate-2">
-        <div className="text-center mb-2">
-          <div className="w-6 h-6 mx-auto rounded-full bg-gradient-to-br from-rose-400 to-purple-500 flex items-center justify-center mb-1">
-            <Music className="w-3 h-3 text-white" />
+    <div className="relative w-16 md:w-20 mx-auto">
+      <div className="bg-white rounded-lg shadow-lg p-2 md:p-2.5 border border-gray-200 transform -rotate-2">
+        <div className="text-center mb-1.5">
+          <div className="w-4 h-4 md:w-5 md:h-5 mx-auto rounded-full bg-gradient-to-br from-rose-400 to-purple-500 flex items-center justify-center mb-0.5">
+            <Music className="w-2 h-2 md:w-2.5 md:h-2.5 text-white" />
           </div>
-          <p className="text-[7px] text-gray-500 font-medium">PAROLES</p>
+          <p className="text-[5px] md:text-[6px] text-gray-500 font-medium">PAROLES</p>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-0.5 md:space-y-1">
           {lyricsWidths.map((width, i) => (
             <div 
               key={i} 
-              className="h-1 bg-gray-200 rounded"
+              className="h-0.5 md:h-1 bg-gray-200 rounded"
               style={{ width: `${width}%` }}
             />
           ))}
         </div>
       </div>
-      <Badge className="absolute -top-2 -right-2 bg-amber-400 text-amber-900 text-[8px] border-0">
+      <Badge className="absolute -top-1.5 -right-1.5 bg-amber-400 text-amber-900 text-[6px] md:text-[7px] border-0 px-1">
         PDF
       </Badge>
     </div>
