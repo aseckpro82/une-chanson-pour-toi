@@ -241,50 +241,42 @@ function LetterMockup() {
   );
 }
 
-const mainOptions = [
-  {
-    id: "streaming",
-    title: "Espace Streaming Privé",
-    subtitle: "Partagez votre chanson en ligne",
-    price: "Inclus",
-    priceColor: "text-green-600",
-    bgGradient: "from-purple-50 to-indigo-50",
-    borderColor: "border-purple-200",
-    MockupComponent: StreamingMockup
-  },
-  {
-    id: "lyrics",
-    title: "Paroles Calligraphiées",
-    subtitle: "PDF artistique à encadrer",
-    price: "+4,99€",
-    priceColor: "text-gray-900",
-    bgGradient: "from-amber-50 to-orange-50",
-    borderColor: "border-amber-200",
-    MockupComponent: LyricsMockup
-  },
-  {
-    id: "video",
-    title: "Vidéo Souvenir",
-    subtitle: "Montage avec vos photos",
-    price: "+19,99€",
-    priceColor: "text-gray-900",
-    bgGradient: "from-pink-50 to-rose-50",
-    borderColor: "border-pink-200",
-    MockupComponent: VideoMockup
-  },
+// Options incluses dans l'offre de base
+const includedOptions = [
   {
     id: "vinyl",
     title: "Votre Chanson Unique",
     subtitle: "Composition personnalisée",
-    price: "24,99€",
-    priceColor: "text-rose-600",
-    bgGradient: "from-gray-50 to-slate-50",
-    borderColor: "border-gray-200",
     MockupComponent: VinylMockup
+  },
+  {
+    id: "streaming",
+    title: "Espace Streaming Privé",
+    subtitle: "Partagez votre chanson en ligne",
+    MockupComponent: StreamingMockup
   }
 ];
 
+// Toutes les options supplémentaires
 const additionalOptions = [
+  { 
+    id: 'lyrics', 
+    title: 'Paroles Calligraphiées', 
+    subtitle: 'PDF artistique à encadrer', 
+    price: '+4,99€',
+    bgGradient: 'from-amber-50 to-orange-50',
+    borderColor: 'border-amber-200',
+    MockupComponent: LyricsMockup
+  },
+  { 
+    id: 'video', 
+    title: 'Vidéo Souvenir', 
+    subtitle: 'Montage avec vos photos', 
+    price: '+19,99€',
+    bgGradient: 'from-pink-50 to-rose-50',
+    borderColor: 'border-pink-200',
+    MockupComponent: VideoMockup
+  },
   { 
     id: 'qr', 
     title: 'QR Code Musical', 
