@@ -339,36 +339,25 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
   };
 
   const handleStatusChange = async (newStatus) => {
-    if (newStatus === 'delivered') {
-      setShowEmailPreview(true);
-      return;
-    }
-
+    setIsUpdatingStatus(true);
     try {
-      await base44.entities.Order.update(order.id, { status: newStatus });
-      setLocalOrder(prev => ({ ...prev, status: newStatus }));
-      await base44.functions.invoke('sendStatusNotification', { orderId: order.id });
-      alert('✅ Statut mis à jour et notification envoyée !');
-      queryClient.invalidateQueries({ queryKey: ['admin-all-orders'] });
-    } catch (error) {
-      alert('Erreur: ' + error.message);
-    }
-  };
-
-  const handleConfirmDelivery = async () => {
-    setIsSendingEmail(true);
-    try {
-      await base44.entities.Order.update(order.id, { status: 'delivered', delivered_date: new Date().toISOString() });
-      setLocalOrder(prev => ({ ...prev, status: 'delivered' }));
-      await base44.functions.invoke('sendStatusNotification', { orderId: order.id });
+      const updateData = { status: newStatus };
+      if (newStatus === 'delivered') {
+        updateData.delivered_date = new Date().toISOString();
+      }
+      
+      await base44.entities.Order.update(order.id, updateData);
+      setLocalOrder(prev => ({ ...prev, ...updateData }));
+      
+      // Déclencher le webhook n8n pour l'envoi des emails
       await base44.functions.invoke('n8nOrderDeliveredWebhook', { orderId: order.id });
-      setShowEmailPreview(false);
-      alert('✅ Commande livrée et emails envoyés !');
+      
+      alert(`✅ Statut mis à jour : ${newStatus === 'delivered' ? 'Livré (email envoyé via n8n)' : statusConfig[newStatus]?.label}`);
       queryClient.invalidateQueries({ queryKey: ['admin-all-orders'] });
     } catch (error) {
       alert('Erreur: ' + error.message);
     } finally {
-      setIsSendingEmail(false);
+      setIsUpdatingStatus(false);
     }
   };
 
