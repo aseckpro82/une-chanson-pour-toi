@@ -156,9 +156,11 @@ Deno.serve(async (req) => {
                 orderId: orderId,
                 upsell: 'true',
                 add_calligraphy: add_calligraphy ? 'true' : 'false',
-                express_delivery: express_delivery ? 'true' : 'false',
                 add_video: add_video ? 'true' : 'false',
                 add_letter: add_letter ? 'true' : 'false',
+                add_qr_code: add_qr_code ? 'true' : 'false',
+                add_client_video: add_client_video ? 'true' : 'false',
+                add_album_cover: add_album_cover ? 'true' : 'false',
             },
         });
 
