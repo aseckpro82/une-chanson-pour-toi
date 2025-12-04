@@ -197,15 +197,16 @@ export default function PaymentUpsell() {
       hidden: order?.add_client_video,
       popular: true
     },
-    {
-      id: 'add_album_cover',
-      icon: Image,
-      title: '🎨 Pochette d\'Album',
-      desc: 'Artwork unique pour votre chanson',
-      price: 7.99,
-      originalPrice: 14.99,
-      hidden: order?.add_album_cover
-    },
+    // TODO: Réactiver quand Leonardo AI sera implémenté
+    // {
+    //   id: 'add_album_cover',
+    //   icon: Image,
+    //   title: '🎨 Pochette d\'Album',
+    //   desc: 'Artwork unique pour votre chanson',
+    //   price: 7.99,
+    //   originalPrice: 14.99,
+    //   hidden: order?.add_album_cover
+    // },
     {
       id: 'add_letter',
       icon: Mail,
