@@ -4,6 +4,9 @@ import { FileText, Video, Mail, Music, QrCode, Image, Play, Pause } from "lucide
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 
+// Pattern fixe pour QR Code (évite Math.random dans le rendu)
+const qrPattern = [1,0,1,1,0,0,1,0,1,1,1,0,0,0,1,0,1,1,0,1,1,0,1,0,1];
+
 // Mockup QR Code
 function QRCodeMockup() {
   return (
@@ -12,10 +15,10 @@ function QRCodeMockup() {
         {/* QR Code stylisé */}
         <div className="w-full aspect-square bg-gray-900 rounded-lg p-2 relative">
           <div className="grid grid-cols-5 gap-0.5 h-full">
-            {[...Array(25)].map((_, i) => (
+            {qrPattern.map((val, i) => (
               <div 
                 key={i} 
-                className={`rounded-sm ${Math.random() > 0.4 ? 'bg-white' : 'bg-gray-900'}`}
+                className={`rounded-sm ${val ? 'bg-white' : 'bg-gray-900'}`}
               />
             ))}
           </div>
@@ -89,6 +92,9 @@ function AlbumCoverMockup() {
   );
 }
 
+// Largeurs fixes pour les lignes de paroles
+const lyricsWidths = [85, 70, 95, 60, 80];
+
 // Mockup Paroles
 function LyricsMockup() {
   return (
@@ -101,11 +107,11 @@ function LyricsMockup() {
           <p className="text-[7px] text-gray-500 font-medium">PAROLES</p>
         </div>
         <div className="space-y-1">
-          {[...Array(5)].map((_, i) => (
+          {lyricsWidths.map((width, i) => (
             <div 
               key={i} 
               className="h-1 bg-gray-200 rounded"
-              style={{ width: `${50 + Math.random() * 50}%` }}
+              style={{ width: `${width}%` }}
             />
           ))}
         </div>
@@ -145,6 +151,9 @@ function VideoMockup() {
   );
 }
 
+// Largeurs fixes pour les lignes de lettre
+const letterWidths = [90, 65, 80, 55];
+
 // Mockup Lettre
 function LetterMockup() {
   return (
@@ -154,11 +163,11 @@ function LetterMockup() {
           <Mail className="w-5 h-5 text-rose-500 mx-auto" />
         </div>
         <div className="space-y-1">
-          {[...Array(4)].map((_, i) => (
+          {letterWidths.map((width, i) => (
             <div 
               key={i} 
               className="h-1 bg-rose-200 rounded"
-              style={{ width: `${40 + Math.random() * 60}%` }}
+              style={{ width: `${width}%` }}
             />
           ))}
         </div>
