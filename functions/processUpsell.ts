@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
         const stripe = new Stripe(stripeKey);
         const base44 = createClientFromRequest(req);
 
-        const { orderId, add_calligraphy, express_delivery, add_video, add_letter, amount } = await req.json();
+        const { orderId, add_calligraphy, add_video, add_letter, add_qr_code, add_client_video, add_album_cover, amount } = await req.json();
 
         if (!orderId) {
             return Response.json({ error: 'Order ID required' }, { status: 400 });
