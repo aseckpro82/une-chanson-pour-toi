@@ -512,14 +512,6 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
           </div>
         </div>
       </Card>
-
-      <EmailPreviewModal
-        isOpen={showEmailPreview}
-        onClose={() => setShowEmailPreview(false)}
-        order={localOrder}
-        onConfirmSend={handleConfirmDelivery}
-        isSending={isSendingEmail}
-      />
     </div>
   );
 }
