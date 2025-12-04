@@ -182,7 +182,7 @@ function LetterMockup() {
   );
 }
 
-const upsellOptions = [
+const upsellOptionsData = [
   { 
     id: 'add_calligraphy_pdf', 
     title: '🖋️ Paroles Calligraphiées', 
@@ -191,7 +191,7 @@ const upsellOptions = [
     priceDisplay: '4,99',
     bgGradient: 'from-amber-50 to-orange-50',
     borderColor: 'border-amber-200',
-    mockup: <LyricsMockup />
+    MockupComponent: LyricsMockup
   },
   { 
     id: 'video_memory', 
@@ -201,7 +201,7 @@ const upsellOptions = [
     priceDisplay: '19,99',
     bgGradient: 'from-pink-50 to-rose-50',
     borderColor: 'border-pink-200',
-    mockup: <VideoMockup />
+    MockupComponent: VideoMockup
   },
   { 
     id: 'add_qr_code', 
@@ -211,7 +211,7 @@ const upsellOptions = [
     priceDisplay: '6,99',
     bgGradient: 'from-indigo-50 to-blue-50',
     borderColor: 'border-indigo-200',
-    mockup: <QRCodeMockup />
+    MockupComponent: QRCodeMockup
   },
   { 
     id: 'add_client_video', 
@@ -222,7 +222,7 @@ const upsellOptions = [
     bgGradient: 'from-amber-50 to-yellow-50',
     borderColor: 'border-amber-300',
     popular: true,
-    mockup: <ClientVideoMockup />
+    MockupComponent: ClientVideoMockup
   },
   { 
     id: 'add_album_cover', 
@@ -232,7 +232,7 @@ const upsellOptions = [
     priceDisplay: '7,99',
     bgGradient: 'from-emerald-50 to-teal-50',
     borderColor: 'border-emerald-200',
-    mockup: <AlbumCoverMockup />
+    MockupComponent: AlbumCoverMockup
   },
   { 
     id: 'add_letter', 
@@ -242,9 +242,12 @@ const upsellOptions = [
     priceDisplay: '4,99',
     bgGradient: 'from-rose-50 to-pink-50',
     borderColor: 'border-rose-200',
-    mockup: <LetterMockup />
+    MockupComponent: LetterMockup
   }
 ];
+
+// Export pour usage externe (prix, etc.)
+const upsellOptions = upsellOptionsData;
 
 export default function OptionsGrid({ formData, onToggle }) {
   return (
