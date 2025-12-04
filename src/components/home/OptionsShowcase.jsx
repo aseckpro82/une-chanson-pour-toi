@@ -296,15 +296,16 @@ const additionalOptions = [
     popular: true,
     MockupComponent: ClientVideoMockup
   },
-  { 
-    id: 'album', 
-    title: "Pochette d'Album", 
-    subtitle: 'Artwork unique pour votre chanson', 
-    price: '+7,99€',
-    bgGradient: 'from-emerald-50 to-teal-50',
-    borderColor: 'border-emerald-200',
-    MockupComponent: AlbumCoverMockup
-  },
+  // TODO: Réactiver quand Leonardo AI sera implémenté
+  // { 
+  //   id: 'album', 
+  //   title: "Pochette d'Album", 
+  //   subtitle: 'Artwork unique pour votre chanson', 
+  //   price: '+7,99€',
+  //   bgGradient: 'from-emerald-50 to-teal-50',
+  //   borderColor: 'border-emerald-200',
+  //   MockupComponent: AlbumCoverMockup
+  // },
   { 
     id: 'letter', 
     title: 'Lettre personnalisée', 

@@ -224,16 +224,17 @@ const upsellOptionsData = [
     popular: true,
     MockupComponent: ClientVideoMockup
   },
-  { 
-    id: 'add_album_cover', 
-    title: '🎨 Pochette d\'Album', 
-    desc: 'Artwork unique pour votre chanson', 
-    price: 7.99, 
-    priceDisplay: '7,99',
-    bgGradient: 'from-emerald-50 to-teal-50',
-    borderColor: 'border-emerald-200',
-    MockupComponent: AlbumCoverMockup
-  },
+  // TODO: Réactiver quand Leonardo AI sera implémenté
+  // { 
+  //   id: 'add_album_cover', 
+  //   title: '🎨 Pochette d\'Album', 
+  //   desc: 'Artwork unique pour votre chanson', 
+  //   price: 7.99, 
+  //   priceDisplay: '7,99',
+  //   bgGradient: 'from-emerald-50 to-teal-50',
+  //   borderColor: 'border-emerald-200',
+  //   MockupComponent: AlbumCoverMockup
+  // },
   { 
     id: 'add_letter', 
     title: '💌 Lettre Personnalisée', 
