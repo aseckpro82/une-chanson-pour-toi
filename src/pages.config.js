@@ -20,6 +20,7 @@ import PaymentUpsell from './pages/PaymentUpsell';
 import PolitiqueRemboursement from './pages/PolitiqueRemboursement';
 import Revelation from './pages/Revelation';
 import Admin from './pages/Admin';
+import TestOptions from './pages/TestOptions';
 import __Layout from './Layout.jsx';
 
 
@@ -46,6 +47,7 @@ export const PAGES = {
     "PolitiqueRemboursement": PolitiqueRemboursement,
     "Revelation": Revelation,
     "Admin": Admin,
+    "TestOptions": TestOptions,
 }
 
 export const pagesConfig = {

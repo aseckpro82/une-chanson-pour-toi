@@ -262,7 +262,9 @@ export default function OptionsShowcase() {
           </h3>
           <div className="space-y-3">
             {[
-              { icon: "⚡", title: "Livraison Express 24h VIP", subtitle: "Recevez votre chanson en priorité", price: "+4,99€" },
+              { icon: "💬", title: "QR Code Musical", subtitle: "Imprimez et partagez facilement", price: "+6,99€" },
+              { icon: "🎁", title: "Carte Vidéo Personnalisée", subtitle: "Votre message avant la chanson", price: "+9,99€" },
+              { icon: "🎨", title: "Pochette d'Album", subtitle: "Artwork unique pour votre chanson", price: "+7,99€" },
               { icon: "💌", title: "Lettre personnalisée", subtitle: "Carte message pour accompagner", price: "+4,99€" }
             ].map((item, index) => (
               <motion.div
