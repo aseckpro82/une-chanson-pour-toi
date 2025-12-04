@@ -120,9 +120,11 @@ export default function PaymentUpsell() {
       const upsellData = {
         orderId: order.id,
         add_calligraphy: selectedUpsells.add_calligraphy && !order?.add_calligraphy,
-        express_delivery: selectedUpsells.express_delivery && !order?.express_delivery,
         add_video: selectedUpsells.add_video && !order?.add_video,
         add_letter: selectedUpsells.add_letter && !order?.add_letter,
+        add_qr_code: selectedUpsells.add_qr_code && !order?.add_qr_code,
+        add_client_video: selectedUpsells.add_client_video && !order?.add_client_video,
+        add_album_cover: selectedUpsells.add_album_cover && !order?.add_album_cover,
         amount: parseFloat(calculateUpsellTotal())
       };
 
