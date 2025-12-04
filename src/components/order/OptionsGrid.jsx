@@ -126,8 +126,8 @@ function LyricsMockup() {
 // Mockup Vidéo Souvenir
 function VideoMockup() {
   return (
-    <div className="relative w-32 mx-auto">
-      <div className="bg-gray-900 rounded-xl shadow-xl overflow-hidden">
+    <div className="relative w-20 md:w-24 mx-auto">
+      <div className="bg-gray-900 rounded-lg shadow-xl overflow-hidden">
         <div className="relative aspect-video">
           <img 
             src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=200&h=120&fit=crop"
@@ -135,16 +135,16 @@ function VideoMockup() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center">
-              <Play className="w-4 h-4 text-gray-900 ml-0.5" />
+            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-white/90 flex items-center justify-center">
+              <Play className="w-3 h-3 md:w-3.5 md:h-3.5 text-gray-900 ml-0.5" />
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 md:h-1 bg-gray-700">
             <div className="w-1/3 h-full bg-rose-500" />
           </div>
         </div>
       </div>
-      <Badge className="absolute -top-2 -right-2 bg-pink-500 text-white text-[8px] border-0">
+      <Badge className="absolute -top-1.5 -right-1.5 bg-pink-500 text-white text-[6px] md:text-[7px] border-0 px-1">
         HD
       </Badge>
     </div>
