@@ -258,47 +258,50 @@ export default function OptionsGrid({ formData, onToggle }) {
       </h3>
       
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-        {upsellOptions.map((option, index) => (
-          <motion.div
-            key={option.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            onClick={() => onToggle(option.id, !formData[option.id])}
-            className={`relative cursor-pointer rounded-2xl p-3 md:p-4 border-2 transition-all duration-300 flex flex-col ${
-              formData[option.id]
-                ? `bg-gradient-to-br ${option.bgGradient} ${option.borderColor} shadow-lg scale-[1.02]`
-                : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-md'
-            }`}
-          >
-            {/* Badge populaire */}
-            {option.popular && (
-              <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] border-0 z-10 whitespace-nowrap">
-                POPULAIRE
-              </Badge>
-            )}
-            
-            {/* Checkbox */}
-            <div className="absolute top-2 right-2">
-              <Checkbox
-                checked={formData[option.id]}
-                className="w-5 h-5"
-              />
-            </div>
-            
-            {/* Mockup - hauteur fixe */}
-            <div className="h-24 md:h-28 flex items-center justify-center mb-2 flex-shrink-0">
-              {option.mockup}
-            </div>
-            
-            {/* Texte - flex-grow pour uniformiser */}
-            <div className="text-center flex flex-col flex-grow justify-end">
-              <p className="font-bold text-gray-900 text-xs md:text-sm leading-tight mb-1">{option.title}</p>
-              <p className="text-[10px] md:text-xs text-gray-500 mb-2 min-h-[2em]">{option.desc}</p>
-              <p className="text-sm md:text-base font-bold text-rose-600">+{option.priceDisplay}€</p>
-            </div>
-          </motion.div>
-        ))}
+        {upsellOptionsData.map((option, index) => {
+          const MockupComponent = option.MockupComponent;
+          return (
+            <motion.div
+              key={option.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              onClick={() => onToggle(option.id, !formData[option.id])}
+              className={`relative cursor-pointer rounded-2xl p-3 md:p-4 border-2 transition-all duration-300 flex flex-col ${
+                formData[option.id]
+                  ? `bg-gradient-to-br ${option.bgGradient} ${option.borderColor} shadow-lg scale-[1.02]`
+                  : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-md'
+              }`}
+            >
+              {/* Badge populaire */}
+              {option.popular && (
+                <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] border-0 z-10 whitespace-nowrap">
+                  POPULAIRE
+                </Badge>
+              )}
+              
+              {/* Checkbox */}
+              <div className="absolute top-2 right-2">
+                <Checkbox
+                  checked={formData[option.id]}
+                  className="w-5 h-5"
+                />
+              </div>
+              
+              {/* Mockup - hauteur fixe */}
+              <div className="h-24 md:h-28 flex items-center justify-center mb-2 flex-shrink-0">
+                <MockupComponent />
+              </div>
+              
+              {/* Texte - flex-grow pour uniformiser */}
+              <div className="text-center flex flex-col flex-grow justify-end">
+                <p className="font-bold text-gray-900 text-xs md:text-sm leading-tight mb-1">{option.title}</p>
+                <p className="text-[10px] md:text-xs text-gray-500 mb-2 min-h-[2em]">{option.desc}</p>
+                <p className="text-sm md:text-base font-bold text-rose-600">+{option.priceDisplay}€</p>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
