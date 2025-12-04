@@ -60,24 +60,10 @@ Deno.serve(async (req) => {
                 price_data: {
                     currency: 'eur',
                     product_data: {
-                        name: '🖋️ Paroles Calligraphiées (PDF)',
+                        name: '🖋️ Paroles Calligraphiées',
                         description: 'PDF artistique à encadrer',
                     },
-                    unit_amount: 399, // 3.99€
-                },
-                quantity: 1,
-            });
-        }
-
-        if (express_delivery && !order.express_delivery) {
-            lineItems.push({
-                price_data: {
-                    currency: 'eur',
-                    product_data: {
-                        name: '⚡ Livraison Express 24h',
-                        description: 'Réception prioritaire sous 24h ouvrées',
-                    },
-                    unit_amount: 399, // 3.99€
+                    unit_amount: 499, // 4.99€
                 },
                 quantity: 1,
             });
@@ -97,13 +83,55 @@ Deno.serve(async (req) => {
             });
         }
 
+        if (add_qr_code && !order.add_qr_code) {
+            lineItems.push({
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: '💬 QR Code Musical',
+                        description: 'Imprimez et partagez facilement',
+                    },
+                    unit_amount: 699, // 6.99€
+                },
+                quantity: 1,
+            });
+        }
+
+        if (add_client_video && !order.add_client_video) {
+            lineItems.push({
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: '🎁 Carte Vidéo Personnalisée',
+                        description: 'Votre message avant la chanson',
+                    },
+                    unit_amount: 999, // 9.99€
+                },
+                quantity: 1,
+            });
+        }
+
+        if (add_album_cover && !order.add_album_cover) {
+            lineItems.push({
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: '🎨 Pochette d\'Album',
+                        description: 'Artwork unique pour votre chanson',
+                    },
+                    unit_amount: 799, // 7.99€
+                },
+                quantity: 1,
+            });
+        }
+
         if (add_letter && !order.add_letter) {
             lineItems.push({
                 price_data: {
                     currency: 'eur',
                     product_data: {
-                        name: '💌 Lettre personnalisée / Carte message',
-                        description: 'Une lettre manuscrite pour accompagner votre chanson',
+                        name: '💌 Lettre Personnalisée',
+                        description: 'Carte message pour accompagner',
                     },
                     unit_amount: 499, // 4.99€
                 },
