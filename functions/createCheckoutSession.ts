@@ -84,22 +84,7 @@ Deno.serve(async (req) => {
             });
         }
 
-        // 3. Livraison express 24h
-        if (orderData.express_delivery) {
-            lineItems.push({
-                price_data: {
-                    currency: 'eur',
-                    product_data: {
-                        name: '⚡ Livraison Express 24h VIP',
-                        description: 'Réception prioritaire sous 24h ouvrées',
-                    },
-                    unit_amount: 499, // 4.99€
-                },
-                quantity: 1,
-            });
-        }
-
-        // 4. Vidéo souvenir
+        // 3. Vidéo souvenir (anciennement 4)
         if (orderData.add_video) {
             lineItems.push({
                 price_data: {
