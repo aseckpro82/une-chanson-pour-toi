@@ -35,12 +35,13 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
-      const response = await base44.agents.SupportAgent.chat([
+      // Utilisation de l'agent Base44
+      const response = await base44.agents.chat("SupportAgent", [
         ...messages,
         { role: "user", content: userMessage }
       ]);
 
-      setMessages(prev => [...prev, { role: "assistant", content: response.message }]);
+      setMessages(prev => [...prev, { role: "assistant", content: response }]);
     } catch (error) {
       console.error("Erreur chat:", error);
       setMessages(prev => [...prev, { 
