@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import ChatWidget from "@/components/ChatWidget";
+
 
 const navigationItems = [
   { title: "Accueil", url: createPageUrl("Accueil"), icon: Home },
@@ -430,8 +430,7 @@ export default function Layout({ children, currentPageName }) {
         </div>
       </footer>
       
-      {/* Chat Widget */}
-      <ChatWidget />
+
     </div>
   );
 }
