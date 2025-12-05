@@ -245,36 +245,6 @@ export default function Commander() {
       const finalMusicalStyle = formData.musical_style === "Autre" ? formData.custom_musical_style : formData.musical_style;
       const finalLanguage = formData.language === "Autre" ? formData.custom_language : formData.language;
       
-      // Webhook n8n
-      const webhookData = {
-        customer_name: formData.customer_name,
-        customer_email: formData.customer_email,
-        customer_phone: formData.customer_phone || '',
-        story_details: formData.story_details,
-        occasion: finalOccasion,
-        musical_style: finalMusicalStyle,
-        language: finalLanguage,
-        person_name: formData.person_name,
-        relation: finalRelation,
-        add_calligraphy_pdf: formData.add_calligraphy_pdf,
-        express_delivery: formData.express_delivery,
-        video_memory: formData.video_memory,
-        add_letter: formData.add_letter,
-        total_price: totalPrice,
-        source: 'base44',
-        event: 'new_order'
-      };
-
-      try {
-        await fetch('https://n8n.srv1143837.hstgr.cloud/webhook/new_order_base44', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(webhookData)
-        });
-      } catch (webhookError) {
-        console.error('Webhook error:', webhookError);
-      }
-
       // Stripe checkout
       const orderData = {
         package_type: 'simple',
