@@ -98,6 +98,22 @@ export default function Admin() {
           </Button>
         </div>
 
+        {/* Message de chargement / erreur */}
+        {ordersLoading && (
+          <Card className="p-4 mb-6 bg-blue-50 border-blue-200">
+            <p className="text-blue-700 flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Chargement des commandes...
+            </p>
+          </Card>
+        )}
+        {ordersError && (
+          <Card className="p-4 mb-6 bg-red-50 border-red-200">
+            <p className="text-red-700">Erreur: {ordersError.message}</p>
+            <Button onClick={() => refetchOrders()} size="sm" className="mt-2">Réessayer</Button>
+          </Card>
+        )}
+
         {/* Stats rapides */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
           <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
