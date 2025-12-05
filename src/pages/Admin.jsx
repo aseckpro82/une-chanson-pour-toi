@@ -53,6 +53,8 @@ export default function Admin() {
     queryKey: ['admin-all-orders'],
     queryFn: () => base44.entities.Order.list('-created_date', 200),
     initialData: [],
+    refetchInterval: 30000, // Rafraîchit toutes les 30 secondes
+    staleTime: 10000, // Données considérées fraîches pendant 10 secondes
   });
 
   const { data: examples = [] } = useQuery({
