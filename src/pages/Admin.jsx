@@ -49,12 +49,16 @@ export default function Admin() {
   }, []);
 
   // Queries principales
-  const { data: allOrders = [], isLoading: ordersLoading, refetch: refetchOrders } = useQuery({
+  const { data: allOrders = [], isLoading: ordersLoading, refetch: refetchOrders, error: ordersError } = useQuery({
     queryKey: ['admin-all-orders'],
-    queryFn: () => base44.entities.Order.list('-created_date', 200),
-    initialData: [],
-    refetchInterval: 30000, // Rafraîchit toutes les 30 secondes
-    staleTime: 10000, // Données considérées fraîches pendant 10 secondes
+    queryFn: async () => {
+      console.log('🔄 Fetching orders...');
+      const orders = await base44.entities.Order.list('-created_date', 200);
+      console.log('✅ Orders fetched:', orders.length);
+      return orders;
+    },
+    refetchInterval: 30000,
+    staleTime: 10000,
   });
 
   const { data: examples = [] } = useQuery({
