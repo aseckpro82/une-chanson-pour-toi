@@ -123,6 +123,7 @@ async function sendToN8n(order) {
     const payload = {
         event: 'order.confirmed',
         order_id: order.id.slice(0, 12).toUpperCase(),
+        payment_status: 'paid',
         customer: {
             name: order.customer_name || '',
             email: order.customer_email || ''
