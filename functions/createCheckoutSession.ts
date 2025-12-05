@@ -63,7 +63,10 @@ Deno.serve(async (req) => {
         lineItems.push({
             price_data: {
                 currency: 'eur',
-                product: 'prod_TWtCUWt48Ua0lk', // Produit Stripe existant
+                product_data: {
+                    name: '🎵 Chanson Personnalisée',
+                    description: 'Composition musicale unique créée spécialement pour vous',
+                },
                 unit_amount: 2499, // 24.99€
             },
             quantity: 1,
