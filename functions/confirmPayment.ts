@@ -692,8 +692,30 @@ ${optionsList.join('\n')}
         videoUploadSection + '\n                        <!-- CTA Créer compte -->'
       );
 
-        // ENVOYER WEBHOOK N8N order_confirmed (remplace l'envoi d'emails)
+        // ENVOYER WEBHOOK N8N order_confirmed + Telegram
         const webhookResult = await sendToN8n(currentOrder);
+        
+        // Envoyer notification Telegram nouvelle commande
+        const telegramMessage = `🎉 <b>NOUVELLE COMMANDE PAYÉE !</b>
+
+👤 <b>Client:</b> ${currentOrder.customer_name}
+📧 ${currentOrder.customer_email}
+📞 ${currentOrder.customer_phone || 'Non renseigné'}
+📦 Commande: #${currentOrder.id.slice(0, 8).toUpperCase()}
+
+🎵 <b>Détails:</b>
+• Occasion: ${currentOrder.song_objective}
+• Style: ${currentOrder.musical_style}
+• Voix: ${currentOrder.voice_gender}
+
+💰 <b>Montant:</b> ${currentOrder.price}€
+
+🚀 <b>Options:</b>
+${currentOrder.add_calligraphy ? '✓ Calligraphie\n' : ''}${currentOrder.add_video ? '✓ Vidéo\n' : ''}${currentOrder.add_letter ? '✓ Lettre\n' : ''}${currentOrder.express_delivery ? '⚡ Express 24h\n' : ''}
+
+📅 <b>Livraison estimée:</b> ${deliveryDate.toLocaleDateString('fr-FR')}`;
+        
+        await sendTelegramNotification(telegramMessage);
 
         // ENVOYER WEBHOOK CONVERSION (panier abandonné converti)
         let conversionResult = null;
