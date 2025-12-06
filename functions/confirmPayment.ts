@@ -109,12 +109,14 @@ async function generateWelcomeAudio(customerName) {
     }
 }
 
-// Fonction pour envoyer le webhook vers n8n - ORDER CONFIRMED
+// Fonction pour envoyer le webhook vers n8n - ORDER CONFIRMED (avec retry)
 async function sendToN8n(order) {
     const N8N_WEBHOOK_URL = 'https://n8n.srv1143837.hstgr.cloud/webhook/order_confirmed';
     
-    console.log('🚀 [N8N] Envoi webhook order_confirmed vers n8n...');
+    console.log('🚀 [N8N] ========================================');
+    console.log('🚀 [N8N] DÉBUT ENVOI WEBHOOK ORDER_CONFIRMED');
     console.log('🚀 [N8N] Order ID:', order.id);
+    console.log('🚀 [N8N] URL:', N8N_WEBHOOK_URL);
     
     // Déterminer si express et le délai de livraison
     const isExpress = order.express_delivery || false;
@@ -126,45 +128,70 @@ async function sendToN8n(order) {
         payment_status: 'paid',
         customer: {
             name: order.customer_name || '',
-            email: order.customer_email || ''
+            email: order.customer_email || '',
+            phone: order.customer_phone || ''
         },
         order: {
             package_name: 'Chanson personnalisée',
             price: order.price || 0,
             song_objective: order.song_objective || '',
             musical_style: order.musical_style || '',
+            person_details: order.person_details || '',
             express_delivery: isExpress
         },
-        estimated_delivery: estimatedDelivery
+        estimated_delivery: estimatedDelivery,
+        timestamp: new Date().toISOString()
     };
 
-    console.log('🚀 [N8N] Payload:', JSON.stringify(payload, null, 2));
+    console.log('🚀 [N8N] PAYLOAD COMPLET:');
+    console.log(JSON.stringify(payload, null, 2));
 
-    try {
-        const response = await fetch(N8N_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+    // Tenter l'envoi avec retry (max 3 tentatives)
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+            console.log(`🚀 [N8N] Tentative ${attempt}/3...`);
+            
+            const response = await fetch(N8N_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Base44-Webhook/1.0'
+                },
+                body: JSON.stringify(payload)
+            });
 
-        const responseText = await response.text();
-        console.log('🚀 [N8N] Réponse - Status:', response.status);
-        console.log('🚀 [N8N] Réponse - Body:', responseText);
+            const responseText = await response.text();
+            console.log('🚀 [N8N] Réponse HTTP Status:', response.status);
+            console.log('🚀 [N8N] Réponse Body:', responseText);
 
-        if (response.ok) {
-            console.log('✅ [N8N] WEBHOOK ORDER_CONFIRMED ENVOYÉ AVEC SUCCÈS');
-            return { sent: true, status: response.status, body: responseText };
-        } else {
-            console.error('❌ [N8N] Erreur HTTP', response.status);
-            return { sent: false, status: response.status, error: responseText };
+            if (response.ok) {
+                console.log('✅ [N8N] ========================================');
+                console.log('✅ [N8N] WEBHOOK ENVOYÉ AVEC SUCCÈS !');
+                console.log('✅ [N8N] ========================================');
+                return { sent: true, status: response.status, body: responseText, attempt };
+            } else {
+                console.error(`❌ [N8N] Tentative ${attempt} échouée - Status:`, response.status);
+                if (attempt === 3) {
+                    console.error('❌ [N8N] Toutes les tentatives ont échoué');
+                    return { sent: false, status: response.status, error: responseText };
+                }
+                // Attendre avant retry (1s, 2s, 3s)
+                await new Promise(resolve => setTimeout(resolve, attempt * 1000));
+            }
+            
+        } catch (error) {
+            console.error(`❌ [N8N] Tentative ${attempt} - Erreur:`, error.message);
+            console.error(`❌ [N8N] Stack:`, error.stack);
+            if (attempt === 3) {
+                console.error('❌ [N8N] Toutes les tentatives ont échoué');
+                return { sent: false, error: error.message };
+            }
+            // Attendre avant retry
+            await new Promise(resolve => setTimeout(resolve, attempt * 1000));
         }
-        
-    } catch (error) {
-        console.error('❌ [N8N] Erreur:', error.message);
-        return { sent: false, error: error.message };
     }
+    
+    return { sent: false, error: 'Max retries reached' };
 }
 
 // Fonction pour envoyer webhook UPSELL vers n8n
@@ -692,8 +719,17 @@ ${optionsList.join('\n')}
         videoUploadSection + '\n                        <!-- CTA Créer compte -->'
       );
 
-        // ENVOYER WEBHOOK N8N order_confirmed + Telegram
+        console.log('🎯 [WORKFLOW] ========================================');
+        console.log('🎯 [WORKFLOW] DÉBUT ENVOI WEBHOOKS ET NOTIFICATIONS');
+        console.log('🎯 [WORKFLOW] ========================================');
+        
+        // ENVOYER WEBHOOK N8N order_confirmed (PRIORITAIRE)
         const webhookResult = await sendToN8n(currentOrder);
+        
+        if (!webhookResult.sent) {
+            console.error('⚠️ [WORKFLOW] WEBHOOK N8N A ÉCHOUÉ !');
+            console.error('⚠️ [WORKFLOW] Détails:', JSON.stringify(webhookResult));
+        }
         
         // Envoyer notification Telegram nouvelle commande
         const telegramMessage = `🎉 <b>NOUVELLE COMMANDE PAYÉE !</b>
@@ -713,9 +749,16 @@ ${optionsList.join('\n')}
 🚀 <b>Options:</b>
 ${currentOrder.add_calligraphy ? '✓ Calligraphie\n' : ''}${currentOrder.add_video ? '✓ Vidéo\n' : ''}${currentOrder.add_letter ? '✓ Lettre\n' : ''}${currentOrder.express_delivery ? '⚡ Express 24h\n' : ''}
 
-📅 <b>Livraison estimée:</b> ${deliveryDate.toLocaleDateString('fr-FR')}`;
+📅 <b>Livraison estimée:</b> ${deliveryDate.toLocaleDateString('fr-FR')}
+
+${webhookResult.sent ? '✅ Webhook N8N envoyé' : '❌ WEBHOOK N8N ÉCHOUÉ - VÉRIFIER N8N !'}`;
         
         await sendTelegramNotification(telegramMessage);
+        
+        console.log('🎯 [WORKFLOW] ========================================');
+        console.log('🎯 [WORKFLOW] FIN ENVOI WEBHOOKS');
+        console.log('🎯 [WORKFLOW] Webhook N8N:', webhookResult.sent ? 'SUCCÈS' : 'ÉCHEC');
+        console.log('🎯 [WORKFLOW] ========================================');
 
         // ENVOYER WEBHOOK CONVERSION (panier abandonné converti)
         let conversionResult = null;
