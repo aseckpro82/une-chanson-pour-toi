@@ -92,28 +92,39 @@ export default function Commander() {
   const [promoCode, setPromoCode] = useState(null);
   const [promoDiscount, setPromoDiscount] = useState(0);
   
-  const [formData, setFormData] = useState({
-    person_name: "",
-    occasion: "",
-    custom_occasion: "",
-    relation: "",
-    custom_relation: "",
-    story_details: "",
-    musical_style: "",
-    custom_musical_style: "",
-    voice_gender: "peu_importe",
-    language: "Français",
-    custom_language: "",
-    customer_name: "",
-    customer_email: "",
-    customer_phone: "",
-    // Upsells
-    add_calligraphy_pdf: false,
-    video_memory: false,
-    add_letter: false,
-    add_qr_code: false,
-    add_client_video: false,
-    add_album_cover: false
+  const [formData, setFormData] = useState(() => {
+    // Restaurer les données sauvegardées du localStorage
+    const savedData = localStorage.getItem('commander_form_data');
+    if (savedData) {
+      try {
+        return JSON.parse(savedData);
+      } catch (e) {
+        console.error('Erreur restauration formulaire:', e);
+      }
+    }
+    return {
+      person_name: "",
+      occasion: "",
+      custom_occasion: "",
+      relation: "",
+      custom_relation: "",
+      story_details: "",
+      musical_style: "",
+      custom_musical_style: "",
+      voice_gender: "peu_importe",
+      language: "Français",
+      custom_language: "",
+      customer_name: "",
+      customer_email: "",
+      customer_phone: "",
+      // Upsells
+      add_calligraphy_pdf: false,
+      video_memory: false,
+      add_letter: false,
+      add_qr_code: false,
+      add_client_video: false,
+      add_album_cover: false
+    };
   });
 
   useEffect(() => {
@@ -151,7 +162,12 @@ export default function Commander() {
   });
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value };
+      // Sauvegarder automatiquement dans localStorage
+      localStorage.setItem('commander_form_data', JSON.stringify(newData));
+      return newData;
+    });
   };
 
   const scrollToForm = () => {
@@ -267,8 +283,10 @@ export default function Commander() {
         };
 
       const response = await base44.functions.invoke('createCheckoutSession', orderData);
-      
+
       if (response.data && response.data.url) {
+        // Nettoyer le localStorage seulement après avoir initié le paiement
+        localStorage.removeItem('commander_form_data');
         window.location.href = response.data.url;
       } else {
         throw new Error('URL de paiement non reçue');
