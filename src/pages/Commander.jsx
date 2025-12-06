@@ -162,13 +162,13 @@ export default function Commander() {
   });
 
   const handleChange = (field, value) => {
-    setFormData(prev => {
-      const newData = { ...prev, [field]: value };
-      // Sauvegarder automatiquement dans localStorage
-      localStorage.setItem('commander_form_data', JSON.stringify(newData));
-      return newData;
-    });
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  // Sauvegarder automatiquement à chaque modification
+  useEffect(() => {
+    localStorage.setItem('commander_form_data', JSON.stringify(formData));
+  }, [formData]);
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
