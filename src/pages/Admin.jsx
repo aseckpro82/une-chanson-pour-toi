@@ -371,10 +371,14 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
       await base44.entities.Order.update(order.id, updateData);
       setLocalOrder(prev => ({ ...prev, ...updateData }));
       
-      // Déclencher le webhook n8n pour l'envoi des emails
-      await base44.functions.invoke('n8nOrderDeliveredWebhook', { orderId: order.id });
+      // WEBHOOK ORDER.DELIVERED : uniquement si le statut passe à "delivered"
+      if (newStatus === 'delivered') {
+        await base44.functions.invoke('n8nOrderDeliveredWebhook', { orderId: order.id });
+        alert('✅ Statut mis à jour : Livré (email envoyé via n8n)');
+      } else {
+        alert(`✅ Statut mis à jour : ${statusConfig[newStatus]?.label}`);
+      }
       
-      alert(`✅ Statut mis à jour : ${newStatus === 'delivered' ? 'Livré (email envoyé via n8n)' : statusConfig[newStatus]?.label}`);
       queryClient.invalidateQueries({ queryKey: ['admin-all-orders'] });
     } catch (error) {
       alert('Erreur: ' + error.message);
