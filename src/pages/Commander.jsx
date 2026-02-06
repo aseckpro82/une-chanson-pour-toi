@@ -45,17 +45,21 @@ const languages = [
 
 // Composant Countdown Timer
 function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999);
-      const difference = endOfDay - now;
-      
+      const valentineDate = new Date(now.getFullYear(), 1, 14, 23, 59, 59); // Feb 14
+      if (now > valentineDate) {
+         valentineDate.setFullYear(valentineDate.getFullYear() + 1);
+      }
+
+      const difference = valentineDate - now;
+
       if (difference > 0) {
         setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
           minutes: Math.floor((difference / (1000 * 60)) % 60),
           seconds: Math.floor((difference / 1000) % 60)
@@ -68,18 +72,25 @@ function CountdownTimer() {
     return () => clearInterval(timer);
   }, []);
 
+  const items = [
+    { value: timeLeft.hours, label: "h" },
+    { value: timeLeft.minutes, label: "m" },
+    { value: timeLeft.seconds, label: "s" }
+  ];
+
+  if (timeLeft.days > 0) {
+      items.unshift({ value: timeLeft.days, label: "j" });
+      items.pop();
+  }
+
   return (
     <div className="flex items-center justify-center gap-2">
-      {[
-        { value: timeLeft.hours, label: "h" },
-        { value: timeLeft.minutes, label: "m" },
-        { value: timeLeft.seconds, label: "s" }
-      ].map((item, index) => (
+      {items.map((item, index) => (
         <React.Fragment key={item.label}>
-          <div className="bg-gray-900 text-white font-bold text-lg md:text-xl px-2 md:px-3 py-1 rounded-lg">
+          <div className="bg-white/20 backdrop-blur-sm text-white font-bold text-lg md:text-xl px-2 md:px-3 py-1 rounded-lg border border-white/30">
             {String(item.value).padStart(2, '0')}{item.label}
           </div>
-          {index < 2 && <span className="text-gray-400 font-bold">:</span>}
+          {index < items.length - 1 && <span className="text-white/60 font-bold">:</span>}
         </React.Fragment>
       ))}
     </div>
@@ -175,7 +186,7 @@ export default function Commander() {
   };
 
   const calculateTotal = () => {
-    let total = 24.99;
+    let total = 29.99;
     if (formData.add_calligraphy_pdf) total += 4.99;
     if (formData.video_memory) total += 19.99;
     if (formData.add_letter) total += 4.99;
@@ -192,7 +203,7 @@ export default function Commander() {
   };
   
   const calculateTotalBeforeDiscount = () => {
-    let total = 24.99;
+    let total = 29.99;
     if (formData.add_calligraphy_pdf) total += 4.99;
     if (formData.video_memory) total += 19.99;
     if (formData.add_letter) total += 4.99;
@@ -307,41 +318,39 @@ export default function Commander() {
         keywords="commander chanson personnalisée, cadeau original"
       />
 
-      {/* Hero compact Noël */}
-      <section className="relative py-8 md:py-12 px-4 bg-gradient-to-r from-red-700 via-green-800 to-red-700 overflow-hidden">
-        {/* Flocons de neige animés */}
+      {/* Hero compact Saint-Valentin */}
+      <section className="relative py-8 md:py-12 px-4 bg-gradient-to-r from-rose-500 via-red-500 to-rose-500 overflow-hidden">
+        {/* Coeurs animés */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute text-white/30"
+              className="absolute text-white/20"
               style={{ 
                 left: `${i * 5 + Math.random() * 3}%`, 
                 top: '-20px',
-                fontSize: `${8 + Math.random() * 12}px`
+                fontSize: `${10 + Math.random() * 14}px`
               }}
               animate={{ 
                 y: [0, 300], 
                 opacity: [0.8, 0],
-                rotate: [0, 360]
+                rotate: [0, 45, -45, 0]
               }}
               transition={{ 
-                duration: 3 + Math.random() * 2, 
+                duration: 4 + Math.random() * 3, 
                 repeat: Infinity, 
                 delay: Math.random() * 3,
                 ease: "linear"
               }}
             >
-              ❄
+              💖
             </motion.div>
           ))}
         </div>
         
-        {/* Sapins décoratifs */}
-        <div className="absolute bottom-0 left-4 text-4xl opacity-20">🎄</div>
-        <div className="absolute bottom-0 right-4 text-4xl opacity-20">🎄</div>
-        <div className="absolute top-4 left-1/4 text-2xl opacity-30">⭐</div>
-        <div className="absolute top-4 right-1/4 text-2xl opacity-30">⭐</div>
+        {/* Décorations */}
+        <div className="absolute bottom-0 left-4 text-4xl opacity-20">💝</div>
+        <div className="absolute bottom-0 right-4 text-4xl opacity-20">💝</div>
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
@@ -350,31 +359,31 @@ export default function Commander() {
             transition={{ duration: 0.5 }}
           >
             <Badge className="bg-white/20 text-white border-white/30 mb-4 backdrop-blur-sm">
-              🎄 OFFRE SPÉCIALE NOËL -70% 🎁
+              💖 OFFRE SPÉCIALE SAINT-VALENTIN
             </Badge>
             
             <h1 className="text-2xl md:text-4xl font-bold text-white mb-4">
-              Créez votre chanson personnalisée
+              Créez votre chanson d'amour personnalisée
             </h1>
 
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-xl text-gray-400 line-through decoration-2">90€</span>
-              <span className="text-4xl md:text-5xl font-bold text-white">24,99€</span>
-              <Badge className="bg-white/20 text-white border-white/30 font-bold backdrop-blur-sm">🎁 -70%</Badge>
+              <span className="text-xl text-gray-200 line-through decoration-2">90€</span>
+              <span className="text-4xl md:text-5xl font-bold text-white">29,99€</span>
             </div>
+            <p className="text-white/90 text-sm mb-4">Disponible pour livraison avant le 14 février</p>
 
             <div className="flex items-center justify-center gap-2 mb-6">
-              <span className="text-xl">🎅</span>
-              <span className="text-white/80 text-sm">Offre Noël expire dans :</span>
+              <span className="text-xl">💘</span>
+              <span className="text-white/80 text-sm">Fin de l'offre dans :</span>
               <CountdownTimer />
             </div>
 
             <Button 
               onClick={scrollToForm}
-              className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-2xl"
+              className="bg-white text-rose-600 hover:bg-rose-50 px-8 py-6 text-lg rounded-2xl font-bold shadow-xl"
             >
-              <Sparkles className="w-5 h-5 mr-2" />
-              Commencer maintenant
+              <Heart className="w-5 h-5 mr-2 fill-rose-600" />
+              Créer ma chanson d’amour 💝
             </Button>
           </motion.div>
         </div>
@@ -626,7 +635,7 @@ export default function Commander() {
                           </p>
                         )}
                       </div>
-                      <Badge className="bg-green-100 text-green-700 border-green-200 text-xs sm:text-sm whitespace-nowrap">🎄 -70% NOËL</Badge>
+                      <Badge className="bg-rose-100 text-rose-700 border-rose-200 text-xs sm:text-sm whitespace-nowrap">💖 SAINT-VALENTIN</Badge>
                     </div>
 
                     <Button
@@ -641,8 +650,8 @@ export default function Commander() {
                         </span>
                       ) : (
                         <span className="flex items-center justify-center gap-1 sm:gap-2">
-                          <Music className="w-5 h-5 flex-shrink-0" />
-                          <span className="truncate">Commander — {calculateTotal()}€</span>
+                          <Heart className="w-5 h-5 flex-shrink-0 fill-white" />
+                          <span className="truncate">Créer ma chanson d'amour — {calculateTotal()}€</span>
                         </span>
                       )}
                     </Button>

@@ -24,16 +24,20 @@ function CountdownTimer({ variant = "default" }) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999);
-      const difference = endOfDay - now;
+      const valentineDate = new Date(now.getFullYear(), 1, 14, 23, 59, 59); // Month is 0-indexed, so 1 is February
+      if (now > valentineDate) {
+         valentineDate.setFullYear(valentineDate.getFullYear() + 1);
+      }
+      
+      const difference = valentineDate - now;
       
       if (difference > 0) {
-        setTimeLeft({
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / (1000 * 60)) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        });
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / (1000 * 60)) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+
+        setTimeLeft({ days, hours, minutes, seconds });
       }
     };
 
@@ -45,20 +49,31 @@ function CountdownTimer({ variant = "default" }) {
   if (variant === "compact") {
     return (
       <div className="flex items-center gap-1 text-white font-mono">
-        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.hours).padStart(2, '0')}</span>:
-        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.minutes).padStart(2, '0')}</span>:
-        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.seconds).padStart(2, '0')}</span>
+        {timeLeft.days > 0 && (
+          <>
+            <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.days).padStart(2, '0')}j</span>:
+          </>
+        )}
+        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.hours).padStart(2, '0')}h</span>:
+        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.minutes).padStart(2, '0')}m</span>
       </div>
     );
   }
 
+  const items = [
+    { value: timeLeft.hours, label: "heures" },
+    { value: timeLeft.minutes, label: "min" },
+    { value: timeLeft.seconds, label: "sec" }
+  ];
+
+  if (timeLeft.days > 0) {
+    items.unshift({ value: timeLeft.days, label: "jours" });
+    items.pop(); // Remove seconds to keep 3 items if preferred, or keep 4
+  }
+
   return (
     <div className="flex items-center justify-center gap-2 md:gap-3">
-      {[
-        { value: timeLeft.hours, label: "heures" },
-        { value: timeLeft.minutes, label: "min" },
-        { value: timeLeft.seconds, label: "sec" }
-      ].map((item, index) => (
+      {items.map((item, index) => (
         <React.Fragment key={item.label}>
           <div className="text-center">
             <div className="bg-gray-900 text-white font-bold text-xl md:text-3xl px-3 md:px-4 py-2 rounded-xl min-w-[50px] md:min-w-[70px]">
@@ -66,7 +81,7 @@ function CountdownTimer({ variant = "default" }) {
             </div>
             <p className="text-xs text-gray-600 mt-1">{item.label}</p>
           </div>
-          {index < 2 && <span className="text-xl md:text-2xl font-bold text-gray-400">:</span>}
+          {index < items.length - 1 && <span className="text-xl md:text-2xl font-bold text-gray-400">:</span>}
         </React.Fragment>
       ))}
     </div>
@@ -93,32 +108,31 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-white">
       <SEO 
-        title="Chanson personnalisée – Cadeau Noël unique – Livraison 48h | -70%"
-        description="Créez une chanson personnalisée écrite à partir de votre histoire. Le cadeau de Noël parfait ! Livraison 48h. Paroles calligraphiées. Offre Noël -70%."
-        keywords="chanson personnalisée, cadeau Noël original, chanson sur mesure, cadeau unique, musique personnalisée, cadeau émouvant Noël"
+        title="Chanson personnalisée – Cadeau Saint-Valentin unique – Livraison avant le 14 | -70%"
+        description="Créez une chanson personnalisée écrite à partir de votre histoire. Le cadeau de Saint-Valentin parfait ! Livraison garantie avant le 14 février. Offre spéciale."
+        keywords="chanson personnalisée, cadeau saint valentin, chanson sur mesure, cadeau couple, musique personnalisée, cadeau émouvant amour"
       />
 
-      {/* Bandeau Noël fixe */}
-      <div className="relative bg-gradient-to-r from-red-700 via-green-800 to-red-700 py-3 px-4 overflow-hidden">
-        {/* Flocons de neige animés */}
+      {/* Bandeau Saint-Valentin fixe */}
+      <div className="relative bg-gradient-to-r from-rose-500 via-red-500 to-rose-500 py-3 px-4 overflow-hidden">
+        {/* Coeurs animés */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute text-white/40 text-xs"
+              className="absolute text-white/30 text-xs"
               style={{ left: `${i * 8 + 2}%`, top: '-10px' }}
               animate={{ y: [0, 60], opacity: [1, 0] }}
-              transition={{ duration: 2 + Math.random(), repeat: Infinity, delay: Math.random() * 2 }}
+              transition={{ duration: 3 + Math.random(), repeat: Infinity, delay: Math.random() * 2 }}
             >
-              ❄
+              💖
             </motion.div>
           ))}
         </div>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 relative z-10">
           <div className="flex items-center gap-2">
-            <span className="text-xl">🎄</span>
-            <span className="text-white text-sm md:text-base font-bold">Offre Spéciale Noël : -70% pour un cadeau inoubliable !</span>
-            <span className="text-xl">🎁</span>
+            <span className="text-xl">💖</span>
+            <span className="text-white text-sm md:text-base font-bold">Offre Spéciale Saint-Valentin : Disponible pour livraison avant le 14 février !</span>
           </div>
           <CountdownTimer variant="compact" />
         </div>
@@ -141,40 +155,49 @@ export default function Index() {
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-100 to-orange-100 border border-yellow-300 mb-6">
-                <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
-                <span className="text-sm font-semibold text-yellow-800">Plus de 500 clients émus aux larmes</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-rose-100 to-pink-100 border border-rose-200 mb-6">
+                <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
+                <span className="text-sm font-semibold text-rose-800">💖 Spécial Saint-Valentin — le cadeau le plus émouvant</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
                 Offrez une chanson qui fera
                 <span className="block bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">
                   pleurer de bonheur
                 </span>
               </h1>
-
-              <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Une mélodie unique créée à partir de votre histoire, 
-                <span className="text-rose-600 font-medium"> avec le prénom de votre proche chanté dedans</span>. 
-                Le cadeau le plus émouvant que vous puissiez offrir.
+              
+              <p className="text-lg md:text-xl font-medium text-rose-600 mb-6">
+                Le cadeau parfait pour lui dire je t’aime le 14 février.
               </p>
+
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                Une mélodie unique créée à partir de votre histoire, 
+                <span className="text-gray-900 font-medium"> avec le prénom de votre amour chanté dedans</span>. 
+              </p>
+
+              <div className="bg-rose-50/50 p-4 rounded-xl border border-rose-100 mb-8 max-w-lg mx-auto lg:mx-0">
+                <p className="text-gray-700 italic">
+                  "Chaque année, des centaines de personnes offrent une chanson pour dire je t’aime autrement. Cette Saint-Valentin, offrez une émotion inoubliable."
+                </p>
+              </div>
 
               {/* Prix */}
               <div className="mb-6">
                 <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
                   <span className="text-2xl text-gray-400 line-through decoration-2">90€</span>
                   <span className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">
-                    24,99€
+                    29,99€
                   </span>
-                  <Badge className="bg-green-600 text-white border-0 animate-pulse text-sm font-bold">🎄 -70%</Badge>
+                  <Badge className="bg-rose-100 text-rose-700 border-rose-200 text-sm font-bold">Offre valable jusqu’au 14 février</Badge>
                 </div>
               </div>
 
               {/* Timer */}
               <div className="mb-8">
                 <p className="text-sm text-gray-600 mb-3 flex items-center justify-center lg:justify-start gap-2">
-                  <Timer className="w-4 h-4 text-red-500" />
-                  Offre expire dans :
+                  <Clock className="w-4 h-4 text-rose-500" />
+                  Plus que quelques jours pour recevoir votre chanson à temps :
                 </p>
                 <div className="flex justify-center lg:justify-start">
                   <CountdownTimer />
@@ -183,10 +206,9 @@ export default function Index() {
 
               {/* CTA */}
               <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
-                <Button className="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white px-6 sm:px-10 py-6 sm:py-7 text-base sm:text-xl rounded-2xl shadow-2xl transform hover:scale-105 transition-all">
-                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 hidden sm:block" />
-                  <span>Créer ma chanson maintenant</span>
-                  <ArrowRight className="w-5 h-5 ml-2 hidden sm:block" />
+                <Button className="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white px-6 sm:px-10 py-6 sm:py-7 text-base sm:text-xl rounded-2xl shadow-2xl shadow-rose-200 transform hover:scale-105 transition-all">
+                  <Heart className="w-5 h-5 sm:w-6 sm:h-6 mr-2 hidden sm:block fill-white" />
+                  <span>Créer ma chanson d’amour 💝</span>
                 </Button>
               </Link>
 
@@ -466,14 +488,17 @@ export default function Index() {
               Prêt à créer un souvenir inoubliable ?
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 px-2">
-              🎄 Offre Spéciale Noël : <span className="line-through opacity-75">90€</span> → <span className="font-bold">24,99€</span> (-70%) 🎁
+              💖 Offre Spéciale Saint-Valentin : <span className="line-through opacity-75">90€</span> → <span className="font-bold">29,99€</span> 🎁
             </p>
             <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
               <Button className="bg-white hover:bg-gray-100 text-gray-900 px-6 sm:px-10 py-6 sm:py-7 text-base sm:text-lg md:text-xl rounded-2xl shadow-2xl font-bold transform hover:scale-105 transition-all w-full sm:w-auto max-w-xs sm:max-w-none mx-auto">
-                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 flex-shrink-0" />
-                <span className="truncate">Créer ma chanson — 24,99€</span>
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6 mr-2 flex-shrink-0 text-rose-500 fill-rose-500" />
+                <span className="truncate">Créer ma chanson d'amour 💝</span>
               </Button>
             </Link>
+            <p className="text-white/80 text-sm mt-6 font-medium">
+              Saint-Valentin : pensez à commander avant le 14 février 💖
+            </p>
           </motion.div>
         </div>
       </section>
