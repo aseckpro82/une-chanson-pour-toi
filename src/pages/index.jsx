@@ -210,8 +210,6 @@ export default function Index() {
                   <span>+500 clients ravis</span>
                 </div>
               </div>
-            </motion.div>
-
               {/* Trust badges */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-6 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
