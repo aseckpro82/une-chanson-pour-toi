@@ -138,79 +138,79 @@ export default function Index() {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center px-4 py-12 md:py-0 overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-rose-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl" />
+      {/* Hero Section V2 */}
+      <section className="relative min-h-[90vh] flex items-center px-4 py-20 lg:py-0 overflow-hidden bg-white">
+        {/* Background V2 */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-50/50 rounded-full blur-[100px] opacity-60 translate-x-1/3 -translate-y-1/3" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-violet-50/50 rounded-full blur-[100px] opacity-60 -translate-x-1/3 translate-y-1/3" />
         </div>
 
-        <div className="max-w-6xl mx-auto w-full relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Texte */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-rose-100 to-pink-100 border border-rose-200 mb-6">
-                <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
-                <span className="text-sm font-semibold text-rose-800">💖 Spécial Saint-Valentin — le cadeau le plus émouvant</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50 border border-rose-100 mb-8 hover:bg-rose-100 transition-colors cursor-default">
+                <Heart className="w-4 h-4 fill-rose-500 text-rose-500 animate-pulse" />
+                <span className="text-sm font-bold text-rose-600 tracking-wide uppercase">Spécial Saint-Valentin</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
-                Offrez une chanson qui fera
-                <span className="block bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">
-                  pleurer de bonheur
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-[1.1] tracking-tight">
+                Offrez une émotion
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-violet-600">
+                  inoubliable.
                 </span>
               </h1>
               
-              <p className="text-lg md:text-xl font-medium text-rose-600 mb-6">
-                Le cadeau parfait pour lui dire je t’aime le 14 février.
+              <p className="text-xl md:text-2xl text-gray-500 mb-8 leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
+                Une chanson unique créée sur mesure à partir de votre histoire d'amour. <span className="text-gray-900 font-medium">Livraison garantie avant le 14 février.</span>
               </p>
 
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Une mélodie unique créée à partir de votre histoire, 
-                <span className="text-gray-900 font-medium"> avec le prénom de votre amour chanté dedans</span>. 
-              </p>
-
-              <div className="bg-rose-50/50 p-4 rounded-xl border border-rose-100 mb-8 max-w-lg mx-auto lg:mx-0">
-                <p className="text-gray-700 italic">
-                  "Chaque année, des centaines de personnes offrent une chanson pour dire je t’aime autrement. Cette Saint-Valentin, offrez une émotion inoubliable."
-                </p>
-              </div>
-
-              {/* Prix */}
-              <div className="mb-6">
-                <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
-                  <span className="text-2xl text-gray-400 line-through decoration-2">90€</span>
-                  <span className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">
+              {/* Prix V2 */}
+              <div className="mb-8 flex flex-col items-center lg:items-start gap-2">
+                <div className="flex items-baseline gap-4">
+                  <span className="text-2xl text-gray-400 line-through decoration-2 decoration-rose-200">90€</span>
+                  <span className="text-6xl font-bold text-gray-900 tracking-tighter">
                     29,99€
                   </span>
-                  <Badge className="bg-rose-100 text-rose-700 border-rose-200 text-sm font-bold">Offre valable jusqu’au 14 février</Badge>
+                </div>
+                <div className="flex items-center gap-2 text-rose-600 bg-rose-50 px-3 py-1 rounded-lg">
+                  <Clock className="w-4 h-4" />
+                  <span className="text-sm font-bold">Offre limitée Saint-Valentin</span>
                 </div>
               </div>
 
-              {/* Timer */}
-              <div className="mb-8">
-                <p className="text-sm text-gray-600 mb-3 flex items-center justify-center lg:justify-start gap-2">
-                  <Clock className="w-4 h-4 text-rose-500" />
-                  Plus que quelques jours pour recevoir votre chanson à temps :
-                </p>
-                <div className="flex justify-center lg:justify-start">
+              {/* Timer V2 */}
+              <div className="mb-10 p-6 rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/50 max-w-md mx-auto lg:mx-0">
+                <p className="text-sm font-medium text-gray-500 mb-4 text-center uppercase tracking-widest">Temps restant pour commander</p>
+                <div className="flex justify-center">
                   <CountdownTimer />
                 </div>
               </div>
 
-              {/* CTA */}
-              <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
-                <Button className="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white px-6 sm:px-10 py-6 sm:py-7 text-base sm:text-xl rounded-2xl shadow-2xl shadow-rose-200 transform hover:scale-105 transition-all">
-                  <Heart className="w-5 h-5 sm:w-6 sm:h-6 mr-2 hidden sm:block fill-white" />
-                  <span>Créer ma chanson d’amour 💝</span>
-                </Button>
-              </Link>
+              {/* CTA V2 */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)} className="w-full sm:w-auto">
+                  <Button className="w-full sm:w-auto bg-gray-900 hover:bg-black text-white h-16 px-8 text-lg rounded-2xl shadow-xl shadow-gray-900/20 hover:shadow-gray-900/40 transform hover:-translate-y-1 transition-all duration-300">
+                    <Heart className="w-6 h-6 mr-3 fill-rose-500 text-rose-500" />
+                    <span className="font-bold">Créer ma chanson (29,99€)</span>
+                  </Button>
+                </Link>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <div className="flex -space-x-2">
+                    {[1,2,3].map(i => (
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-100" />
+                    ))}
+                  </div>
+                  <span>+500 clients ravis</span>
+                </div>
+              </div>
+            </motion.div>
 
               {/* Trust badges */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-6 text-sm text-gray-600">

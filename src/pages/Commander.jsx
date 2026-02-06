@@ -396,55 +396,61 @@ export default function Commander() {
         </div>
       </section>
 
-      {/* Formulaire */}
+      {/* Formulaire V2 */}
       <section ref={formRef} className="py-10 md:py-16 px-4" id="formulaire">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                ✨ Remplissez ce formulaire en 2 minutes
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+                Créez votre chanson unique
               </h2>
-              <p className="text-gray-600">Plus vous donnez de détails, plus votre chanson sera unique</p>
+              <p className="text-lg text-gray-600">Remplissez ce formulaire en 2 minutes. Plus vous donnez de détails, plus l'émotion sera forte.</p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <Card className="p-6 md:p-8 rounded-3xl bg-white border border-rose-100 shadow-xl">
-                <div className="space-y-5">
-                  
-                  {/* Section 1: La personne */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 pb-2 border-b border-gray-100">
-                      <Heart className="w-5 h-5 text-rose-500" />
-                      Pour qui est cette chanson ?
-                    </h3>
+              <Card className="p-6 md:p-10 rounded-3xl bg-white shadow-2xl shadow-gray-200/50 border border-gray-100">
+                <div className="space-y-8">
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Section 1: La personne */}
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
+                      <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center">
+                        <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        Pour qui est cette chanson ?
+                      </h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <Label className="font-semibold">Prénom (optionnel)</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Prénom (optionnel)</Label>
                         <Input
                           placeholder="Ex: Marie"
                           value={formData.person_name}
                           onChange={(e) => handleChange('person_name', e.target.value)}
-                          className="mt-1 h-11 rounded-xl"
+                          className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 focus:ring-rose-500/20 text-lg transition-all"
                         />
                         {formData.person_name && (
-                          <p className="text-xs text-rose-600 mt-1">✨ Ce prénom sera mentionné dans votre chanson</p>
+                          <p className="text-sm text-rose-600 mt-2 font-medium flex items-center gap-1">
+                            <Sparkles className="w-3 h-3" /> Ce prénom sera chanté
+                          </p>
                         )}
                       </div>
                       <div>
-                        <Label className="font-semibold">Relation</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Relation</Label>
                         <Select value={formData.relation} onValueChange={(v) => handleChange('relation', v)}>
-                          <SelectTrigger className="mt-1 h-11 rounded-xl">
+                          <SelectTrigger className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 text-lg">
                             <SelectValue placeholder="Choisir..." />
                           </SelectTrigger>
                           <SelectContent>
                             {relations.map((rel) => (
-                              <SelectItem key={rel} value={rel}>{rel}</SelectItem>
+                              <SelectItem key={rel} value={rel} className="text-base py-3">{rel}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -453,7 +459,7 @@ export default function Commander() {
                             placeholder="Précisez la relation *"
                             value={formData.custom_relation}
                             onChange={(e) => handleChange('custom_relation', e.target.value)}
-                            className="mt-2 h-11 rounded-xl border-orange-300 focus:border-orange-500"
+                            className="mt-3 h-14 rounded-2xl bg-white border-2 border-orange-100 focus:border-orange-500 text-lg"
                             required
                           />
                         )}
@@ -461,14 +467,14 @@ export default function Commander() {
                     </div>
 
                     <div>
-                      <Label className="font-semibold">Occasion *</Label>
+                      <Label className="text-base font-medium text-gray-700 mb-2 block">Occasion *</Label>
                       <Select value={formData.occasion} onValueChange={(v) => handleChange('occasion', v)} required>
-                        <SelectTrigger className="mt-1 h-11 rounded-xl">
+                        <SelectTrigger className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 text-lg">
                           <SelectValue placeholder="Choisir une occasion" />
                         </SelectTrigger>
                         <SelectContent>
                           {occasions.map((occ) => (
-                            <SelectItem key={occ} value={occ}>{occ}</SelectItem>
+                            <SelectItem key={occ} value={occ} className="text-base py-3">{occ}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -477,34 +483,34 @@ export default function Commander() {
                           placeholder="Précisez l'occasion *"
                           value={formData.custom_occasion}
                           onChange={(e) => handleChange('custom_occasion', e.target.value)}
-                          className="mt-2 h-11 rounded-xl border-orange-300 focus:border-orange-500"
+                          className="mt-3 h-14 rounded-2xl bg-white border-2 border-orange-100 focus:border-orange-500 text-lg"
                           required
                         />
                       )}
                     </div>
 
                     <div>
-                      <Label className="font-semibold">Votre histoire *</Label>
+                      <Label className="text-base font-medium text-gray-700 mb-2 block">Votre histoire *</Label>
                       <Textarea
-                        placeholder="Décrivez cette personne, vos souvenirs ensemble, ce qui la rend unique, le message que vous voulez transmettre..."
+                        placeholder="Racontez-nous tout : souvenirs marquants, traits de caractère, message à faire passer... Plus c'est détaillé, mieux c'est !"
                         value={formData.story_details}
                         onChange={(e) => handleChange('story_details', e.target.value)}
-                        className="mt-1 min-h-32 rounded-xl"
+                        className="min-h-40 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 focus:ring-rose-500/20 text-lg p-4 transition-all resize-y"
                         required
                       />
-                      <p className="text-xs text-gray-500 mt-1">💡 Plus vous partagez de détails, plus votre chanson sera personnalisée</p>
+                      <p className="text-sm text-gray-500 mt-2">💡 Astuce : Mentionnez des lieux, des dates ou des anecdotes précises.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div>
-                        <Label className="font-semibold">Style musical *</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Style musical *</Label>
                         <Select value={formData.musical_style} onValueChange={(v) => handleChange('musical_style', v)} required>
-                          <SelectTrigger className="mt-1 h-11 rounded-xl">
+                          <SelectTrigger className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 text-lg">
                             <SelectValue placeholder="Choisir..." />
                           </SelectTrigger>
                           <SelectContent>
                             {musicalStyles.map((style) => (
-                              <SelectItem key={style} value={style}>{style}</SelectItem>
+                              <SelectItem key={style} value={style} className="text-base py-3">{style}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -513,33 +519,33 @@ export default function Commander() {
                             placeholder="Précisez le style *"
                             value={formData.custom_musical_style}
                             onChange={(e) => handleChange('custom_musical_style', e.target.value)}
-                            className="mt-2 h-11 rounded-xl border-orange-300 focus:border-orange-500"
+                            className="mt-3 h-14 rounded-2xl bg-white border-2 border-orange-100 focus:border-orange-500 text-lg"
                             required
                           />
                         )}
                       </div>
                       <div>
-                        <Label className="font-semibold">Voix</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Voix</Label>
                         <Select value={formData.voice_gender} onValueChange={(v) => handleChange('voice_gender', v)}>
-                          <SelectTrigger className="mt-1 h-11 rounded-xl">
+                          <SelectTrigger className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 text-lg">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="peu_importe">Peu importe</SelectItem>
-                            <SelectItem value="femme">Voix de femme</SelectItem>
-                            <SelectItem value="homme">Voix d'homme</SelectItem>
+                            <SelectItem value="peu_importe" className="text-base py-3">Surprise (Recommandé)</SelectItem>
+                            <SelectItem value="femme" className="text-base py-3">Voix de femme</SelectItem>
+                            <SelectItem value="homme" className="text-base py-3">Voix d'homme</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label className="font-semibold">Langue</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Langue</Label>
                         <Select value={formData.language} onValueChange={(v) => handleChange('language', v)}>
-                          <SelectTrigger className="mt-1 h-11 rounded-xl">
+                          <SelectTrigger className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 text-lg">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
                             {languages.map((lang) => (
-                              <SelectItem key={lang} value={lang}>{lang}</SelectItem>
+                              <SelectItem key={lang} value={lang} className="text-base py-3">{lang}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -548,12 +554,12 @@ export default function Commander() {
 
                     {formData.language === "Autre" && (
                       <div>
-                        <Label className="font-semibold">Précisez la langue *</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Précisez la langue *</Label>
                         <Input
                           placeholder="Ex: Créole, Allemand, Russe..."
                           value={formData.custom_language}
                           onChange={(e) => handleChange('custom_language', e.target.value)}
-                          className="mt-1 h-11 rounded-xl"
+                          className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 text-lg"
                           required
                         />
                       </div>
@@ -561,48 +567,55 @@ export default function Commander() {
                   </div>
 
                   {/* Section 2: Upsells */}
-                  <div className="pt-4 border-t border-gray-100">
+                  <div className="pt-8 border-t border-gray-100">
                     <OptionsGrid formData={formData} onToggle={handleChange} />
                   </div>
 
                   {/* Section 3: Contact */}
-                  <div className="space-y-4 pt-4 border-t border-gray-100">
-                    <h3 className="text-lg font-bold text-gray-900">📧 Vos informations</h3>
+                  <div className="space-y-6 pt-8 border-t border-gray-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-violet-50 flex items-center justify-center">
+                        <Mail className="w-5 h-5 text-violet-600" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900">Où envoyer votre chanson ?</h3>
+                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <Label className="font-semibold">Votre nom *</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Votre nom *</Label>
                         <Input
                           placeholder="Prénom Nom"
                           value={formData.customer_name}
                           onChange={(e) => handleChange('customer_name', e.target.value)}
-                          className="mt-1 h-11 rounded-xl"
+                          className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-violet-500 text-lg"
                           required
                         />
                       </div>
                       <div>
-                        <Label className="font-semibold">Téléphone</Label>
+                        <Label className="text-base font-medium text-gray-700 mb-2 block">Téléphone</Label>
                         <Input
                           type="tel"
                           placeholder="06 12 34 56 78"
                           value={formData.customer_phone}
                           onChange={(e) => handleChange('customer_phone', e.target.value)}
-                          className="mt-1 h-11 rounded-xl"
+                          className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-violet-500 text-lg"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label className="font-semibold">Email *</Label>
+                      <Label className="text-base font-medium text-gray-700 mb-2 block">Email *</Label>
                       <Input
                         type="email"
                         placeholder="votre@email.com"
                         value={formData.customer_email}
                         onChange={(e) => handleChange('customer_email', e.target.value)}
-                        className="mt-1 h-11 rounded-xl"
+                        className="h-14 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-violet-500 text-lg"
                         required
                       />
-                      <p className="text-xs text-gray-500 mt-1">📧 Vous recevrez votre chanson à cette adresse</p>
+                      <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
+                        <Shield className="w-3 h-3" /> Nous ne partagerons jamais votre email.
+                      </p>
                     </div>
                   </div>
 

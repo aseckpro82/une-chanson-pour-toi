@@ -117,32 +117,32 @@ export default function Layout({ children, currentPageName }) {
         `}
       </style>
 
-      {/* Navigation fixe */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-rose-100/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+      {/* Navigation fixe V2 */}
+      <nav className="fixed top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 z-50 max-w-7xl mx-auto rounded-2xl bg-white/80 backdrop-blur-xl border border-white/50 shadow-lg shadow-purple-500/5 ring-1 ring-black/5 transition-all duration-300">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             <Link to={createPageUrl("Accueil")} onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-rose-400 via-purple-400 to-rose-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-110 float-animation">
-                <Music className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:shadow-rose-500/40 transition-all duration-500 group-hover:scale-105">
+                <Music className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
               <div className="hidden lg:block">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent whitespace-nowrap">
+                <h1 className="text-lg font-bold text-gray-900 tracking-tight">
                   Une Chanson Pour Toi
                 </h1>
-                <p className="text-xs text-gray-500 whitespace-nowrap flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-rose-400" />
-                  Émotions en musique
+                <p className="text-[10px] uppercase tracking-widest font-semibold text-rose-600 flex items-center gap-1">
+                  <span className="w-1 h-1 rounded-full bg-rose-500"></span>
+                  Créateur d'émotions
                 </p>
               </div>
               <div className="block lg:hidden">
-                <h1 className="text-base sm:text-lg font-bold bg-gradient-to-r from-rose-600 to-purple-600 bg-clip-text text-transparent leading-tight">
-                  Une Chanson<br className="hidden xs:block"/>Pour Toi
+                <h1 className="text-base font-bold text-gray-900 leading-tight">
+                  Une Chanson Pour Toi
                 </h1>
               </div>
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
+            <div className="hidden md:flex items-center gap-1 lg:gap-2">
               {navigationItems.map((item) => (
                 <Link
                   key={item.title}
@@ -278,55 +278,130 @@ export default function Layout({ children, currentPageName }) {
         {children}
       </main>
 
-      {/* Footer doux et rassurant */}
-      <footer className="relative bg-gradient-to-br from-rose-50 via-purple-50/30 to-white py-12 sm:py-16 lg:py-20 mt-12 sm:mt-16 lg:mt-20 border-t border-rose-100">
+      {/* Footer V2 */}
+      <footer className="relative bg-white py-16 sm:py-20 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Message émotionnel en haut */}
-          <div className="text-center mb-10 sm:mb-12 lg:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg border border-rose-200/50 mb-4 sm:mb-6">
-              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 animate-pulse" />
-              <span className="text-xs sm:text-sm font-medium text-gray-700">Créé avec amour pour vous</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
-              Votre histoire mérite une chanson unique
-            </h3>
-            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
-              Chaque jour, nous aidons des personnes comme vous à immortaliser leurs plus beaux moments en musique.
-              <br className="hidden sm:block" /> <span className="sm:inline">Rejoignez notre communauté de clients satisfaits.</span>
-            </p>
-          </div>
-
-          {/* Badges de réassurance */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          {/* Badges de réassurance V2 */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-16 border-b border-gray-100 pb-16">
             {[
               {
                 icon: Shield,
-                title: "Paiement 100% sécurisé",
-                desc: "Vos données sont protégées"
+                title: "Paiement Sécurisé",
+                desc: "Chiffrement SSL 256-bit"
               },
               {
                 icon: Award,
-                title: "Qualité garantie",
-                desc: "98% de satisfaction client"
+                title: "Qualité Premium",
+                desc: "Studio professionnel"
               },
               {
                 icon: Clock,
-                title: "Livraison rapide",
-                desc: "Sous 24 à 72h"
+                title: "Livraison Express",
+                desc: "Option 24h disponible"
               },
               {
                 icon: Heart,
-                title: "Support dédié",
-                desc: "Réponse sous 24h"
+                title: "Service Client",
+                desc: "Disponible 7j/7"
               }
             ].map((badge, i) => (
-              <div key={i} className="text-center p-6 rounded-2xl bg-white/60 backdrop-blur-sm border border-rose-100 hover:shadow-lg transition-all duration-300">
-                <badge.icon className="w-8 h-8 text-rose-500 mx-auto mb-3" />
-                <p className="font-semibold text-gray-900 mb-1 text-sm">{badge.title}</p>
-                <p className="text-xs text-gray-600">{badge.desc}</p>
+              <div key={i} className="flex flex-col items-center text-center p-4 rounded-3xl hover:bg-gray-50 transition-colors duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-rose-50 flex items-center justify-center mb-4 text-rose-600">
+                  <badge.icon className="w-6 h-6" />
+                </div>
+                <h4 className="font-bold text-gray-900 mb-1">{badge.title}</h4>
+                <p className="text-sm text-gray-500">{badge.desc}</p>
               </div>
             ))}
           </div>
+
+          {/* Liens et contact */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16">
+            <div className="md:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
+                  <Music className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold text-gray-900 tracking-tight">Une Chanson Pour Toi</span>
+              </div>
+              <p className="text-gray-500 leading-relaxed mb-8 max-w-sm">
+                Nous créons des chansons uniques qui capturent vos émotions et racontent votre histoire. Une expérience inoubliable pour ceux que vous aimez.
+              </p>
+              <div className="space-y-4">
+                <a href="mailto:contact@unechansonpourtoi.fr" className="flex items-center gap-3 text-gray-600 hover:text-rose-600 transition-colors group p-3 rounded-2xl bg-gray-50 hover:bg-rose-50 w-fit">
+                  <Mail className="w-5 h-5 text-gray-400 group-hover:text-rose-500 transition-colors" />
+                  <span className="font-medium">contact@unechansonpourtoi.fr</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="md:col-span-3">
+              <h4 className="font-bold text-gray-900 mb-6">Navigation</h4>
+              <ul className="space-y-4">
+                {[
+                  { label: "Accueil", url: "Accueil" },
+                  { label: "Commander", url: "Commander" },
+                  { label: "Exemples Audio", url: "Exemples" },
+                  { label: "Témoignages", url: "Temoignages" },
+                  { label: "FAQ", url: "FAQ" }
+                ].map((link, i) => (
+                  <li key={i}>
+                    <Link 
+                      to={createPageUrl(link.url)} 
+                      onClick={() => window.scrollTo(0, 0)}
+                      className="text-gray-500 hover:text-rose-600 transition-colors font-medium flex items-center gap-2"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="md:col-span-4">
+              <h4 className="font-bold text-gray-900 mb-6">Légal</h4>
+              <ul className="space-y-4">
+                {[
+                  { label: "Mentions légales", url: "MentionsLegales" },
+                  { label: "CGV", url: "CGV" },
+                  { label: "Confidentialité", url: "PolitiqueConfidentialite" },
+                  { label: "Remboursements", url: "PolitiqueRemboursement" }
+                ].map((link, i) => (
+                  <li key={i}>
+                    <Link 
+                      to={createPageUrl(link.url)} 
+                      onClick={() => window.scrollTo(0, 0)}
+                      className="text-gray-500 hover:text-rose-600 transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 p-4 rounded-2xl bg-gradient-to-br from-rose-50 to-violet-50 border border-rose-100/50">
+                <div className="flex items-center gap-2 text-rose-700 font-semibold mb-1">
+                  <Shield className="w-4 h-4" />
+                  Données Sécurisées
+                </div>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  Nous respectons votre vie privée. Vos informations personnelles ne sont jamais partagées.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="pt-8 mt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+            <p>© 2026 Une Chanson Pour Toi. Tous droits réservés.</p>
+            <div className="flex items-center gap-2">
+              <span>Fait avec</span>
+              <Heart className="w-4 h-4 text-rose-500 animate-pulse fill-rose-500" />
+              <span>en France</span>
+            </div>
+          </div>
+        </div>
+      </footer>
 
           {/* Liens et contact */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-10 lg:mb-12">
