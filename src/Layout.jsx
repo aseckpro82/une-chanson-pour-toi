@@ -59,6 +59,9 @@ export default function Layout({ children, currentPageName }) {
     base44.auth.redirectToLogin(nextUrl);
   };
 
+  // Détection pour cacher le sticky CTA sur la page Commander
+  const isCommanderPage = location.pathname.includes("Commander");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50/30 via-white to-purple-50/30 overflow-x-hidden">
       <FacebookPixel />
@@ -278,8 +281,25 @@ export default function Layout({ children, currentPageName }) {
         {children}
       </main>
 
+      {/* Sticky CTA Mobile (Uniquement si pas sur Commander) */}
+      {!isCommanderPage && (
+        <div className="md:hidden fixed bottom-4 left-4 right-4 z-40">
+          <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
+            <div className="bg-gray-900/90 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl flex items-center justify-between border border-white/10 animate-in slide-in-from-bottom-20 duration-500">
+              <div className="flex flex-col">
+                <span className="font-bold text-sm">Offrez une émotion</span>
+                <span className="text-xs text-rose-300 font-medium">Livraison avant le 14 Fév.</span>
+              </div>
+              <div className="bg-rose-600 px-4 py-2 rounded-xl font-bold text-sm shadow-lg shadow-rose-900/20">
+                Créer (29€)
+              </div>
+            </div>
+          </Link>
+        </div>
+      )}
+
       {/* Footer V2 */}
-      <footer className="relative bg-white py-16 sm:py-20 border-t border-gray-100">
+      <footer className="relative bg-white py-16 sm:py-20 border-t border-gray-100 mb-20 md:mb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Badges de réassurance V2 */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-16 border-b border-gray-100 pb-16">

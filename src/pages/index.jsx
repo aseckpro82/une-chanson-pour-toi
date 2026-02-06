@@ -171,17 +171,28 @@ export default function Index() {
                 Une chanson unique créée sur mesure à partir de votre histoire d'amour. <span className="text-gray-900 font-medium">Livraison garantie avant le 14 février.</span>
               </p>
 
-              {/* Prix V2 */}
-              <div className="mb-8 flex flex-col items-center lg:items-start gap-2">
-                <div className="flex items-baseline gap-4">
-                  <span className="text-2xl text-gray-400 line-through decoration-2 decoration-rose-200">90€</span>
-                  <span className="text-6xl font-bold text-gray-900 tracking-tighter">
+              {/* Prix V2 - Premium */}
+              <div className="mb-8 flex flex-col items-center lg:items-start">
+                <div className="inline-flex items-baseline gap-3 mb-2">
+                  <span className="text-5xl sm:text-6xl font-bold text-gray-900 tracking-tight">
                     29,99€
                   </span>
+                  <div className="flex flex-col items-start leading-none">
+                    <span className="text-sm text-gray-400 font-medium line-through decoration-rose-300">valeur 90€</span>
+                    <Badge variant="secondary" className="bg-rose-100 text-rose-700 hover:bg-rose-200 border-none mt-1">
+                      -65% Saint-Valentin
+                    </Badge>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-rose-600 bg-rose-50 px-3 py-1 rounded-lg">
-                  <Clock className="w-4 h-4" />
-                  <span className="text-sm font-bold">Offre limitée Saint-Valentin</span>
+                <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
+                  <div className="flex -space-x-1">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <span className="font-medium">4.9/5</span>
+                  <span className="text-gray-300">•</span>
+                  <span className="font-medium text-green-600">Paiement unique</span>
                 </div>
               </div>
 

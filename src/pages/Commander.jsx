@@ -490,15 +490,39 @@ export default function Commander() {
                     </div>
 
                     <div>
-                      <Label className="text-base font-medium text-gray-700 mb-2 block">Votre histoire *</Label>
+                      <div className="flex justify-between items-center mb-2">
+                        <Label className="text-base font-medium text-gray-700 block">Votre histoire *</Label>
+                        <span className="text-xs text-rose-600 bg-rose-50 px-2 py-1 rounded-full font-medium">Le plus important ❤️</span>
+                      </div>
+
+                      <div className="mb-3 flex flex-wrap gap-2">
+                        {["Rencontre", "Premier baiser", "Voyage marquant", "Surnoms mignons", "Qualités", "Message d'amour"].map((tag) => (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => handleChange('story_details', formData.story_details + (formData.story_details ? "\n" : "") + `- ${tag} : `)}
+                            className="text-xs bg-white border border-gray-200 hover:border-rose-300 hover:bg-rose-50 text-gray-600 hover:text-rose-700 px-3 py-1.5 rounded-full transition-all"
+                          >
+                            + {tag}
+                          </button>
+                        ))}
+                      </div>
+
                       <Textarea
-                        placeholder="Racontez-nous tout : souvenirs marquants, traits de caractère, message à faire passer... Plus c'est détaillé, mieux c'est !"
+                        placeholder="C'est ici que la magie opère ! Racontez-nous :
+                    - Comment vous êtes-vous rencontrés ?
+                    - Vos meilleurs souvenirs ?
+                    - Ce que vous aimez le plus chez cette personne ?
+                    - Le message que vous voulez lui faire passer ?"
                         value={formData.story_details}
                         onChange={(e) => handleChange('story_details', e.target.value)}
-                        className="min-h-40 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-rose-500 focus:ring-rose-500/20 text-lg p-4 transition-all resize-y"
+                        className="min-h-48 rounded-2xl bg-white border-2 border-gray-100 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 text-base p-5 transition-all resize-y shadow-sm"
                         required
                       />
-                      <p className="text-sm text-gray-500 mt-2">💡 Astuce : Mentionnez des lieux, des dates ou des anecdotes précises.</p>
+                      <p className="text-sm text-gray-400 mt-2 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-yellow-500" />
+                        Plus vous donnez de détails, plus l'émotion sera forte.
+                      </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
