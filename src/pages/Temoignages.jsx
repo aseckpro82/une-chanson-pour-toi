@@ -92,7 +92,7 @@ export default function Temoignages() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to={createPageUrl("Commander")}>
               <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-6 py-3 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
-                <Gift className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2 fill-white" />
                 <span className="hidden sm:inline">Créer ma chanson personnalisée</span>
                 <span className="sm:hidden">Commander • 29,99€</span>
                 <ArrowRight className="w-4 h-4 ml-2" />

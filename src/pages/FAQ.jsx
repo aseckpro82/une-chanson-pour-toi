@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { HelpCircle, ChevronDown, ChevronUp, Gift, ArrowRight, Sparkles } from "lucide-react";
+import { HelpCircle, ChevronDown, ChevronUp, Gift, ArrowRight, Sparkles, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
@@ -122,7 +122,7 @@ export default function FAQ() {
             {/* CTA Header */}
             <Link to={createPageUrl("Commander")}>
               <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-6 py-3 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
-                <Gift className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2 fill-white" />
                 <span className="hidden sm:inline">Commander ma chanson • 29,99€</span>
                 <span className="sm:hidden">Commander • 29,99€</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
