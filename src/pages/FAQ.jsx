@@ -148,7 +148,7 @@ export default function FAQ() {
             <div className="flex items-center justify-center gap-2 mb-4">
               <span className="text-white/60 line-through decoration-2">90€</span>
               <span className="text-2xl sm:text-3xl font-bold">29,99€</span>
-              <Badge className="bg-yellow-400 text-gray-900 border-0 font-bold">-65%</Badge>
+              <Badge className="bg-white text-rose-600 border-0 font-bold">-65%</Badge>
             </div>
             <Link to={createPageUrl("Commander")}>
               <Button className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-4 text-base font-semibold shadow-xl">
