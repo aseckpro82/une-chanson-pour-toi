@@ -94,7 +94,7 @@ export default function Temoignages() {
               <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-6 py-3 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
                 <Gift className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 <span className="hidden sm:inline">Créer ma chanson personnalisée</span>
-                <span className="sm:hidden">Commander • 24,99€</span>
+                <span className="sm:hidden">Commander • 29,99€</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -220,7 +220,7 @@ export default function Temoignages() {
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <span className="text-white/60 line-through decoration-2">90€</span>
                   <span className="text-2xl sm:text-3xl font-bold">29,99€</span>
-                  <Badge className="bg-yellow-400 text-gray-900 border-0 font-bold">-65%</Badge>
+                  <Badge className="bg-white text-rose-600 border-0 font-bold">-65%</Badge>
                 </div>
                 <Link to={createPageUrl("Commander")}>
                   <Button className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-4 text-base font-semibold shadow-xl">
