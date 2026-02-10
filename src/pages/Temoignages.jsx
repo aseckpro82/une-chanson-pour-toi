@@ -219,8 +219,8 @@ export default function Temoignages() {
                 </p>
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <span className="text-white/60 line-through decoration-2">90€</span>
-                  <span className="text-2xl sm:text-3xl font-bold">24,99€</span>
-                  <Badge className="bg-yellow-400 text-gray-900 border-0 font-bold">-70%</Badge>
+                  <span className="text-2xl sm:text-3xl font-bold">29,99€</span>
+                  <Badge className="bg-yellow-400 text-gray-900 border-0 font-bold">-65%</Badge>
                 </div>
                 <Link to={createPageUrl("Commander")}>
                   <Button className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-4 text-base font-semibold shadow-xl">
@@ -238,8 +238,8 @@ export default function Temoignages() {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/95 backdrop-blur-xl border-t border-gray-200 z-50">
         <Link to={createPageUrl("Commander")}>
           <Button className="w-full bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-xl py-4 text-sm sm:text-base font-semibold shadow-lg">
-            <Gift className="w-5 h-5 mr-2" />
-            -70% • Commander ma chanson
+            <Heart className="w-5 h-5 mr-2 fill-white" />
+            Commander ma chanson (29,99€)
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </Link>

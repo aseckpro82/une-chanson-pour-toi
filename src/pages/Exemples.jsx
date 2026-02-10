@@ -167,7 +167,7 @@ export default function Exemples() {
               <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-6 py-3 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
                 <Gift className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 <span className="hidden sm:inline">Commander ma chanson personnalisée</span>
-                <span className="sm:hidden">Commander • 24,99€</span>
+                <span className="sm:hidden">Commander • 29,99€</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -175,16 +175,16 @@ export default function Exemples() {
         </div>
       </div>
 
-      {/* Bandeau promo */}
-      <div className="bg-gradient-to-r from-red-700/30 to-green-800/30 border-y border-red-500/30 py-3 px-4 mb-6">
+      {/* Bandeau promo Saint-Valentin */}
+      <div className="bg-gradient-to-r from-rose-500/20 to-purple-500/20 border-y border-rose-500/30 py-3 px-4 mb-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
           <div className="flex items-center gap-2">
-            <Gift className="w-5 h-5 text-yellow-400" />
-            <span className="text-yellow-300 font-bold">🎄 OFFRE NOËL -70% 🎁</span>
+            <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
+            <span className="text-rose-300 font-bold">OFFRE SAINT-VALENTIN ❤️</span>
           </div>
-          <span className="text-gray-300 text-sm"><span className="line-through text-gray-500">90€</span> → <span className="font-bold text-white">24,99€</span> <span className="text-yellow-400 font-bold">-70%</span></span>
+          <span className="text-gray-300 text-sm"><span className="line-through text-gray-500">90€</span> → <span className="font-bold text-white">29,99€</span> <span className="text-rose-400 font-bold">-65%</span></span>
           <Link to={createPageUrl("Commander")} className="hidden sm:block">
-            <Button size="sm" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-4">
+            <Button size="sm" className="bg-rose-500 text-white hover:bg-rose-600 rounded-full px-4 border-0">
               En profiter <ArrowRight className="w-3 h-3 ml-1" />
             </Button>
           </Link>
@@ -426,15 +426,15 @@ export default function Exemples() {
             {/* CTA Principal */}
             <Card className="mt-4 p-5 bg-gradient-to-r from-rose-500/20 to-purple-500/20 backdrop-blur-xl border-rose-500/30 rounded-2xl relative z-0">
               <div className="flex items-center gap-2 mb-2">
-                <Gift className="w-5 h-5 text-yellow-400" />
-                <span className="text-yellow-400 text-sm font-bold">🎄 OFFRE NOËL -70%</span>
+                <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
+                <span className="text-rose-400 text-sm font-bold">SAINT-VALENTIN</span>
               </div>
               <h3 className="text-white font-bold text-lg mb-1">Votre chanson unique</h3>
               <p className="text-gray-300 text-sm mb-3">Offrez un moment d'émotion inoubliable</p>
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-gray-400 line-through decoration-2">90€</span>
-                <span className="text-2xl font-bold text-white">24,99€</span>
-                <Badge className="bg-green-600 text-white border-0 text-xs font-bold">🎄 -70%</Badge>
+                <span className="text-2xl font-bold text-white">29,99€</span>
+                <Badge className="bg-rose-500 text-white border-0 text-xs font-bold">-65%</Badge>
               </div>
               <Link to={createPageUrl("Commander")}>
                 <Button className="w-full bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-xl py-5 text-base font-semibold">
@@ -444,7 +444,7 @@ export default function Exemples() {
                 </Button>
               </Link>
               <div className="flex items-center justify-center gap-1 mt-3 text-xs text-gray-400">
-                <Zap className="w-3 h-3 text-green-400" />
+                <Zap className="w-3 h-3 text-rose-400" />
                 <span>Livraison 48h • Satisfait ou remboursé</span>
               </div>
             </Card>
@@ -456,13 +456,13 @@ export default function Exemples() {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 p-3 bg-gray-900/95 backdrop-blur-xl border-t border-gray-700/50 z-50 safe-area-pb">
         <div className="flex items-center gap-3">
           <div className="hidden sm:block text-left flex-shrink-0">
-            <p className="text-white font-bold text-sm">24,99€ <span className="text-gray-400 line-through text-xs">90€</span></p>
-            <p className="text-yellow-400 text-xs font-semibold">🎄 -70% Noël</p>
+            <p className="text-white font-bold text-sm">29,99€ <span className="text-gray-400 line-through text-xs">90€</span></p>
+            <p className="text-rose-400 text-xs font-semibold">Saint-Valentin</p>
           </div>
           <Link to={createPageUrl("Commander")} className="flex-1">
             <Button className="w-full bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-xl py-4 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
-              <Gift className="w-5 h-5 mr-2 flex-shrink-0" />
-              <span className="sm:hidden">-70% • Commander</span>
+              <Heart className="w-5 h-5 mr-2 flex-shrink-0 fill-white" />
+              <span className="sm:hidden">Commander • 29,99€</span>
               <span className="hidden sm:inline">Commander ma chanson</span>
               <ArrowRight className="w-4 h-4 ml-2 flex-shrink-0" />
             </Button>
@@ -477,8 +477,8 @@ export default function Exemples() {
           <p className="text-gray-300 mb-4">Offrez un cadeau inoubliable, personnalisé rien que pour vous</p>
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-gray-400 line-through text-xl">90€</span>
-            <span className="text-4xl font-bold text-white">24,99€</span>
-            <Badge className="bg-green-600 text-white border-0 text-sm font-bold">🎄 -70%</Badge>
+            <span className="text-4xl font-bold text-white">29,99€</span>
+            <Badge className="bg-rose-500 text-white border-0 text-sm font-bold">-65% Saint-Valentin</Badge>
           </div>
           <Link to={createPageUrl("Commander")}>
             <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-10 py-6 text-lg font-semibold shadow-lg shadow-rose-500/30">

@@ -313,9 +313,9 @@ export default function Commander() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50">
       <SEO 
-        title="Commander votre chanson personnalisée | 24,99€ Black Friday"
-        description="Créez votre chanson personnalisée en 2 minutes. Offre Black Friday -50%."
-        keywords="commander chanson personnalisée, cadeau original"
+        title="Commander votre chanson personnalisée | 29,99€ Saint-Valentin"
+        description="Créez votre chanson personnalisée en 2 minutes. Offre Saint-Valentin -65%."
+        keywords="commander chanson personnalisée, cadeau original, saint valentin"
       />
 
       {/* Hero compact Saint-Valentin */}
