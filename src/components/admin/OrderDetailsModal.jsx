@@ -152,13 +152,24 @@ export default function OrderDetailsModal({ isOpen, onClose, order }) {
               {order.add_writing_help && (
                 <Badge className="bg-teal-100 text-teal-700">📝 Aide à la rédaction</Badge>
               )}
+              {order.add_qr_code && (
+                <Badge className="bg-gray-100 text-gray-700 border-gray-300">📱 QR Code musical</Badge>
+              )}
+              {order.add_client_video && (
+                <Badge className="bg-red-100 text-red-700">🎥 Vidéo client</Badge>
+              )}
+              {order.add_album_cover && (
+                <Badge className="bg-emerald-100 text-emerald-700">🖼️ Pochette album</Badge>
+              )}
               {order.express_delivery && (
                 <Badge className="bg-orange-100 text-orange-700 gap-1">
                   <Zap className="w-3 h-3" /> Livraison express
                 </Badge>
               )}
               {!order.add_video && !order.add_calligraphy && !order.add_instrumental && 
-               !order.add_letter && !order.add_voice_message && !order.add_writing_help && !order.express_delivery && (
+               !order.add_letter && !order.add_voice_message && !order.add_writing_help && 
+               !order.add_qr_code && !order.add_client_video && !order.add_album_cover &&
+               !order.express_delivery && (
                 <span className="text-gray-400 italic text-sm">Aucune option supplémentaire</span>
               )}
             </div>
