@@ -1,6 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.4';
 import Stripe from 'npm:stripe@14.11.0';
 import { jsPDF } from 'npm:jspdf@2.5.1';
+import QRCode from 'npm:qrcode';
 
 // Fonction pour envoyer une notification Telegram
 async function sendTelegramNotification(message) {
@@ -393,6 +394,47 @@ ${optionsList.join('\n')}
             updatedOrder = { ...updatedOrder, welcome_audio_url: welcomeAudioUrl };
         }
 
+        // Générer QR Code Musical si l'option est prise
+        let qrCodeUrl = null;
+        if (currentOrder.add_qr_code) {
+            try {
+                console.log('📱 Génération du QR Code Musical...');
+                const revelationUrl = `${req.headers.get('origin')}/Revelation?id=${currentOrder.id}`;
+                
+                // Générer le QR code en Data URL
+                const qrDataUrl = await QRCode.toDataURL(revelationUrl, {
+                    width: 500,
+                    margin: 2,
+                    color: {
+                        dark: '#000000',
+                        light: '#ffffff'
+                    }
+                });
+                
+                // Convertir Data URL en Blob/File pour upload
+                const base64Data = qrDataUrl.split(',')[1];
+                const binaryData = atob(base64Data);
+                const arrayBuffer = new Uint8Array(binaryData.length);
+                for (let i = 0; i < binaryData.length; i++) {
+                    arrayBuffer[i] = binaryData.charCodeAt(i);
+                }
+                
+                const qrFile = new File([arrayBuffer], `qrcode_${currentOrder.id.slice(0, 8)}.png`, { type: 'image/png' });
+                const qrUpload = await base44.asServiceRole.integrations.Core.UploadFile({ file: qrFile });
+                
+                qrCodeUrl = qrUpload.file_url;
+                console.log('✅ QR Code généré et uploadé:', qrCodeUrl);
+                
+                // Mise à jour immédiate de la commande avec le QR Code
+                await base44.asServiceRole.entities.Order.update(orderId, {
+                    qr_code_url: qrCodeUrl
+                });
+                
+            } catch (qrError) {
+                console.error('❌ Erreur génération QR Code:', qrError.message);
+            }
+        }
+
         // Générer les PDFs
         console.log('📄 Génération des PDFs...');
         const productName = 'Chanson personnalisée';
@@ -672,6 +714,14 @@ ${optionsList.join('\n')}
                                         <h3 style="color: #374151; font-size: 14px; margin: 0 0 12px 0;">📎 Vos documents</h3>
                                         <p style="margin: 8px 0;"><a href="${recapUpload.file_url}" style="color: #3b82f6; text-decoration: none; font-size: 13px;">📄 Récapitulatif de commande (PDF)</a></p>
                                         <p style="margin: 8px 0;"><a href="${invoiceUpload.file_url}" style="color: #3b82f6; text-decoration: none; font-size: 13px;">🧾 Facture (PDF)</a></p>
+                                        ${qrCodeUrl ? `
+                                        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #d1d5db;">
+                                            <h4 style="margin: 0 0 10px 0; color: #374151; font-size: 14px;">📱 Votre QR Code Musical</h4>
+                                            <img src="${qrCodeUrl}" alt="QR Code" style="width: 150px; height: 150px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                                            <p style="margin: 5px 0 0 0; font-size: 12px; color: #6b7280;">Scannez pour écouter votre chanson (quand elle sera prête !)</p>
+                                            <p style="margin: 5px 0;"><a href="${qrCodeUrl}" style="color: #3b82f6; text-decoration: none; font-size: 13px;">⬇️ Télécharger le QR Code</a></p>
+                                        </div>
+                                        ` : ''}
                                     </td>
                                 </tr>
                             </table>
