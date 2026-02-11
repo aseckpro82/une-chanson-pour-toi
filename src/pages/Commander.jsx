@@ -134,7 +134,8 @@ export default function Commander() {
       add_letter: false,
       add_qr_code: false,
       add_client_video: false,
-      add_album_cover: false
+      add_album_cover: false,
+      express_delivery: true // Default to true for promo
     };
   });
 
@@ -216,7 +217,7 @@ export default function Commander() {
   // Calcul de la date de livraison (jours ouvrés)
   const calculateDeliveryDate = () => {
     const now = new Date();
-    let daysToAdd = formData.express_delivery ? 1 : 2; // 24h express ou 48h normal
+    let daysToAdd = 1; // 24h express (OFFERT)
     let currentDate = new Date(now);
     
     // Ajuster si on est le weekend
@@ -721,11 +722,19 @@ export default function Commander() {
                     </div>
 
                     {/* Date de livraison estimée */}
-                    <div className="text-center mt-4 p-3 bg-purple-50 rounded-xl">
-                      <p className="text-sm text-purple-700">
-                        📦 Livraison estimée : <span className="font-bold">{calculateDeliveryDate()}</span>
+                    <div className="text-center mt-4 p-3 bg-rose-50 rounded-xl border border-rose-100">
+                      <div className="flex items-center justify-center gap-2 mb-1">
+                        <Zap className="w-4 h-4 text-orange-500 fill-orange-500" />
+                        <p className="text-sm font-bold text-rose-700">
+                          Livraison Express OFFERTE ⚡️
+                        </p>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Reçu avant le <span className="font-bold">14 Février</span>
                       </p>
-                      <p className="text-xs text-purple-600 mt-1">(jours ouvrés, hors week-end)</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        (Livraison estimée : {calculateDeliveryDate()})
+                      </p>
                     </div>
                     </div>
                 </div>
