@@ -90,7 +90,8 @@ export default function MesCommandes() {
   }, []);
 
   const handleSearch = async (searchValue = orderNumber) => {
-    const cleanNumber = searchValue.trim();
+    // Nettoyer le numéro (enlever # et espaces)
+    const cleanNumber = searchValue.replace('#', '').trim();
     if (!cleanNumber) {
       setSearchError("Veuillez entrer un numéro de commande");
       return;
