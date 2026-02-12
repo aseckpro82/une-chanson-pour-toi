@@ -152,6 +152,11 @@ export default function OrderDetail() {
   const urlParams = new URLSearchParams(window.location.search);
   const orderId = urlParams.get('id');
 
+  const { data: user } = useQuery({
+    queryKey: ['me'],
+    queryFn: () => base44.auth.me().catch(() => null),
+  });
+
   const { data: order, isLoading } = useQuery({
     queryKey: ['order', orderId],
     queryFn: async () => {
@@ -278,7 +283,10 @@ export default function OrderDetail() {
   const StatusIcon = status.icon;
   const currentStep = status.step;
   const canRequestRevision = order.status === 'preview_ready' && order.revisions_used < order.revisions_max;
-  const isDelivered = ['completed', 'delivered'].includes(order.status);
+  
+  const isAdmin = user?.role === 'admin';
+  const isDelivered = order.status === 'delivered' || (isAdmin && order.status === 'completed');
+  const isCompletedButNotDelivered = order.status === 'completed' && !isDelivered;
   
   // Utiliser song_objective comme titre principal
   const songTitle = order.song_objective || "Votre chanson personnalisée";
@@ -351,6 +359,20 @@ export default function OrderDetail() {
               </div>
             </div>
           </Card>
+
+          {/* Message si terminé mais pas encore livré */}
+          {isCompletedButNotDelivered && (
+            <Card className="p-8 border-2 border-green-200 bg-green-50 text-center">
+              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-8 h-8 text-green-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Votre chanson est terminée ! 🎉</h2>
+              <p className="text-gray-600 max-w-md mx-auto">
+                Nos équipes finalisent la préparation de vos fichiers pour une livraison parfaite.
+                Vous recevrez un email dès que tout sera prêt (délai moyen : 1h).
+              </p>
+            </Card>
+          )}
 
           {/* Pré-écoute disponible */}
           {order.preview_audio_url && order.status === 'preview_ready' && (
@@ -623,6 +645,17 @@ export default function OrderDetail() {
                         title="Paroles (PDF)"
                         subtitle="Les paroles de votre chanson"
                         colorClass="purple"
+                      />
+                    )}
+
+                    {order.add_qr_code && order.qr_code_url && (
+                      <DownloadButton 
+                        url={order.qr_code_url}
+                        filename="qrcode_musical"
+                        icon="📱"
+                        title="QR Code Musical"
+                        subtitle="À imprimer ou partager"
+                        colorClass="rose"
                       />
                     )}
                   </div>

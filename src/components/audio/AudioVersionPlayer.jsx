@@ -153,7 +153,8 @@ export default function AudioVersionPlayer({ version, index, orderId, customerNa
       const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = `${songTitle || 'chanson'}_${version.name || 'version'}.${format}`;
+      // Utiliser le nom de la version s'il existe (nom du fichier uploadé), sinon construire un nom
+      link.download = version.name ? `${version.name}.${format}` : `${songTitle || 'chanson'}_version.${format}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

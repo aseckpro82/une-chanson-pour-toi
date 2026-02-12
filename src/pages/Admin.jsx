@@ -347,7 +347,9 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
         while (updatedVersions.length <= versionIndex) {
           updatedVersions.push({ name: `Version ${updatedVersions.length + 1}`, mp3_url: '' });
         }
-        updatedVersions[versionIndex] = { name: `Version ${versionIndex + 1}`, mp3_url: response.file_url };
+        // Utiliser le nom du fichier (sans extension) comme nom de version
+        const fileName = file.name.replace(/\.[^/.]+$/, "");
+        updatedVersions[versionIndex] = { name: fileName, mp3_url: response.file_url };
         setLocalOrder(prev => ({ ...prev, audio_versions: updatedVersions }));
         await base44.entities.Order.update(order.id, { audio_versions: updatedVersions });
         setUploadSuccess(prev => ({ ...prev, [fieldKey]: true }));
