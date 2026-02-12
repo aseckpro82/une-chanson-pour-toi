@@ -349,7 +349,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
         }
         // Utiliser le nom du fichier (sans extension) comme nom de version
         const fileName = file.name.replace(/\.[^/.]+$/, "");
-        updatedVersions[versionIndex] = { name: fileName, mp3_url: response.file_url };
+        updatedVersions[versionIndex] = { ...updatedVersions[versionIndex], name: fileName, mp3_url: response.file_url };
         setLocalOrder(prev => ({ ...prev, audio_versions: updatedVersions }));
         await base44.entities.Order.update(order.id, { audio_versions: updatedVersions });
         setUploadSuccess(prev => ({ ...prev, [fieldKey]: true }));
@@ -359,6 +359,32 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
       alert('Erreur: ' + error.message);
     } finally {
       setUploading(prev => ({ ...prev, [fieldKey]: false }));
+    }
+  };
+
+  const handleRenameVersion = async (index, newName) => {
+    const currentVersions = [...(localOrder.audio_versions || [])];
+    if (currentVersions[index]) {
+      currentVersions[index].name = newName;
+      setLocalOrder(prev => ({ ...prev, audio_versions: currentVersions }));
+      await base44.entities.Order.update(order.id, { audio_versions: currentVersions });
+    }
+  };
+
+  const handleGenerateQRCode = async () => {
+    setUploading(prev => ({ ...prev, qr: true }));
+    try {
+      const res = await base44.functions.invoke('regenerateQRCode', { orderId: order.id });
+      if (res.data?.success) {
+        setLocalOrder(prev => ({ ...prev, qr_code_url: res.data.qr_code_url, add_qr_code: true }));
+        alert('QR Code généré avec succès !');
+      } else {
+        throw new Error('Erreur lors de la génération');
+      }
+    } catch (err) {
+      alert('Erreur: ' + err.message);
+    } finally {
+      setUploading(prev => ({ ...prev, qr: false }));
     }
   };
 
@@ -425,38 +451,61 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
             </h3>
             <div className="p-4 rounded-xl bg-purple-50 border border-purple-200">
               {localOrder.audio_versions?.[0]?.mp3_url ? (
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-600" />
-                    <span className="text-green-700 font-medium">Audio uploadé</span>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      <span className="text-green-700 font-medium">Audio uploadé</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => {
+                          if (playingAudio === 'main') {
+                            audioRef.current?.pause();
+                            setPlayingAudio(null);
+                          } else {
+                            audioRef.current.src = localOrder.audio_versions[0].mp3_url;
+                            audioRef.current.play();
+                            setPlayingAudio('main');
+                          }
+                        }}
+                      >
+                        {playingAudio === 'main' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="text-red-600"
+                        onClick={async () => {
+                          await base44.entities.Order.update(order.id, { audio_versions: [] });
+                          setLocalOrder(prev => ({ ...prev, audio_versions: [] }));
+                        }}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
+                  
+                  {/* Renommer */}
+                  <div className="flex gap-2 items-center">
+                    <Input 
+                      value={localOrder.audio_versions[0].name} 
+                      onChange={(e) => {
+                        const newVersions = [...localOrder.audio_versions];
+                        newVersions[0].name = e.target.value;
+                        setLocalOrder(prev => ({ ...prev, audio_versions: newVersions }));
+                      }}
+                      className="h-8 text-sm"
+                      placeholder="Titre de la chanson"
+                    />
                     <Button 
                       size="sm" 
-                      variant="outline"
-                      onClick={() => {
-                        if (playingAudio === 'main') {
-                          audioRef.current?.pause();
-                          setPlayingAudio(null);
-                        } else {
-                          audioRef.current.src = localOrder.audio_versions[0].mp3_url;
-                          audioRef.current.play();
-                          setPlayingAudio('main');
-                        }
-                      }}
+                      onClick={() => handleRenameVersion(0, localOrder.audio_versions[0].name)}
+                      variant="secondary"
                     >
-                      {playingAudio === 'main' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="text-red-600"
-                      onClick={async () => {
-                        await base44.entities.Order.update(order.id, { audio_versions: [] });
-                        setLocalOrder(prev => ({ ...prev, audio_versions: [] }));
-                      }}
-                    >
-                      <Trash2 className="w-4 h-4" />
+                      Renommer
                     </Button>
                   </div>
                 </div>
@@ -476,13 +525,30 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
           </div>
 
           {/* Options commandées */}
-          {(localOrder.add_calligraphy || localOrder.add_video || localOrder.add_letter) && (
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-pink-500" />
-                Options commandées
-              </h3>
-              <div className="space-y-3">
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-pink-500" />
+              Options & Fichiers
+            </h3>
+            <div className="space-y-3">
+              {/* QR Code - Toujours visible pour pouvoir le générer si manquant */}
+              <div className="p-3 rounded-xl bg-gray-50 border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-sm">📱 QR Code Musical</span>
+                  {localOrder.qr_code_url ? (
+                    <a href={localOrder.qr_code_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm flex items-center gap-1">
+                      <ExternalLink className="w-3 h-3" /> Voir
+                    </a>
+                  ) : (
+                    <Button size="sm" onClick={handleGenerateQRCode} disabled={uploading.qr} variant="outline" className="h-7 text-xs">
+                      {uploading.qr ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Générer maintenant'}
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              {(localOrder.add_calligraphy || localOrder.add_video || localOrder.add_letter) && (
+                <>
                 {localOrder.add_calligraphy && (
                   <UploadField
                     label="✍️ Calligraphie PDF"
@@ -510,9 +576,10 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                     onUpload={(file) => handleFileUpload(file, 'final_letter_url')}
                   />
                 )}
-              </div>
+                </>
+              )}
             </div>
-          )}
+          </div>
 
           {/* Changement de statut */}
           <div>
