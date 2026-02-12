@@ -597,7 +597,7 @@ export default function OrderDetail() {
               )}
 
               {/* Options commandées - TRÈS VISIBLES */}
-              {(order.final_lyrics_pdf_url || order.final_instrumental_url || order.final_calligraphy_url || order.final_letter_url) && (
+              {(order.final_lyrics_pdf_url || order.final_instrumental_url || order.final_calligraphy_url || order.final_letter_url || (order.add_qr_code && order.qr_code_url)) && (
                 <div className="mb-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-purple-600" />
@@ -789,6 +789,9 @@ export default function OrderDetail() {
                   )}
                   {order.express_delivery && (
                     <Badge className="bg-orange-100 text-orange-700 border-orange-200">⚡ Livraison express</Badge>
+                  )}
+                  {order.add_qr_code && (
+                    <Badge className="bg-rose-100 text-rose-700 border-rose-200">📱 QR Code Musical</Badge>
                   )}
                 </div>
               </div>
