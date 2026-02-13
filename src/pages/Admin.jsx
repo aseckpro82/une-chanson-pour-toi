@@ -549,7 +549,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                       className="h-7 text-xs"
                       title="Régénérer le QR Code"
                     >
-                      {uploading.qr ? <Loader2 className="w-3 h-3 animate-spin" /> : (localOrder.qr_code_url ? <RotateCw className="w-3 h-3" /> : 'Générer')}
+                      {uploading.qr ? <Loader2 className="w-3 h-3 animate-spin" /> : (localOrder.qr_code_url ? <RefreshCw className="w-3 h-3" /> : 'Générer')}
                     </Button>
                   </div>
                 </div>
