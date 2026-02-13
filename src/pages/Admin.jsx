@@ -535,15 +535,23 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
               <div className="p-3 rounded-xl bg-gray-50 border border-gray-200">
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-sm">📱 QR Code Musical</span>
-                  {localOrder.qr_code_url ? (
-                    <a href={localOrder.qr_code_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm flex items-center gap-1">
-                      <ExternalLink className="w-3 h-3" /> Voir
-                    </a>
-                  ) : (
-                    <Button size="sm" onClick={handleGenerateQRCode} disabled={uploading.qr} variant="outline" className="h-7 text-xs">
-                      {uploading.qr ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Générer maintenant'}
+                  <div className="flex items-center gap-2">
+                    {localOrder.qr_code_url && (
+                      <a href={localOrder.qr_code_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm flex items-center gap-1 mr-2">
+                        <ExternalLink className="w-3 h-3" /> Voir
+                      </a>
+                    )}
+                    <Button 
+                      size="sm" 
+                      onClick={handleGenerateQRCode} 
+                      disabled={uploading.qr} 
+                      variant="outline" 
+                      className="h-7 text-xs"
+                      title="Régénérer le QR Code"
+                    >
+                      {uploading.qr ? <Loader2 className="w-3 h-3 animate-spin" /> : (localOrder.qr_code_url ? <RotateCw className="w-3 h-3" /> : 'Générer')}
                     </Button>
-                  )}
+                  </div>
                 </div>
               </div>
 
