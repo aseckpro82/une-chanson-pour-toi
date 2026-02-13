@@ -374,10 +374,60 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
   const handleGenerateQRCode = async () => {
     setUploading(prev => ({ ...prev, qr: true }));
     try {
+      // 1. Générer le SVG côté serveur (fallback et source)
       const res = await base44.functions.invoke('regenerateQRCode', { orderId: order.id });
+      
       if (res.data?.success) {
-        setLocalOrder(prev => ({ ...prev, qr_code_url: res.data.qr_code_url, add_qr_code: true }));
-        alert('QR Code généré avec succès !');
+        let finalUrl = res.data.qr_code_url;
+        
+        // 2. Convertir en JPEG côté client si le SVG est renvoyé
+        if (res.data.svg_content) {
+          try {
+            console.log("🔄 Conversion SVG -> JPEG...");
+            const svgBlob = new Blob([res.data.svg_content], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(svgBlob);
+            
+            const img = new Image();
+            img.src = url;
+            
+            await new Promise((resolve, reject) => {
+              img.onload = resolve;
+              img.onerror = reject;
+            });
+            
+            const canvas = document.createElement('canvas');
+            // Doubler la résolution pour une meilleure qualité (Retina)
+            canvas.width = 1200;
+            canvas.height = 1600;
+            const ctx = canvas.getContext('2d');
+            
+            // Fond blanc (JPEG n'a pas de transparence)
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.drawImage(img, 0, 0, 1200, 1600);
+            URL.revokeObjectURL(url);
+            
+            const jpegBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95));
+            const jpegFile = new File([jpegBlob], `Carte_Musicale_${order.id.slice(0, 8)}.jpg`, { type: 'image/jpeg' });
+            
+            // 3. Uploader le JPEG
+            console.log("⬆️ Upload du JPEG...");
+            const uploadRes = await base44.integrations.Core.UploadFile({ file: jpegFile });
+            finalUrl = uploadRes.file_url;
+            
+            // 4. Mettre à jour la commande avec le lien JPEG
+            await base44.entities.Order.update(order.id, { qr_code_url: finalUrl });
+            console.log("✅ Terminé :", finalUrl);
+            
+          } catch (conversionErr) {
+            console.error("⚠️ Échec conversion JPEG, conservation SVG:", conversionErr);
+            // On garde le SVG (finalUrl est déjà le SVG)
+          }
+        }
+
+        setLocalOrder(prev => ({ ...prev, qr_code_url: finalUrl, add_qr_code: true }));
+        alert('QR Code généré avec succès (JPEG) !');
       } else {
         throw new Error('Erreur lors de la génération');
       }

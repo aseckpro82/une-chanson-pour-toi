@@ -97,7 +97,12 @@ Deno.serve(async (req) => {
 
         console.log('✅ QR Code V3 généré:', qrUpload.file_url);
 
-        return Response.json({ success: true, qr_code_url: qrUpload.file_url });
+        // On retourne aussi le contenu SVG pour que le frontend puisse le convertir en JPEG
+        return Response.json({ 
+            success: true, 
+            qr_code_url: qrUpload.file_url,
+            svg_content: cardSvg 
+        });
 
     } catch (error) {
         console.error('❌ Erreur:', error);
