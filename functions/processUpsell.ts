@@ -30,10 +30,13 @@ async function sendTelegramNotification(message) {
 
 Deno.serve(async (req) => {
     try {
-        const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
+        const isTestMode = Deno.env.get('ENABLE_TEST_MODE') === 'true';
+        const stripeKey = isTestMode ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
+
         if (!stripeKey) {
             return Response.json({ error: 'Stripe key not configured' }, { status: 500 });
         }
+        if (isTestMode) console.log('🧪 STRIPE TEST MODE ACTIVATED');
 
         const stripe = new Stripe(stripeKey);
         const base44 = createClientFromRequest(req);

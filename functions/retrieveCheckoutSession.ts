@@ -2,7 +2,9 @@ import Stripe from 'npm:stripe@14.11.0';
 
 Deno.serve(async (req) => {
     try {
-        const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
+        const isTestMode = Deno.env.get('ENABLE_TEST_MODE') === 'true';
+        const stripeKey = isTestMode ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
+
         if (!stripeKey) {
             return Response.json({ error: 'Stripe key not configured' }, { status: 500 });
         }
