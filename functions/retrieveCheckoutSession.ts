@@ -2,7 +2,10 @@ import Stripe from 'npm:stripe@14.11.0';
 
 Deno.serve(async (req) => {
     try {
-        const isTestMode = Deno.env.get('ENABLE_TEST_MODE') === 'true';
+        const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
+        const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
+        const isTestMode = dbConfig ? dbConfig.value : (Deno.env.get('ENABLE_TEST_MODE') === 'true');
+
         const stripeKey = isTestMode ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
 
         if (!stripeKey) {
