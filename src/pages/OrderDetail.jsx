@@ -31,7 +31,10 @@ import {
   Gift,
   Copy,
   ExternalLink,
-  Share2
+  Share2,
+  Upload,
+  Image as ImageIcon,
+  Loader2
 } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -205,6 +208,38 @@ export default function OrderDetail() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['order', orderId] }),
   });
 
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    setUploadingPhoto(true);
+    try {
+      const response = await base44.integrations.Core.UploadFile({ file });
+      if (response?.file_url) {
+        const currentPhotos = order.video_photos_urls || [];
+        const newPhotos = [...currentPhotos, response.file_url];
+        await updateOrderMutation.mutateAsync({ video_photos_urls: newPhotos });
+        alert("Photo ajoutée avec succès !");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Erreur lors de l'upload de la photo");
+    } finally {
+      setUploadingPhoto(false);
+      // Reset input
+      e.target.value = null;
+    }
+  };
+
+  const handleDeletePhoto = async (indexToRemove) => {
+    if(!confirm("Supprimer cette photo ?")) return;
+    const currentPhotos = order.video_photos_urls || [];
+    const newPhotos = currentPhotos.filter((_, index) => index !== indexToRemove);
+    await updateOrderMutation.mutateAsync({ video_photos_urls: newPhotos });
+  };
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -359,6 +394,62 @@ export default function OrderDetail() {
               </div>
             </div>
           </Card>
+
+          {/* Section Upload Photos si Option Vidéo active et commande non livrée */}
+          {order.add_video && !isDelivered && (
+            <Card className="p-6 border-2 border-pink-200 bg-pink-50/50">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center">
+                  <ImageIcon className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-gray-900">Vos photos pour la vidéo</h2>
+                  <p className="text-sm text-gray-600">Ajoutez ici les photos pour votre montage vidéo souvenir.</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+                {order.video_photos_urls && order.video_photos_urls.map((url, index) => (
+                  <div key={index} className="relative aspect-square group">
+                    <img src={url} alt={`Photo ${index + 1}`} className="w-full h-full object-cover rounded-lg shadow-sm" />
+                    <button
+                      onClick={() => handleDeletePhoto(index)}
+                      className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+                
+                {/* Bouton d'ajout */}
+                <label className="relative aspect-square flex flex-col items-center justify-center border-2 border-dashed border-pink-300 rounded-lg bg-pink-50 hover:bg-pink-100 transition-colors cursor-pointer group">
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    className="hidden" 
+                    onChange={handlePhotoUpload}
+                    disabled={uploadingPhoto}
+                  />
+                  {uploadingPhoto ? (
+                    <Loader2 className="w-8 h-8 text-pink-400 animate-spin" />
+                  ) : (
+                    <>
+                      <Upload className="w-8 h-8 text-pink-400 mb-2 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs font-semibold text-pink-500">Ajouter une photo</span>
+                    </>
+                  )}
+                </label>
+              </div>
+              
+              <div className="flex items-start gap-2 text-xs text-pink-700 bg-pink-100 p-3 rounded-lg">
+                <Sparkles className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                <p>
+                  Conseil : Pour un meilleur résultat, privilégiez des photos de bonne qualité. 
+                  Vous pouvez ajouter autant de photos que vous le souhaitez (idéalement entre 10 et 20).
+                </p>
+              </div>
+            </Card>
+          )}
 
           {/* Message si terminé mais pas encore livré */}
           {isCompletedButNotDelivered && (
