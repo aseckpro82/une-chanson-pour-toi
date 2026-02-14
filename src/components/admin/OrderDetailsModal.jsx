@@ -131,7 +131,7 @@ export default function OrderDetailsModal({ isOpen, onClose, order }) {
             <div className="flex flex-wrap gap-2">
               {order.add_video && (
                 <Badge className="bg-pink-100 text-pink-700 gap-1">
-                  <Video className="w-3 h-3" /> Vidéo {order.video_type === 'premium' ? 'Premium' : 'Standard'}
+                  <Video className="w-3 h-3" /> {order.video_type === 'premium' ? 'Vidéo Premium' : 'Vidéo Souvenir (Montage Photos)'}
                 </Badge>
               )}
               {order.add_calligraphy && (

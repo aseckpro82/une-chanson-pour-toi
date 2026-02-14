@@ -639,7 +639,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                 )}
                 {localOrder.add_video && (
                   <UploadField
-                    label="🎬 Vidéo"
+                    label="🎬 Vidéo Souvenir (Montage Photos)"
                     value={localOrder.final_video_url}
                     uploading={uploading.final_video_url}
                     success={uploadSuccess.final_video_url}
