@@ -30,6 +30,7 @@ async function sendTelegramNotification(message) {
 
 Deno.serve(async (req) => {
     try {
+        const base44 = createClientFromRequest(req);
         const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
         const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
         const isTestMode = dbConfig ? dbConfig.value : (Deno.env.get('ENABLE_TEST_MODE') === 'true');
@@ -42,7 +43,6 @@ Deno.serve(async (req) => {
         if (isTestMode) console.log('🧪 STRIPE TEST MODE ACTIVATED');
 
         const stripe = new Stripe(stripeKey);
-        const base44 = createClientFromRequest(req);
 
         const { orderId, add_calligraphy, add_video, add_letter, add_qr_code, add_client_video, add_album_cover, amount } = await req.json();
 

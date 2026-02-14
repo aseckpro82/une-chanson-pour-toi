@@ -25,10 +25,11 @@ function calculateDeliveryDate(isExpress) {
 Deno.serve(async (req) => {
     try {
         console.log('🎬 Function called');
+        const base44 = createClientFromRequest(req);
         
         // Vérifier la config en base de données
         const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
-        const dbConfig = configs.data?.[0]; // Adapter selon la structure de retour de filter
+        const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
         
         // Priorité : DB > Env Var
         const isTestMode = dbConfig ? dbConfig.value : (Deno.env.get('ENABLE_TEST_MODE') === 'true');
@@ -42,7 +43,6 @@ Deno.serve(async (req) => {
         if (isTestMode) console.log('🧪 STRIPE TEST MODE ACTIVATED');
         
         const stripe = new Stripe(stripeKey);
-        const base44 = createClientFromRequest(req);
 
         const orderData = await req.json();
         console.log('📦 Order data received');

@@ -241,6 +241,7 @@ async function sendUpsellToN8n(order, upsellData) {
 Deno.serve(async (req) => {
     try {
         console.log('🔍 [V3] Début de la confirmation de paiement - SANS MAKE');
+        const base44 = createClientFromRequest(req);
         
         const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
         const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
@@ -255,7 +256,6 @@ Deno.serve(async (req) => {
         if (isTestMode) console.log('🧪 STRIPE TEST MODE ACTIVATED');
 
         const stripe = new Stripe(stripeKey);
-        const base44 = createClientFromRequest(req);
         
         const { sessionId } = await req.json();
         console.log('📋 Session ID reçu:', sessionId);
