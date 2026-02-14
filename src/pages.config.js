@@ -71,6 +71,7 @@ import TestOptions from './pages/TestOptions';
 import UploadPhotos from './pages/UploadPhotos';
 import home from './pages/home';
 import index from './pages/index';
+import Merci from './pages/Merci';
 import __Layout from './Layout.jsx';
 
 
@@ -99,6 +100,7 @@ export const PAGES = {
     "UploadPhotos": UploadPhotos,
     "home": home,
     "index": index,
+    "Merci": Merci,
 }
 
 export const pagesConfig = {

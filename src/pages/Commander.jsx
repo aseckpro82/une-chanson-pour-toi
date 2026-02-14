@@ -21,6 +21,7 @@ import RatingStats from "../components/RatingStats";
 import ProductShowcase from "../components/ProductShowcase";
 import OptionsGrid from "../components/order/OptionsGrid";
 import { CreditCard, Lock } from "lucide-react";
+import { trackViewContent, trackInitiateCheckout } from "@/components/FacebookPixel";
 
 const musicalStyles = [
   "Pop", "RnB / Soul", "Acoustique", "Piano-voix", "Rap / Hip-hop",
@@ -159,6 +160,9 @@ export default function Commander() {
         setPromoDiscount(discount);
       }
     }
+    
+    // Track ViewContent
+    trackViewContent('Chanson Personnalisée', 'Service', 29.99, 'EUR');
   }, []);
 
   const { data: songExamples = [] } = useQuery({
@@ -266,6 +270,9 @@ export default function Commander() {
 
     try {
       const totalPrice = parseFloat(calculateTotal());
+      
+      // Track InitiateCheckout
+      trackInitiateCheckout(totalPrice, 'EUR', 'Chanson Personnalisée');
       
       // Valeurs finales (avec gestion de "Autre")
       const finalOccasion = formData.occasion === "Autre" ? formData.custom_occasion : formData.occasion;
