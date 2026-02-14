@@ -11,6 +11,7 @@ import {
   CreditCard, Shield, ArrowRight, X, FileText, QrCode, Image, Music
 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { trackPurchase } from "@/components/FacebookPixel";
 
 // Countdown Timer
 function CountdownTimer() {
@@ -71,6 +72,11 @@ export default function PaymentUpsell() {
         setOrder(response.order);
         
         // Si déjà toutes les options, aller directement au thank you
+        // Track Purchase pour la commande initiale
+        if (response.success && !response.message) {
+          trackPurchase(response.order.price, 'EUR', sessionId);
+        }
+
         if (response.order.add_video && response.order.add_letter && 
             response.order.add_calligraphy && response.order.add_qr_code &&
             response.order.add_client_video && response.order.add_album_cover) {

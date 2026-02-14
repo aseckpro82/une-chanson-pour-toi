@@ -172,7 +172,7 @@ Deno.serve(async (req) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${req.headers.get('origin')}/merci?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${req.headers.get('origin')}/PaymentUpsell?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.get('origin')}/Commander?cancel=1`,
             customer_email: orderData.customer_email,
             

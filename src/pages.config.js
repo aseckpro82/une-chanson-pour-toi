@@ -56,6 +56,7 @@ import Exemples from './pages/Exemples';
 import FAQ from './pages/FAQ';
 import Home from './pages/Home';
 import MentionsLegales from './pages/MentionsLegales';
+import Merci from './pages/Merci';
 import MesCommandes from './pages/MesCommandes';
 import OrderDetail from './pages/OrderDetail';
 import OrderReview from './pages/OrderReview';
@@ -71,7 +72,6 @@ import TestOptions from './pages/TestOptions';
 import UploadPhotos from './pages/UploadPhotos';
 import home from './pages/home';
 import index from './pages/index';
-import Merci from './pages/Merci';
 import __Layout from './Layout.jsx';
 
 
@@ -85,6 +85,7 @@ export const PAGES = {
     "FAQ": FAQ,
     "Home": Home,
     "MentionsLegales": MentionsLegales,
+    "Merci": Merci,
     "MesCommandes": MesCommandes,
     "OrderDetail": OrderDetail,
     "OrderReview": OrderReview,
@@ -100,7 +101,6 @@ export const PAGES = {
     "UploadPhotos": UploadPhotos,
     "home": home,
     "index": index,
-    "Merci": Merci,
 }
 
 export const pagesConfig = {

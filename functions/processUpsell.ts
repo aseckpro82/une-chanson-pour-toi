@@ -148,7 +148,7 @@ Deno.serve(async (req) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${req.headers.get('origin')}/PaymentSuccess?session_id=${order.stripe_session_id}&upsell=true`,
+            success_url: `${req.headers.get('origin')}/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}&upsell=true`,
             cancel_url: `${req.headers.get('origin')}/PaymentSuccess?session_id=${order.stripe_session_id}`,
             customer_email: order.customer_email,
             locale: 'fr',

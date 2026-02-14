@@ -53,12 +53,14 @@ export default function PaymentSuccess() {
         console.log('🎤 Welcome audio URL:', response.order.welcome_audio_url);
         setOrder(response.order);
         
-        // Track Purchase pour Facebook (seulement si nouvelle commande)
-        if (response.success && !response.message) {
+        // Track Purchase pour Facebook (seulement si nouvelle commande ou upsell)
+        if (response.success && (!response.message || response.upsell)) {
+          // Pour un upsell, on track le montant additionnel si possible, ou le total. 
+          // Ici on track le total avec le session ID comme clé unique pour éviter les doublons avec la commande initiale.
           trackPurchase(
             response.order.price,
             'EUR',
-            response.order.id
+            sessionId
           );
         }
 
