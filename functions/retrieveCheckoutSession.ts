@@ -3,25 +3,29 @@ import Stripe from 'npm:stripe@14.11.0';
 
 Deno.serve(async (req) => {
     try {
-        const base44 = createClientFromRequest(req);
-        const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
-        const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
-        const isTestMode = dbConfig ? dbConfig.value : (Deno.env.get('ENABLE_TEST_MODE') === 'true');
-
-        const stripeKey = isTestMode ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
-
-        if (!stripeKey) {
-            return Response.json({ error: 'Stripe key not configured' }, { status: 500 });
-        }
-
-        const stripe = new Stripe(stripeKey);
-        const { session_id } = await req.json();
+        // Lecture unique du body
+        const body = await req.json();
+        const { session_id, test_event_code, event_id } = body;
 
         if (!session_id) {
             return Response.json({ error: 'Session ID is required' }, { status: 400 });
         }
 
-        const { test_event_code } = await req.json();
+        // 1. Détection intelligente du mode (Test vs Live) via le préfixe de session
+        // cs_test_... => Test Mode
+        // cs_live_... (ou autre) => Live Mode
+        const isTestSession = session_id.startsWith('cs_test_');
+        const stripeKey = isTestSession ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
+        
+        console.log(`🔍 [RetrieveSession] ID: ${session_id} | Mode: ${isTestSession ? 'TEST' : 'LIVE'}`);
+
+        if (!stripeKey) {
+            console.error(`❌ [RetrieveSession] Clé Stripe manquante pour le mode ${isTestSession ? 'TEST' : 'LIVE'}`);
+            return Response.json({ error: 'Stripe configuration error' }, { status: 500 });
+        }
+
+        const stripe = new Stripe(stripeKey);
+        const base44 = createClientFromRequest(req);
 
         // Récupérer IP et User Agent
         const client_ip = req.headers.get("x-forwarded-for") || req.headers.get("client-ip");
@@ -63,7 +67,8 @@ Deno.serve(async (req) => {
                             event_time: eventTime,
                             action_source: "website",
                             event_source_url: `${req.headers.get('origin')}/merci?session_id=${session_id}`,
-                            event_id: session_id,
+                            // Utiliser l'event_id passé par le front pour déduplication Pixel/CAPI, ou fallback sur session_id
+                            event_id: event_id || session_id,
                             custom_data: {
                                 currency: session.currency ? session.currency.toUpperCase() : "EUR",
                                 value: session.amount_total / 100

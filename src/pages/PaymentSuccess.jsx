@@ -17,9 +17,14 @@ export default function PaymentSuccess() {
   const [order, setOrder] = useState(null);
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
 
+  const processedRef = useRef(false);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    confirmPayment();
+    if (!processedRef.current) {
+      processedRef.current = true;
+      confirmPayment();
+    }
   }, []);
 
   const confirmPayment = async () => {
@@ -33,25 +38,31 @@ export default function PaymentSuccess() {
         return;
       }
 
-      console.log('🔍 Confirmation du paiement avec session:', sessionId);
+      console.log('🔍 [PaymentSuccess] Verification session:', sessionId);
       
-      // 1. Récupérer les infos de session Stripe (pour tracking CAPI + montant exact)
+      // 1. Récupérer infos session + Trigger CAPI Upsell (si applicable)
+      // Pour l'upsell, l'event_id doit être unique
+      const eventId = `ucpt_purchase_upsell_${sessionId}`;
+      
       let sessionData = null;
       try {
-        const sessionRes = await base44.functions.invoke('retrieveCheckoutSession', { session_id: sessionId });
+        const sessionRes = await base44.functions.invoke('retrieveCheckoutSession', { 
+          session_id: sessionId,
+          event_id: eventId 
+        });
         sessionData = sessionRes.data || sessionRes;
       } catch (e) {
         console.error("Erreur retrieveCheckoutSession:", e);
       }
 
-      // 2. Confirmer la commande / upsell (DB update, Emails, etc.)
+      // 2. Confirmer DB
       let response;
       try {
         const result = await base44.functions.invoke('confirmPayment', { sessionId });
         response = result?.data || result;
       } catch (invokeError) {
-        console.error('❌ Erreur invoke:', invokeError);
-        setError('Erreur de connexion au serveur: ' + invokeError.message);
+        console.error('❌ Erreur confirmPayment:', invokeError);
+        setError('Erreur serveur: ' + invokeError.message);
         setIsLoading(false);
         return;
       }
@@ -59,19 +70,23 @@ export default function PaymentSuccess() {
       if (response && response.order) {
         setOrder(response.order);
         
-        // Track Purchase pour l'Upsell (Pixel)
-        // On utilise le montant de la session Stripe (montant de l'upsell uniquement)
+        // 3. Track Upsell Purchase (Pixel)
+        // Uniquement si c'est un upsell payé
         if (sessionData && sessionData.payment_status === 'paid' && response.upsell) {
            const upsellAmount = sessionData.amount_total / 100;
            const currency = sessionData.currency ? sessionData.currency.toUpperCase() : "EUR";
            
-           console.log(`Tracking Upsell Purchase: ${upsellAmount} ${currency}`);
-           trackPurchase(upsellAmount, currency, sessionId);
-        } else if (sessionData && sessionData.payment_status === 'paid' && !response.message) {
-           // Cas de secours : si on arrive ici sans passer par /Merci (peu probable mais possible)
-           // On track le montant total
-           // trackPurchase(sessionData.amount_total / 100, 'EUR', sessionId);
-        }
+           const storageKey = `tracked_${eventId}`;
+           if (!localStorage.getItem(storageKey)) {
+             console.log(`✅ [PaymentSuccess] Tracking Upsell: ${upsellAmount} ${currency}`);
+             trackPurchase(upsellAmount, currency, eventId);
+             localStorage.setItem(storageKey, 'true');
+           }
+        } 
+        // NOTE: On ne track PAS la commande principale ici pour éviter les doublons avec /Merci
+        // Sauf si on veut un fallback ultra-secure, mais cela risque de créer des doublons.
+        // On fait confiance à /Merci.
+        
 
       } else if (response && response.error) {
         setError(response.error);

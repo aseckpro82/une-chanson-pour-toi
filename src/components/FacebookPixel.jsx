@@ -66,13 +66,24 @@ export const trackInitiateCheckout = (value, currency = 'EUR', contentName = nul
   }
 };
 
-export const trackPurchase = (value, currency = 'EUR', orderId = null) => {
+export const trackPurchase = (value, currency = 'EUR', eventId = null) => {
   if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', 'Purchase', {
+    const params = {
       value: value,
-      currency: currency,
-      transaction_id: orderId
-    });
+      currency: currency
+    };
+    // Meta Pixel deduplication uses 'eventID' field for standard events in some docs,
+    // but 'transaction_id' is for Purchase specifically logic inside FB.
+    // However, for proper CAPI deduplication, we MUST provide 'eventID' as the 4th argument to fbq('track', ...)
+    // OR include it in the data object if the library supports it.
+    // The standard Facebook Pixel code: fbq('track', 'Purchase', {value:..., currency:...}, {eventID: '...'});
+
+    if (eventId) {
+      // Passer eventID en 4ème argument (options) pour la déduplication Pixel/CAPI
+      window.fbq('track', 'Purchase', params, { eventID: eventId });
+    } else {
+      window.fbq('track', 'Purchase', params);
+    }
   }
 };
 

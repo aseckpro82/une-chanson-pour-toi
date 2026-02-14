@@ -240,27 +240,30 @@ async function sendUpsellToN8n(order, upsellData) {
 
 Deno.serve(async (req) => {
     try {
-        console.log('🔍 [V3] Début de la confirmation de paiement - SANS MAKE');
+        console.log('🔍 [ConfirmPayment] Début de la confirmation');
         const base44 = createClientFromRequest(req);
         
-        const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
-        const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
-        const isTestMode = dbConfig ? dbConfig.value : (Deno.env.get('ENABLE_TEST_MODE') === 'true');
-
-        const stripeKey = isTestMode ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
-
-        if (!stripeKey) {
-            console.error(isTestMode ? '❌ STRIPE_SECRET_KEY_TEST non trouvée' : '❌ STRIPE_SECRET_KEY non trouvée');
-            return Response.json({ error: 'Configuration Stripe manquante' }, { status: 500 });
-        }
-        if (isTestMode) console.log('🧪 STRIPE TEST MODE ACTIVATED');
-
-        const stripe = new Stripe(stripeKey);
-        
         const { sessionId } = await req.json();
+        
+        if (!sessionId) {
+            console.error('❌ Session ID manquant');
+            return Response.json({ error: 'Session ID manquant' }, { status: 400 });
+        }
+
         console.log('📋 Session ID reçu:', sessionId);
 
-        if (!sessionId) {
+        // Détection auto du mode via le préfixe
+        const isTestSession = sessionId.startsWith('cs_test_');
+        const stripeKey = isTestSession ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
+
+        console.log(`🔍 [ConfirmPayment] Mode détecté: ${isTestSession ? 'TEST' : 'LIVE'}`);
+
+        if (!stripeKey) {
+            console.error('❌ Clé Stripe introuvable');
+            return Response.json({ error: 'Configuration Stripe manquante' }, { status: 500 });
+        }
+
+        const stripe = new Stripe(stripeKey);
             console.error('❌ Session ID manquant');
             return Response.json({ error: 'Session ID manquant' }, { status: 400 });
         }

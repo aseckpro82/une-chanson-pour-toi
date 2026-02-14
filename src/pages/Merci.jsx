@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { trackPurchase } from "@/components/FacebookPixel";
@@ -13,50 +13,77 @@ export default function Merci() {
   const testEventCode = searchParams.get("test_event_code");
   const [loading, setLoading] = useState(true);
   const [paymentVerified, setPaymentVerified] = useState(false);
+  const processedRef = useRef(false);
 
   useEffect(() => {
-    const verifyPayment = async () => {
-      if (!sessionId) {
-        setLoading(false);
-        return;
-      }
+    // Éviter double exécution en React StrictMode ou re-renders
+    if (processedRef.current || !sessionId) {
+      if (!sessionId) setLoading(false);
+      return;
+    }
+    processedRef.current = true;
+
+    const processOrder = async () => {
+      console.log("🚀 [Merci] Début traitement commande:", sessionId);
 
       try {
-        // Appeler la fonction backend pour récupérer les détails de la session
-        const response = await base44.functions.invoke("retrieveCheckoutSession", {
+        // Génération d'un Event ID unique et stable pour déduplication Pixel/CAPI
+        const eventId = `ucpt_purchase_main_${sessionId}`;
+
+        // Vérification localStorage pour ne pas re-tracker au refresh
+        const isTracked = localStorage.getItem(`tracked_${eventId}`);
+
+        // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side)
+        // On passe event_id pour que le CAPI utilise le même ID que le Pixel
+        const sessionRes = await base44.functions.invoke("retrieveCheckoutSession", {
           session_id: sessionId,
-          test_event_code: testEventCode // Passer le code de test si présent
+          event_id: eventId,
+          test_event_code: testEventCode
         });
 
-        if (response.data && response.data.payment_status === "paid") {
-        setPaymentVerified(true);
+        const sessionData = sessionRes.data || sessionRes;
 
-        // 1. Tracker l'achat Meta/Facebook (Pixel Navigateur)
-        const value = response.data.amount_total / 100;
-        const currency = response.data.currency ? response.data.currency.toUpperCase() : "EUR";
-        trackPurchase(value, currency, sessionId);
+        if (sessionData && (sessionData.payment_status === "paid" || sessionData.status === "complete")) {
+          setPaymentVerified(true);
 
-        // 2. Confirmer la commande (Génération PDF, Emails, etc.)
-        // On le fait ici pour être sûr que tout est généré avant l'upsell
-        try {
-          await base44.functions.invoke("confirmPayment", { sessionId });
-        } catch (e) {
-          console.error("Erreur confirmation:", e);
-        }
+          // 2. Tracking Pixel Navigateur (Client-Side)
+          if (!isTracked) {
+            const value = sessionData.amount_total / 100;
+            const currency = sessionData.currency ? sessionData.currency.toUpperCase() : "EUR";
 
-        // 3. Redirection automatique vers l'upsell après 3 secondes
-        setTimeout(() => {
-          window.location.href = `/PaymentUpsell?session_id=${sessionId}`;
-        }, 3000);
+            console.log(`✅ [Merci] Tracking Pixel Purchase: ${value} ${currency} | EventID: ${eventId}`);
+            // trackPurchase doit supporter eventId en 3ème argument (transaction_id)
+            trackPurchase(value, currency, eventId);
+
+            localStorage.setItem(`tracked_${eventId}`, 'true');
+          } else {
+            console.log("ℹ️ [Merci] Purchase déjà tracké (localStorage)");
+          }
+
+          // 3. Validation Commande (Emails, PDF, Telegram...)
+          // On lance ça en parallèle ou juste après, c'est idempotent côté serveur normalement
+          console.log("📧 [Merci] Lancement validation commande (emails/pdf)...");
+          base44.functions.invoke("confirmPayment", { sessionId })
+            .then(res => console.log("✅ [Merci] Validation commande OK", res))
+            .catch(err => console.error("❌ [Merci] Erreur validation commande", err));
+
+          // 4. Redirection Upsell
+          setTimeout(() => {
+            console.log("➡️ [Merci] Redirection Upsell...");
+            window.location.href = `/PaymentUpsell?session_id=${sessionId}`;
+          }, 2500);
+
+        } else {
+          console.error("❌ [Merci] Paiement non validé par Stripe:", sessionData);
         }
       } catch (error) {
-        console.error("Erreur vérification paiement:", error);
+        console.error("❌ [Merci] Erreur critique:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    verifyPayment();
+    processOrder();
   }, [sessionId]);
 
   return (
