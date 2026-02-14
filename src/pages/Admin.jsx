@@ -48,6 +48,28 @@ export default function Admin() {
     window.scrollTo(0, 0);
   }, []);
 
+  // Config
+  const { data: appConfig, refetch: refetchConfig } = useQuery({
+    queryKey: ['admin-config'],
+    queryFn: () => base44.entities.AppConfig.filter({ key: 'stripe_test_mode' }),
+  });
+  
+  const testModeConfig = appConfig?.data?.[0] || (Array.isArray(appConfig) ? appConfig[0] : null);
+
+  const toggleTestModeMutation = useMutation({
+    mutationFn: async (newValue) => {
+      if (testModeConfig) {
+        await base44.entities.AppConfig.update(testModeConfig.id, { value: newValue });
+      } else {
+        await base44.entities.AppConfig.create({ key: 'stripe_test_mode', value: newValue, description: 'Active le mode test Stripe' });
+      }
+    },
+    onSuccess: () => {
+      refetchConfig();
+      alert(`Mode test ${!testModeConfig?.value ? 'ACTIVÉ' : 'DÉSACTIVÉ'}`);
+    }
+  });
+
   // Queries principales
   const { data: allOrders = [], isLoading: ordersLoading, refetch: refetchOrders, error: ordersError } = useQuery({
     queryKey: ['admin-all-orders'],
@@ -92,10 +114,21 @@ export default function Admin() {
             </h1>
             <p className="text-gray-600 mt-1">Gérez vos commandes, contenu et témoignages</p>
           </div>
-          <Button onClick={() => refetchOrders()} variant="outline" size="sm">
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Actualiser
-          </Button>
+          <div className="flex gap-3">
+            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
+              <span className="text-sm font-medium text-gray-700">Mode Test Stripe</span>
+              <div 
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${testModeConfig?.value ? 'bg-orange-500' : 'bg-gray-200'}`}
+                onClick={() => toggleTestModeMutation.mutate(!testModeConfig?.value)}
+              >
+                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${testModeConfig?.value ? 'translate-x-6' : 'translate-x-1'}`} />
+              </div>
+            </div>
+            <Button onClick={() => refetchOrders()} variant="outline" size="sm">
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Actualiser
+            </Button>
+          </div>
         </div>
 
         {/* Message de chargement / erreur */}
