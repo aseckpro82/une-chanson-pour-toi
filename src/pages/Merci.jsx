@@ -29,14 +29,25 @@ export default function Merci() {
         });
 
         if (response.data && response.data.payment_status === "paid") {
-          setPaymentVerified(true);
-          
-          // Tracker l'achat Meta/Facebook
-          // Stripe renvoie amount_total en centimes
-          const value = response.data.amount_total / 100;
-          const currency = response.data.currency ? response.data.currency.toUpperCase() : "EUR";
-          
-          trackPurchase(value, currency, sessionId);
+        setPaymentVerified(true);
+
+        // 1. Tracker l'achat Meta/Facebook (Pixel Navigateur)
+        const value = response.data.amount_total / 100;
+        const currency = response.data.currency ? response.data.currency.toUpperCase() : "EUR";
+        trackPurchase(value, currency, sessionId);
+
+        // 2. Confirmer la commande (Génération PDF, Emails, etc.)
+        // On le fait ici pour être sûr que tout est généré avant l'upsell
+        try {
+          await base44.functions.invoke("confirmPayment", { sessionId });
+        } catch (e) {
+          console.error("Erreur confirmation:", e);
+        }
+
+        // 3. Redirection automatique vers l'upsell après 3 secondes
+        setTimeout(() => {
+          window.location.href = `/PaymentUpsell?session_id=${sessionId}`;
+        }, 3000);
         }
       } catch (error) {
         console.error("Erreur vérification paiement:", error);
@@ -76,11 +87,17 @@ export default function Merci() {
               <Music className="w-4 h-4" /> Prochaines étapes
             </h3>
             <ul className="text-sm text-purple-800 space-y-2 text-left px-4">
-              <li>1. Vous allez recevoir un email de confirmation.</li>
-              <li>2. Nos artistes composent votre chanson.</li>
-              <li>3. Vous recevrez votre chanson par email sous 24h à 72h.</li>
+              <li>1. Paiement validé avec succès.</li>
+              <li>2. Redirection vers vos bonus exclusifs...</li>
             </ul>
           </div>
+          
+          <Button 
+            onClick={() => window.location.href = `/PaymentUpsell?session_id=${sessionId}`}
+            className="w-full bg-gradient-to-r from-rose-500 to-purple-600 text-white animate-pulse"
+          >
+            Découvrir mes bonus maintenant <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
         </div>
 
         {loading && (

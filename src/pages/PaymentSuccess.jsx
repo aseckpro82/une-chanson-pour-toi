@@ -34,13 +34,21 @@ export default function PaymentSuccess() {
       }
 
       console.log('🔍 Confirmation du paiement avec session:', sessionId);
+      
+      // 1. Récupérer les infos de session Stripe (pour tracking CAPI + montant exact)
+      let sessionData = null;
+      try {
+        const sessionRes = await base44.functions.invoke('retrieveCheckoutSession', { session_id: sessionId });
+        sessionData = sessionRes.data || sessionRes;
+      } catch (e) {
+        console.error("Erreur retrieveCheckoutSession:", e);
+      }
+
+      // 2. Confirmer la commande / upsell (DB update, Emails, etc.)
       let response;
       try {
         const result = await base44.functions.invoke('confirmPayment', { sessionId });
-        console.log('✅ Réponse confirmPayment brute:', JSON.stringify(result));
-        // La réponse peut être dans result directement ou dans result.data selon le SDK
         response = result?.data || result;
-        console.log('✅ Réponse parsée:', JSON.stringify(response));
       } catch (invokeError) {
         console.error('❌ Erreur invoke:', invokeError);
         setError('Erreur de connexion au serveur: ' + invokeError.message);
@@ -49,19 +57,20 @@ export default function PaymentSuccess() {
       }
 
       if (response && response.order) {
-        console.log('📦 Commande reçue:', response.order);
-        console.log('🎤 Welcome audio URL:', response.order.welcome_audio_url);
         setOrder(response.order);
         
-        // Track Purchase pour Facebook (seulement si nouvelle commande ou upsell)
-        if (response.success && (!response.message || response.upsell)) {
-          // Pour un upsell, on track le montant additionnel si possible, ou le total. 
-          // Ici on track le total avec le session ID comme clé unique pour éviter les doublons avec la commande initiale.
-          trackPurchase(
-            response.order.price,
-            'EUR',
-            sessionId
-          );
+        // Track Purchase pour l'Upsell (Pixel)
+        // On utilise le montant de la session Stripe (montant de l'upsell uniquement)
+        if (sessionData && sessionData.payment_status === 'paid' && response.upsell) {
+           const upsellAmount = sessionData.amount_total / 100;
+           const currency = sessionData.currency ? sessionData.currency.toUpperCase() : "EUR";
+           
+           console.log(`Tracking Upsell Purchase: ${upsellAmount} ${currency}`);
+           trackPurchase(upsellAmount, currency, sessionId);
+        } else if (sessionData && sessionData.payment_status === 'paid' && !response.message) {
+           // Cas de secours : si on arrive ici sans passer par /Merci (peu probable mais possible)
+           // On track le montant total
+           // trackPurchase(sessionData.amount_total / 100, 'EUR', sessionId);
         }
 
       } else if (response && response.error) {

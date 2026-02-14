@@ -72,10 +72,7 @@ export default function PaymentUpsell() {
         setOrder(response.order);
         
         // Si déjà toutes les options, aller directement au thank you
-        // Track Purchase pour la commande initiale
-        if (response.success && !response.message) {
-          trackPurchase(response.order.price, 'EUR', sessionId);
-        }
+        // NOTE: Le tracking Purchase initial est maintenant fait sur la page /Merci
 
         if (response.order.add_video && response.order.add_letter && 
             response.order.add_calligraphy && response.order.add_qr_code &&
