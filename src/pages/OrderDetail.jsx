@@ -776,7 +776,7 @@ export default function OrderDetail() {
                     <Badge className="bg-rose-100 text-rose-700 border-rose-200">🖋️ Paroles calligraphiées</Badge>
                   )}
                   {order.add_video && (
-                    <Badge className="bg-pink-100 text-pink-700 border-pink-200">🎬 Vidéo souvenir</Badge>
+                    <Badge className="bg-pink-100 text-pink-700 border-pink-200">🎬 Vidéo Souvenir (Montage Photos)</Badge>
                   )}
                   {order.add_instrumental && (
                     <Badge className="bg-blue-100 text-blue-700 border-blue-200">🎵 Version instrumentale</Badge>
