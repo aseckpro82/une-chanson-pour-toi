@@ -605,6 +605,15 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                 </div>
               </div>
 
+              {/* Paroles PDF (Offert) */}
+              <UploadField
+                label="📄 Paroles (PDF)"
+                value={localOrder.final_lyrics_pdf_url}
+                uploading={uploading.final_lyrics_pdf_url}
+                success={uploadSuccess.final_lyrics_pdf_url}
+                onUpload={(file) => handleFileUpload(file, 'final_lyrics_pdf_url')}
+              />
+
               {(localOrder.add_calligraphy || localOrder.add_video || localOrder.add_letter) && (
                 <>
                 {localOrder.add_calligraphy && (
