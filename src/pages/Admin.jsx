@@ -438,6 +438,16 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
     }
   };
 
+  const handleFileDelete = async (fieldName) => {
+    if (!confirm('Supprimer ce fichier ? Cette action est irréversible.')) return;
+    try {
+      await base44.entities.Order.update(order.id, { [fieldName]: null });
+      setLocalOrder(prev => ({ ...prev, [fieldName]: null }));
+    } catch (error) {
+      alert('Erreur: ' + error.message);
+    }
+  };
+
   const handleStatusChange = async (newStatus) => {
     setIsUpdatingStatus(true);
     try {
@@ -612,6 +622,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                 uploading={uploading.final_lyrics_pdf_url}
                 success={uploadSuccess.final_lyrics_pdf_url}
                 onUpload={(file) => handleFileUpload(file, 'final_lyrics_pdf_url')}
+                onDelete={() => handleFileDelete('final_lyrics_pdf_url')}
               />
 
               {(localOrder.add_calligraphy || localOrder.add_video || localOrder.add_letter) && (
@@ -623,6 +634,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                     uploading={uploading.final_calligraphy_url}
                     success={uploadSuccess.final_calligraphy_url}
                     onUpload={(file) => handleFileUpload(file, 'final_calligraphy_url')}
+                    onDelete={() => handleFileDelete('final_calligraphy_url')}
                   />
                 )}
                 {localOrder.add_video && (
@@ -632,6 +644,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                     uploading={uploading.final_video_url}
                     success={uploadSuccess.final_video_url}
                     onUpload={(file) => handleFileUpload(file, 'final_video_url')}
+                    onDelete={() => handleFileDelete('final_video_url')}
                   />
                 )}
                 {localOrder.add_letter && (
@@ -641,6 +654,7 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
                     uploading={uploading.final_letter_url}
                     success={uploadSuccess.final_letter_url}
                     onUpload={(file) => handleFileUpload(file, 'final_letter_url')}
+                    onDelete={() => handleFileDelete('final_letter_url')}
                   />
                 )}
                 </>
@@ -678,15 +692,28 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
   );
 }
 
-function UploadField({ label, value, uploading, success, onUpload }) {
+function UploadField({ label, value, uploading, success, onUpload, onDelete }) {
   return (
     <div className="p-3 rounded-xl bg-gray-50 border border-gray-200">
       <div className="flex items-center justify-between">
         <span className="font-medium text-sm">{label}</span>
         {value && (
-          <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm flex items-center gap-1">
-            <ExternalLink className="w-3 h-3" /> Voir
-          </a>
+          <div className="flex items-center gap-2">
+            <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm flex items-center gap-1">
+              <ExternalLink className="w-3 h-3" /> Voir
+            </a>
+            {onDelete && (
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                onClick={onDelete}
+                className="h-6 w-6 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
+                title="Supprimer le fichier"
+              >
+                <Trash2 className="w-3 h-3" />
+              </Button>
+            )}
+          </div>
         )}
       </div>
       {value ? (
