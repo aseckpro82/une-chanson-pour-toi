@@ -10,6 +10,7 @@ import SEO from "@/components/SEO";
 export default function Merci() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+  const testEventCode = searchParams.get("test_event_code");
   const [loading, setLoading] = useState(true);
   const [paymentVerified, setPaymentVerified] = useState(false);
 
@@ -24,6 +25,7 @@ export default function Merci() {
         // Appeler la fonction backend pour récupérer les détails de la session
         const response = await base44.functions.invoke("retrieveCheckoutSession", {
           session_id: sessionId,
+          test_event_code: testEventCode // Passer le code de test si présent
         });
 
         if (response.data && response.data.payment_status === "paid") {
