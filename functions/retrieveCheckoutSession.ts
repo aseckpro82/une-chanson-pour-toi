@@ -13,11 +13,14 @@ Deno.serve(async (req) => {
 
         // 1. Détection intelligente du mode (Test vs Live) via le préfixe de session
         const isTestSession = session_id.startsWith('cs_test_');
+        console.log("🔑 Stripe mode: " + (isTestSession ? "TEST" : "LIVE"));
+
         const stripeKey = isTestSession ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
         
         if (!stripeKey) {
-            console.error(`❌ [RetrieveSession] Clé Stripe manquante pour le mode ${isTestSession ? 'TEST' : 'LIVE'}`);
-            return Response.json({ error: 'Stripe configuration error' }, { status: 500 });
+            const errorMsg = isTestSession ? "Missing STRIPE_SECRET_KEY_TEST" : "Missing STRIPE_SECRET_KEY";
+            console.error(`❌ [RetrieveSession] ${errorMsg}`);
+            return Response.json({ error: errorMsg }, { status: 500 });
         }
 
         const stripe = new Stripe(stripeKey);
@@ -31,8 +34,11 @@ Deno.serve(async (req) => {
             expand: ['payment_intent', 'line_items']
         });
 
+        console.log("✅ Stripe session retrieved");
+
         // Préparation de la réponse Stripe
         const stripeResponse = {
+            session_id: session.id,
             amount_total: session.amount_total,
             currency: session.currency,
             status: session.status,
@@ -125,7 +131,7 @@ Deno.serve(async (req) => {
         });
 
     } catch (error) {
-        console.error('Error retrieving session:', error);
+        console.error("❌ Stripe retrieve failed: " + error.message);
         return Response.json({ error: error.message }, { status: 500 });
     }
 });
