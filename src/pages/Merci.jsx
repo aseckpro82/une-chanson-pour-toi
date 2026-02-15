@@ -115,22 +115,34 @@ export default function Merci() {
             Votre commande a bien été reçue. Notre équipe va commencer à travailler sur votre chanson personnalisée dès maintenant.
           </p>
           
-          <div className="bg-purple-50 p-4 rounded-2xl border border-purple-100">
-            <h3 className="font-semibold text-purple-900 mb-2 flex items-center justify-center gap-2">
-              <Music className="w-4 h-4" /> Prochaines étapes
+          <div className="bg-purple-50 p-6 rounded-2xl border border-purple-100 text-left">
+            <h3 className="font-semibold text-purple-900 mb-4 flex items-center gap-2 text-lg">
+              <Music className="w-5 h-5" /> Prochaines étapes
             </h3>
-            <ul className="text-sm text-purple-800 space-y-2 text-left px-4">
-              <li>1. Paiement validé avec succès.</li>
-              <li>2. Redirection vers vos bonus exclusifs...</li>
-            </ul>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-purple-200 text-purple-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">1</div>
+                <div>
+                  <p className="font-medium text-purple-900">Confirmation envoyée</p>
+                  <p className="text-sm text-purple-700">Vous allez recevoir un email récapitulatif dans quelques instants.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-purple-200 text-purple-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">2</div>
+                <div>
+                  <p className="font-medium text-purple-900">Création en cours</p>
+                  <p className="text-sm text-purple-700">Nos artistes vont commencer à composer votre chanson personnalisée.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-purple-200 text-purple-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">3</div>
+                <div>
+                  <p className="font-medium text-purple-900">Livraison</p>
+                  <p className="text-sm text-purple-700">Vous recevrez votre chanson par email sous 24h à 72h.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          
-          <Button 
-            onClick={() => window.location.href = `/PaymentUpsell?session_id=${sessionId}`}
-            className="w-full bg-gradient-to-r from-rose-500 to-purple-600 text-white animate-pulse"
-          >
-            Découvrir mes bonus maintenant <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
         </div>
 
         {loading && (
