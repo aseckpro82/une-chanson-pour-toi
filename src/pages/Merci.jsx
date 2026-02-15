@@ -31,11 +31,12 @@ export default function Merci() {
         const eventId = `ucpt_purchase_main_${sessionId}`;
 
         // Vérification localStorage pour ne pas re-tracker au refresh
-        const isTracked = localStorage.getItem(`tracked_${eventId}`);
+        const isTracked = localStorage.getItem(`purchase_sent_${sessionId}`);
+        
+        // On demande à retrieveCheckoutSession de déclencher le CAPI seulement si on n'a pas encore tracké
+        const triggerCapi = !isTracked;
 
-        // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side)
-        // On passe event_id pour que le CAPI utilise le même ID que le Pixel
-        // On passe l'URL complète pour event_source_url
+        // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side) SI triggerCapi=true
         if (testEventCode) {
             console.log("🧪 [Merci] Test Event Code détecté:", testEventCode);
         }
@@ -44,7 +45,8 @@ export default function Merci() {
           session_id: sessionId,
           event_id: eventId,
           test_event_code: testEventCode,
-          source_url: window.location.href
+          source_url: window.location.href,
+          trigger_capi: triggerCapi
         });
 
         const sessionData = sessionRes.data || sessionRes;
@@ -58,10 +60,10 @@ export default function Merci() {
             const currency = sessionData.currency ? sessionData.currency.toUpperCase() : "EUR";
 
             console.log(`✅ [Merci] Tracking Pixel Purchase: ${value} ${currency} | EventID: ${eventId}`);
-            // trackPurchase doit supporter eventId en 3ème argument (transaction_id)
+            // trackPurchase supporte eventId en 3ème argument
             trackPurchase(value, currency, eventId);
 
-            localStorage.setItem(`tracked_${eventId}`, 'true');
+            localStorage.setItem(`purchase_sent_${sessionId}`, 'true');
           } else {
             console.log("ℹ️ [Merci] Purchase déjà tracké (localStorage)");
           }
@@ -74,15 +76,8 @@ export default function Merci() {
             .catch(err => console.error("❌ [Merci] Erreur validation commande", err));
 
           // 4. Redirection Upsell
-          const noRedirect = searchParams.get("noredirect") === "1";
-          if (!noRedirect) {
-            setTimeout(() => {
-              console.log("➡️ [Merci] Redirection Upsell...");
-              window.location.href = `/PaymentUpsell?session_id=${sessionId}`;
-            }, 2500);
-          } else {
-            console.log("🛑 [Merci] Redirection bloquée (noredirect=1)");
-          }
+          // Plus de redirection Upsell - Fin du tunnel sur /Merci
+          console.log("✅ [Merci] Commande terminée. Pas de redirection Upsell.");
 
         } else {
           console.error("❌ [Merci] Paiement non validé par Stripe:", sessionData);

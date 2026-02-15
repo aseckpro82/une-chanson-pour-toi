@@ -60,8 +60,6 @@ import Merci from './pages/Merci';
 import MesCommandes from './pages/MesCommandes';
 import OrderDetail from './pages/OrderDetail';
 import OrderReview from './pages/OrderReview';
-import PaymentSuccess from './pages/PaymentSuccess';
-import PaymentUpsell from './pages/PaymentUpsell';
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
 import PolitiqueRemboursement from './pages/PolitiqueRemboursement';
 import Revelation from './pages/Revelation';
@@ -89,8 +87,6 @@ export const PAGES = {
     "MesCommandes": MesCommandes,
     "OrderDetail": OrderDetail,
     "OrderReview": OrderReview,
-    "PaymentSuccess": PaymentSuccess,
-    "PaymentUpsell": PaymentUpsell,
     "PolitiqueConfidentialite": PolitiqueConfidentialite,
     "PolitiqueRemboursement": PolitiqueRemboursement,
     "Revelation": Revelation,

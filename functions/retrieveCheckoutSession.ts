@@ -5,7 +5,7 @@ Deno.serve(async (req) => {
     try {
         // Lecture unique du body
         const body = await req.json();
-        const { session_id, test_event_code, event_id, source_url } = body;
+        const { session_id, test_event_code, event_id, source_url, trigger_capi } = body;
 
         if (!session_id) {
             return Response.json({ error: 'Session ID is required' }, { status: 400 });
@@ -35,8 +35,10 @@ Deno.serve(async (req) => {
             expand: ['payment_intent', 'line_items']
         });
 
-        // Envoyer event CAPI si payé
-        if (session.payment_status === 'paid') {
+        // Envoyer event CAPI si payé ET trigger_capi est true (ou undefined par défaut pour compatibilité)
+        const shouldSendCapi = session.payment_status === 'paid' && (trigger_capi === true || trigger_capi === undefined);
+
+        if (shouldSendCapi) {
             try {
                 const pixelId = Deno.env.get('FACEBOOK_PIXEL_ID');
                 const accessToken = Deno.env.get('META_CAPI_ACCESS_TOKEN');
