@@ -35,10 +35,16 @@ export default function Merci() {
 
         // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side)
         // On passe event_id pour que le CAPI utilise le même ID que le Pixel
+        // On passe l'URL complète pour event_source_url
+        if (testEventCode) {
+            console.log("🧪 [Merci] Test Event Code détecté:", testEventCode);
+        }
+
         const sessionRes = await base44.functions.invoke("retrieveCheckoutSession", {
           session_id: sessionId,
           event_id: eventId,
-          test_event_code: testEventCode
+          test_event_code: testEventCode,
+          source_url: window.location.href
         });
 
         const sessionData = sessionRes.data || sessionRes;

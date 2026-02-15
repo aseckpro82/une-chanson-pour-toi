@@ -5,7 +5,7 @@ Deno.serve(async (req) => {
     try {
         // Lecture unique du body
         const body = await req.json();
-        const { session_id, test_event_code, event_id } = body;
+        const { session_id, test_event_code, event_id, source_url } = body;
 
         if (!session_id) {
             return Response.json({ error: 'Session ID is required' }, { status: 400 });
@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
                             event_name: "Purchase",
                             event_time: eventTime,
                             action_source: "website",
-                            event_source_url: `${req.headers.get('origin')}/merci?session_id=${session_id}`,
+                            event_source_url: source_url || `${req.headers.get('origin')}/merci?session_id=${session_id}`,
                             // Utiliser l'event_id passé par le front pour déduplication Pixel/CAPI, ou fallback sur session_id
                             event_id: event_id || session_id,
                             custom_data: {
@@ -78,10 +78,15 @@ Deno.serve(async (req) => {
                     };
 
                     if (test_event_code) {
+                        console.log('🧪 [CAPI] Ajout du test_event_code:', test_event_code);
                         payload.test_event_code = test_event_code;
                     }
 
-                    console.log('Sending Meta CAPI event...', JSON.stringify(payload));
+                    console.log('🚀 [CAPI] Sending Purchase event:', JSON.stringify({
+                        event_id: payload.data[0].event_id,
+                        value: payload.data[0].custom_data.value,
+                        test_code: payload.test_event_code
+                    }));
 
                     const metaResponse = await fetch(`https://graph.facebook.com/v18.0/${pixelId}/events?access_token=${accessToken}`, {
                         method: 'POST',
