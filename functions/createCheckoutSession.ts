@@ -26,14 +26,34 @@ Deno.serve(async (req) => {
     try {
         console.log('🎬 Function called');
         
-        const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
+        const base44 = createClientFromRequest(req);
+        
+        // Récupérer la configuration du mode test
+        let isTestMode = false;
+        try {
+            const config = await base44.asServiceRole.entities.AppConfig.list({
+                filters: { key: 'stripe_test_mode' },
+                limit: 1
+            });
+            if (config && config.length > 0) {
+                isTestMode = config[0].value;
+            }
+        } catch (e) {
+            console.warn('⚠️ Impossible de lire AppConfig, passage en mode Live par défaut');
+        }
+
+        console.log(`🔒 Mode Stripe: ${isTestMode ? 'TEST' : 'LIVE'}`);
+
+        const stripeKey = isTestMode 
+            ? Deno.env.get('STRIPE_SECRET_KEY_TEST') 
+            : Deno.env.get('STRIPE_SECRET_KEY');
+
         if (!stripeKey) {
-            console.error('❌ STRIPE_SECRET_KEY not found');
+            console.error(`❌ Clé Stripe introuvable pour le mode ${isTestMode ? 'TEST' : 'LIVE'}`);
             return Response.json({ error: 'Stripe key not configured' }, { status: 500 });
         }
         
         const stripe = new Stripe(stripeKey);
-        const base44 = createClientFromRequest(req);
 
         const orderData = await req.json();
         console.log('📦 Order data received');
