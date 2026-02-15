@@ -43,7 +43,19 @@ export default function Merci() {
           source_url: window.location.href
         });
 
-        const sessionData = sessionRes.data || sessionRes;
+        const responseData = sessionRes.data || sessionRes;
+        // Support nouvelle structure { stripe: {...}, capi: {...} } ou ancienne
+        const sessionData = responseData.stripe || responseData;
+        const capiData = responseData.capi;
+
+        if (capiData) {
+            console.log(`📡 [Merci] CAPI Debug:`, capiData);
+            if (capiData.sent) {
+                console.log("✅ [Merci] CAPI sent successfully by backend");
+            } else if (capiData.error) {
+                console.error("❌ [Merci] CAPI backend error:", capiData.error);
+            }
+        }
 
         if (sessionData && (sessionData.payment_status === "paid" || sessionData.status === "complete")) {
           setPaymentVerified(true);
