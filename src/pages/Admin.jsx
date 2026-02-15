@@ -10,6 +10,16 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -223,6 +233,15 @@ function OrdersTab({ orders, queryClient }) {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  const [orderToDelete, setOrderToDelete] = useState(null);
+
+  const deleteOrderMutation = useMutation({
+    mutationFn: (id) => base44.entities.Order.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-all-orders'] });
+      setOrderToDelete(null);
+    },
+  });
 
   const filteredOrders = orders.filter(order => {
     const matchSearch = !searchTerm || 
@@ -274,11 +293,31 @@ function OrdersTab({ orders, queryClient }) {
               order={order} 
               onViewDetails={() => { setSelectedOrder(order); setShowDetails(true); }}
               onManage={() => { setSelectedOrder(order); setShowUpload(true); }}
-              queryClient={queryClient}
+              onDelete={() => setOrderToDelete(order)}
             />
           ))
         )}
       </div>
+
+      <AlertDialog open={!!orderToDelete} onOpenChange={(open) => !open && setOrderToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Supprimer la commande ?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Cette action est irréversible. La commande de <strong>{orderToDelete?.customer_name}</strong> sera définitivement supprimée.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-red-600 hover:bg-red-700 text-white"
+              onClick={() => deleteOrderMutation.mutate(orderToDelete.id)}
+            >
+              Supprimer
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Modals */}
       {showDetails && selectedOrder && (
@@ -301,7 +340,7 @@ function OrdersTab({ orders, queryClient }) {
   );
 }
 
-function OrderCard({ order, onViewDetails, onManage, queryClient }) {
+function OrderCard({ order, onViewDetails, onManage, onDelete }) {
   const config = statusConfig[order.status] || statusConfig.pending;
   
   return (
@@ -332,6 +371,9 @@ function OrderCard({ order, onViewDetails, onManage, queryClient }) {
           <Button size="sm" onClick={onManage} className="bg-purple-600 hover:bg-purple-700">
             <Upload className="w-4 h-4 mr-1" />
             Gérer
+          </Button>
+          <Button size="sm" variant="ghost" className="text-red-500 hover:text-red-700 hover:bg-red-50" onClick={onDelete}>
+            <Trash2 className="w-4 h-4" />
           </Button>
         </div>
       </div>
