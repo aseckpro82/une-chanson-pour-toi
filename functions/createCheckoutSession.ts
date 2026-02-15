@@ -31,15 +31,19 @@ Deno.serve(async (req) => {
         // Récupérer la configuration du mode test
         let isTestMode = false;
         try {
-            const config = await base44.asServiceRole.entities.AppConfig.list({
-                filters: { key: 'stripe_test_mode' },
-                limit: 1
-            });
-            if (config && config.length > 0) {
-                isTestMode = config[0].value;
+            // Lecture robuste de la configuration
+            const allConfigs = await base44.asServiceRole.entities.AppConfig.list();
+            const testModeConfig = allConfigs.find(c => c.key === 'stripe_test_mode');
+            
+            if (testModeConfig) {
+                // Gestion sécurisée booléen ou string
+                isTestMode = testModeConfig.value === true || testModeConfig.value === "true";
+                console.log(`📝 Config trouvée:`, testModeConfig);
+            } else {
+                console.log(`⚠️ Config 'stripe_test_mode' non trouvée dans la liste, défaut: LIVE`);
             }
         } catch (e) {
-            console.warn('⚠️ Impossible de lire AppConfig, passage en mode Live par défaut');
+            console.error('⚠️ Erreur lecture AppConfig:', e);
         }
 
         console.log(`🔒 Mode Stripe: ${isTestMode ? 'TEST' : 'LIVE'}`);
