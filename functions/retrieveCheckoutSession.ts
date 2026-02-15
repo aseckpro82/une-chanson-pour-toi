@@ -5,20 +5,16 @@ Deno.serve(async (req) => {
     try {
         // Lecture unique du body
         const body = await req.json();
-        const { session_id, test_event_code, event_id, source_url, trigger_capi } = body;
+        const { session_id, test_event_code, source_url } = body;
 
         if (!session_id) {
             return Response.json({ error: 'Session ID is required' }, { status: 400 });
         }
 
         // 1. Détection intelligente du mode (Test vs Live) via le préfixe de session
-        // cs_test_... => Test Mode
-        // cs_live_... (ou autre) => Live Mode
         const isTestSession = session_id.startsWith('cs_test_');
         const stripeKey = isTestSession ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
         
-        console.log(`🔍 [RetrieveSession] ID: ${session_id} | Mode: ${isTestSession ? 'TEST' : 'LIVE'}`);
-
         if (!stripeKey) {
             console.error(`❌ [RetrieveSession] Clé Stripe manquante pour le mode ${isTestSession ? 'TEST' : 'LIVE'}`);
             return Response.json({ error: 'Stripe configuration error' }, { status: 500 });
@@ -35,7 +31,18 @@ Deno.serve(async (req) => {
             expand: ['payment_intent', 'line_items']
         });
 
-        // Envoyer event CAPI si payé (Toujours, déduplication gérée par Meta via event_id)
+        // Préparation de la réponse Stripe
+        const stripeResponse = {
+            amount_total: session.amount_total,
+            currency: session.currency,
+            status: session.status,
+            payment_status: session.payment_status,
+            customer_email: session.customer_details?.email
+        };
+
+        let capiResponse = { sent: false };
+
+        // Envoyer event CAPI si payé
         if (session.payment_status === 'paid') {
             try {
                 const pixelId = Deno.env.get('FACEBOOK_PIXEL_ID');
@@ -45,7 +52,7 @@ Deno.serve(async (req) => {
                     const eventTime = Math.floor(Date.now() / 1000);
                     const email = session.customer_details?.email;
                     
-                    // Hash des données utilisateur (si disponibles)
+                    // Hash des données utilisateur
                     let userData = {
                         client_ip_address: client_ip,
                         client_user_agent: client_user_agent,
@@ -61,14 +68,16 @@ Deno.serve(async (req) => {
                             .join('');
                     }
 
+                    // Construction de l'event_id demandé
+                    const eventId = "ucpt_purchase_main_" + session_id;
+
                     const payload = {
                         data: [{
                             event_name: "Purchase",
                             event_time: eventTime,
                             action_source: "website",
-                            event_source_url: source_url || `${req.headers.get('origin')}/merci?session_id=${session_id}`,
-                            // Utiliser l'event_id passé par le front pour déduplication Pixel/CAPI, ou fallback sur session_id
-                            event_id: event_id || session_id,
+                            event_source_url: source_url || `${req.headers.get('origin')}/Merci?session_id=${session_id}`,
+                            event_id: eventId,
                             custom_data: {
                                 currency: session.currency ? session.currency.toUpperCase() : "EUR",
                                 value: session.amount_total / 100
@@ -78,15 +87,8 @@ Deno.serve(async (req) => {
                     };
 
                     if (test_event_code) {
-                        console.log('🧪 [CAPI] Ajout du test_event_code:', test_event_code);
                         payload.test_event_code = test_event_code;
                     }
-
-                    console.log('🚀 [CAPI] Sending Purchase event:', JSON.stringify({
-                        event_id: payload.data[0].event_id,
-                        value: payload.data[0].custom_data.value,
-                        test_code: payload.test_event_code
-                    }));
 
                     const metaResponse = await fetch(`https://graph.facebook.com/v18.0/${pixelId}/events?access_token=${accessToken}`, {
                         method: 'POST',
@@ -96,23 +98,30 @@ Deno.serve(async (req) => {
 
                     const metaResult = await metaResponse.json();
                     
+                    capiResponse = {
+                        sent: true,
+                        status: metaResponse.status,
+                        body: metaResult
+                    };
+
                     if (metaResult.error) {
                         console.error('❌ [CAPI] Error:', metaResult.error);
+                        capiResponse.error = metaResult.error;
                     } else {
-                        console.log('✅ [CAPI] Sent successfully:', metaResult);
+                        console.log('✅ [CAPI] Sent successfully');
                     }
+                } else {
+                    capiResponse = { sent: false, error: "Missing Pixel ID or Access Token" };
                 }
             } catch (capiError) {
-                console.error('Meta CAPI Error:', capiError);
+                console.error('Meta CAPI Exception:', capiError);
+                capiResponse = { sent: false, error: capiError.message };
             }
         }
 
         return Response.json({
-            amount_total: session.amount_total,
-            currency: session.currency,
-            status: session.status,
-            payment_status: session.payment_status,
-            customer_email: session.customer_details?.email
+            stripe: stripeResponse,
+            capi: capiResponse
         });
 
     } catch (error) {
