@@ -35,10 +35,8 @@ Deno.serve(async (req) => {
             expand: ['payment_intent', 'line_items']
         });
 
-        // Envoyer event CAPI si payé ET trigger_capi est true (ou undefined par défaut pour compatibilité)
-        const shouldSendCapi = session.payment_status === 'paid' && (trigger_capi === true || trigger_capi === undefined);
-
-        if (shouldSendCapi) {
+        // Envoyer event CAPI si payé (Toujours, déduplication gérée par Meta via event_id)
+        if (session.payment_status === 'paid') {
             try {
                 const pixelId = Deno.env.get('FACEBOOK_PIXEL_ID');
                 const accessToken = Deno.env.get('META_CAPI_ACCESS_TOKEN');
@@ -97,7 +95,12 @@ Deno.serve(async (req) => {
                     });
 
                     const metaResult = await metaResponse.json();
-                    console.log('Meta CAPI Response:', metaResult);
+                    
+                    if (metaResult.error) {
+                        console.error('❌ [CAPI] Error:', metaResult.error);
+                    } else {
+                        console.log('✅ [CAPI] Sent successfully:', metaResult);
+                    }
                 }
             } catch (capiError) {
                 console.error('Meta CAPI Error:', capiError);

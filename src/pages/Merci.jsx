@@ -30,23 +30,17 @@ export default function Merci() {
         // Génération d'un Event ID unique et stable pour déduplication Pixel/CAPI
         const eventId = `ucpt_purchase_main_${sessionId}`;
 
-        // Vérification localStorage pour ne pas re-tracker au refresh
+        // Vérification localStorage pour ne pas re-tracker au refresh (Pixel uniquement)
         const isTracked = localStorage.getItem(`purchase_sent_${sessionId}`);
         
-        // On demande à retrieveCheckoutSession de déclencher le CAPI seulement si on n'a pas encore tracké
-        const triggerCapi = !isTracked;
-
-        // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side) SI triggerCapi=true
-        if (testEventCode) {
-            console.log("🧪 [Merci] Test Event Code détecté:", testEventCode);
-        }
+        // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side) Toujours
+        console.log(`📡 [Merci] Calling CAPI with test_event_code=${testEventCode || 'none'}...`);
 
         const sessionRes = await base44.functions.invoke("retrieveCheckoutSession", {
           session_id: sessionId,
           event_id: eventId,
           test_event_code: testEventCode,
-          source_url: window.location.href,
-          trigger_capi: triggerCapi
+          source_url: window.location.href
         });
 
         const sessionData = sessionRes.data || sessionRes;
