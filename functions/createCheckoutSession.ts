@@ -25,24 +25,15 @@ function calculateDeliveryDate(isExpress) {
 Deno.serve(async (req) => {
     try {
         console.log('🎬 Function called');
-        const base44 = createClientFromRequest(req);
         
-        // Vérifier la config en base de données
-        const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
-        const dbConfig = configs.data?.[0] || (Array.isArray(configs) ? configs[0] : null);
-        
-        // Priorité : DB > Env Var
-        const isTestMode = dbConfig ? dbConfig.value : (Deno.env.get('ENABLE_TEST_MODE') === 'true');
-        
-        const stripeKey = isTestMode ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
-
+        const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
         if (!stripeKey) {
-            console.error(isTestMode ? '❌ STRIPE_SECRET_KEY_TEST not found' : '❌ STRIPE_SECRET_KEY not found');
+            console.error('❌ STRIPE_SECRET_KEY not found');
             return Response.json({ error: 'Stripe key not configured' }, { status: 500 });
         }
-        if (isTestMode) console.log('🧪 STRIPE TEST MODE ACTIVATED');
         
         const stripe = new Stripe(stripeKey);
+        const base44 = createClientFromRequest(req);
 
         const orderData = await req.json();
         console.log('📦 Order data received');
@@ -183,6 +174,7 @@ Deno.serve(async (req) => {
             mode: 'payment',
             success_url: `${req.headers.get('origin')}/Merci?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.get('origin')}/Commander?cancel=1`,
+
             customer_email: orderData.customer_email,
             
             // 🎨 PERSONNALISATION DE LA PAGE STRIPE
