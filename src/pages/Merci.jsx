@@ -74,10 +74,15 @@ export default function Merci() {
             .catch(err => console.error("❌ [Merci] Erreur validation commande", err));
 
           // 4. Redirection Upsell
-          setTimeout(() => {
-            console.log("➡️ [Merci] Redirection Upsell...");
-            window.location.href = `/PaymentUpsell?session_id=${sessionId}`;
-          }, 2500);
+          const noRedirect = searchParams.get("noredirect") === "1";
+          if (!noRedirect) {
+            setTimeout(() => {
+              console.log("➡️ [Merci] Redirection Upsell...");
+              window.location.href = `/PaymentUpsell?session_id=${sessionId}`;
+            }, 2500);
+          } else {
+            console.log("🛑 [Merci] Redirection bloquée (noredirect=1)");
+          }
 
         } else {
           console.error("❌ [Merci] Paiement non validé par Stripe:", sessionData);
