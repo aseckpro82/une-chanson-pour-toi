@@ -4,7 +4,9 @@ import Stripe from 'npm:stripe@14.11.0';
 // Fonction pour calculer la date de livraison en jours ouvrés
 function calculateDeliveryDate(isExpress) {
     const now = new Date();
-    let daysToAdd = isExpress ? 1 : 2; // 24h express ou 48h normal
+    // Gestion robuste du booléen/string
+    const isExpressBool = isExpress === true || isExpress === 'true';
+    let daysToAdd = isExpressBool ? 1 : 2; // 24h express ou 48h normal
     let currentDate = new Date(now);
     
     // Ajuster si on est le weekend
@@ -24,23 +26,15 @@ function calculateDeliveryDate(isExpress) {
 
 Deno.serve(async (req) => {
     try {
-        console.log('🎬 Function called');
-        
         const base44 = createClientFromRequest(req);
         
-        // Récupérer la configuration du mode test
+        // Récupérer la configuration du mode test (optimisé avec filter)
         let isTestMode = false;
         try {
-            // Lecture robuste de la configuration
-            const allConfigs = await base44.asServiceRole.entities.AppConfig.list();
-            const testModeConfig = allConfigs.find(c => c.key === 'stripe_test_mode');
-            
-            if (testModeConfig) {
-                // Gestion sécurisée booléen ou string
-                isTestMode = testModeConfig.value === true || testModeConfig.value === "true";
-                console.log(`📝 Config trouvée:`, testModeConfig);
-            } else {
-                console.log(`⚠️ Config 'stripe_test_mode' non trouvée dans la liste, défaut: LIVE`);
+            const configs = await base44.asServiceRole.entities.AppConfig.filter({ key: 'stripe_test_mode' });
+            if (configs && configs.length > 0) {
+                const config = configs[0];
+                isTestMode = config.value === true || config.value === "true";
             }
         } catch (e) {
             console.error('⚠️ Erreur lecture AppConfig:', e);
@@ -60,11 +54,14 @@ Deno.serve(async (req) => {
         const stripe = new Stripe(stripeKey);
 
         const orderData = await req.json();
-        console.log('📦 Order data received:', JSON.stringify(orderData, null, 2));
-        console.log('🚚 Express delivery value:', orderData.express_delivery, 'Type:', typeof orderData.express_delivery);
+        console.log('📦 Order data received');
+        
+        // Normaliser express_delivery
+        const isExpress = orderData.express_delivery === true || orderData.express_delivery === 'true';
+        console.log(`🚚 Express Delivery: ${isExpress}`);
 
         // Calculer la date de livraison en jours ouvrés
-        const deliveryDate = calculateDeliveryDate(orderData.express_delivery);
+        const deliveryDate = calculateDeliveryDate(isExpress);
 
         // Créer la commande en base de données avec service role
         console.log('💾 Creating order in database...');
@@ -72,14 +69,10 @@ Deno.serve(async (req) => {
             ...orderData,
             status: 'pending_payment',
             payment_status: 'pending',
-            delivery_date: deliveryDate.toISOString().split('T')[0]
+            delivery_date: deliveryDate.toISOString().split('T')[0],
+            express_delivery: isExpress // S'assurer que c'est enregistré correctement
         });
         console.log('✅ Order created with ID:', order.id);
-
-        // Utiliser le prix total calculé côté frontend (en euros)
-        const totalPriceEuros = parseFloat(orderData.price);
-        
-        console.log('💰 Total price:', totalPriceEuros, '€');
 
         // Créer les line items détaillés pour Stripe
         const lineItems = [];
@@ -112,7 +105,7 @@ Deno.serve(async (req) => {
             });
         }
 
-        // 3. Vidéo souvenir (anciennement 4)
+        // 3. Vidéo souvenir
         if (orderData.add_video) {
             lineItems.push({
                 price_data: {
@@ -187,8 +180,8 @@ Deno.serve(async (req) => {
             });
         }
 
-        // 9. Livraison Express (Gestion robuste booléen/string)
-        if (orderData.express_delivery === true || orderData.express_delivery === 'true') {
+        // 9. Livraison Express
+        if (isExpress) {
             console.log('⚡️ Adding Express Delivery line item');
             lineItems.push({
                 price_data: {
@@ -205,47 +198,26 @@ Deno.serve(async (req) => {
 
         console.log('🎫 Creating Stripe session with', lineItems.length, 'item(s)');
         
-        // LOGO URL - Remplacez par l'URL de votre logo hébergé
-        // Le logo doit être hébergé en HTTPS et faire au moins 128x128px
-        const logoUrl = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68f03725de512d3ae058edfc/logo-une-chanson-pour-toi.png';
-
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
             success_url: `${req.headers.get('origin')}/Merci?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.get('origin')}/Commander?cancel=1`,
-
             customer_email: orderData.customer_email,
-            
-            // 🎨 PERSONNALISATION DE LA PAGE STRIPE
-            // Logo de l'entreprise (URL HTTPS requise, min 128x128px)
-            // images: [logoUrl], // Décommentez cette ligne quand vous aurez uploadé votre logo
-            
-            // Informations affichées
             submit_type: 'pay',
-            
-            // Message de réassurance dans la description
             payment_intent_data: {
                 description: '🎵 Chanson personnalisée - Livraison en 24-72h - 98% de satisfaction client',
             },
-            
             metadata: {
                 orderId: order.id,
                 customerEmail: orderData.customer_email,
                 packageType: orderData.package_type,
                 isBlackFriday: orderData.is_black_friday || false,
-                // Message de confiance
                 trust_message: '500+ clients satisfaits - Paiement 100% sécurisé',
             },
-            
-            // Paramètres de locale (français)
             locale: 'fr',
-            
-            // Configuration du bouton de paiement
             billing_address_collection: 'auto',
-            
-            // Politique d'annulation
             consent_collection: {
                 terms_of_service: 'none',
             },
