@@ -572,21 +572,23 @@ export default function Commander() {
                           : "bg-white border-gray-100 hover:border-gray-200"
                       }`}
                       onClick={(e) => {
+                        e.preventDefault();
                         handleChange('express_delivery', !formData.express_delivery);
                       }}
                     >
-                      <Checkbox 
-                        type="button"
-                        checked={formData.express_delivery}
-                        onClick={(e) => e.stopPropagation()}
-                        onCheckedChange={(checked) => handleChange('express_delivery', checked)}
-                        className="mt-1 data-[state=checked]:bg-rose-500 data-[state=checked]:border-rose-500"
-                      />
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <Checkbox 
+                          type="button"
+                          checked={formData.express_delivery}
+                          onCheckedChange={(checked) => handleChange('express_delivery', checked)}
+                          className="mt-1 data-[state=checked]:bg-rose-500 data-[state=checked]:border-rose-500"
+                        />
+                      </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-center mb-1">
-                          <Label className="text-base font-bold text-gray-900 cursor-pointer">
+                          <span className="text-base font-bold text-gray-900 cursor-pointer">
                             Livraison Express 48h ⚡️
-                          </Label>
+                          </span>
                           <span className="text-sm font-bold text-rose-600">+4,99€</span>
                         </div>
                         <p className="text-sm text-gray-600">
