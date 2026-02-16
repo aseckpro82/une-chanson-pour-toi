@@ -294,7 +294,7 @@ export default function Commander() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="text-4xl md:text-5xl font-bold text-white">29,99€</span>
             </div>
-            <p className="text-white/90 text-sm mb-6">Livraison en 48h à 72h • Paiement sécurisé</p>
+            <p className="text-white/90 text-sm mb-6">Livraison standard 72h • Option Express 48h (+4,99€)</p>
 
             <Button 
               onClick={scrollToForm}

@@ -19,7 +19,7 @@ const trustPoints = [
   {
     icon: Clock,
     title: "Livraison Rapide",
-    description: "Votre chanson livrée en 24 à 72h selon le forfait choisi, sans compromis sur la qualité. Nos équipes travaillent avec passion et efficacité pour respecter les délais tout en maintenant notre excellence artistique",
+    description: "Votre chanson livrée sous 72h maximum (option Express 48h disponible), sans compromis sur la qualité. Nos équipes travaillent avec passion pour respecter les délais.",
     color: "from-blue-400 to-cyan-500"
   },
   {

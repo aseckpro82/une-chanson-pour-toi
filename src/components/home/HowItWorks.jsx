@@ -17,8 +17,8 @@ const steps = [
   },
   {
     icon: Gift,
-    title: "3. Vous recevez en 24-72h",
-    description: "Votre chanson arrive par email, prête à être écoutée et offerte.",
+    title: "3. Vous recevez sous 72h",
+    description: "Votre chanson arrive par email (option Express 48h disponible), prête à être offerte.",
     color: "from-blue-400 to-cyan-500"
   }
 ];

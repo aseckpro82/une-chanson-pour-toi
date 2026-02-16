@@ -67,7 +67,7 @@ export default function Index() {
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-500 mb-8 leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                Offrez une chanson personnalisée qui touche vraiment. Un cadeau unique, livraison 48H à 72H.
+                Offrez une chanson personnalisée qui touche vraiment. Livraison standard sous 72h maximum, ou express 48h (+4,99€).
               </p>
 
               {/* Prix */}
@@ -117,7 +117,7 @@ export default function Index() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-blue-600" />
-                  <span>Livraison 48H-72H</span>
+                  <span>Livraison 72h (Express 48h)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-purple-500" />
@@ -256,8 +256,8 @@ export default function Index() {
               {
                 step: "3",
                 icon: Gift,
-                title: "Vous recevez en 48H-72H",
-                description: "Votre chanson arrive par email, prête à être écoutée et offerte.",
+                title: "Vous recevez sous 72h",
+                description: "Votre chanson arrive par email (option Express 48h disponible).",
                 color: "from-blue-400 to-cyan-500"
               }
             ].map((item, index) => (

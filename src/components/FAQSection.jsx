@@ -6,11 +6,11 @@ import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
 const faqs = [
   {
     question: "Comment fonctionne le processus de création ?",
-    answer: "Après votre commande, nous créons votre chanson unique en fonction de votre histoire. Vous recevez votre chanson par email sous 48h (jours ouvrés)."
+    answer: "Après votre commande, nous créons votre chanson unique en fonction de votre histoire. Vous recevez votre chanson par email sous 72h maximum (jours ouvrés)."
   },
   {
     question: "Combien de temps prend la création ?",
-    answer: "Livraison en 48h ouvrées (hors week-end et jours fériés). Option express 24h disponible."
+    answer: "Livraison standard en 72h ouvrées (hors week-end). Option Express 48h disponible pour +4,99€."
   },
   {
     question: "Puis-je demander des modifications ?",
