@@ -60,7 +60,8 @@ Deno.serve(async (req) => {
         const stripe = new Stripe(stripeKey);
 
         const orderData = await req.json();
-        console.log('📦 Order data received');
+        console.log('📦 Order data received:', JSON.stringify(orderData, null, 2));
+        console.log('🚚 Express delivery value:', orderData.express_delivery, 'Type:', typeof orderData.express_delivery);
 
         // Calculer la date de livraison en jours ouvrés
         const deliveryDate = calculateDeliveryDate(orderData.express_delivery);
@@ -186,8 +187,9 @@ Deno.serve(async (req) => {
             });
         }
 
-        // 9. Livraison Express
-        if (orderData.express_delivery) {
+        // 9. Livraison Express (Gestion robuste booléen/string)
+        if (orderData.express_delivery === true || orderData.express_delivery === 'true') {
+            console.log('⚡️ Adding Express Delivery line item');
             lineItems.push({
                 price_data: {
                     currency: 'eur',
