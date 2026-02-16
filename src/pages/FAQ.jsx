@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     question: "Combien de temps prend la création ?",
-    answer: "Forfait Premium : 24-48h • Forfait Standard & Simple : 48-72h. Si vous ajoutez un montage vidéo, comptez 2-3 jours supplémentaires."
+    answer: "Livraison Standard : 3 jours ouvrés (72h) maximum. Option Livraison Express disponible pour recevoir votre chanson sous 2 jours ouvrés (48h)."
   },
   {
     question: "Puis-je demander des modifications ?",

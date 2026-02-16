@@ -167,7 +167,7 @@ export default function HeroSection() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
                       <Clock className="w-3 h-3" />
-                      <span>Prête sous 48H • Espace client</span>
+                      <span>Livraison 48h - 72h • Espace client</span>
                     </div>
                     
                     <div className="bg-gradient-to-r from-rose-500 to-purple-600 text-white text-center py-2.5 rounded-xl font-bold text-sm">
@@ -190,7 +190,7 @@ export default function HeroSection() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-gray-900">Création rapide</p>
-                  <p className="text-[10px] text-gray-500">Prête sous 48h</p>
+                  <p className="text-[10px] text-gray-500">Dès 48h</p>
                 </div>
               </div>
             </motion.div>
@@ -228,7 +228,7 @@ export default function HeroSection() {
             </Button>
           </Link>
           <p className="text-sm text-gray-500 mt-4">
-            Prête sous 48h dans votre espace client • Satisfait ou remboursé
+            Livraison 48h - 72h • Satisfait ou remboursé
           </p>
         </motion.div>
       </div>

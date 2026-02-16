@@ -144,6 +144,7 @@ export default function Commander() {
     if (formData.add_qr_code) total += 6.99;
     if (formData.add_client_video) total += 9.99;
     if (formData.add_album_cover) total += 7.99;
+    if (formData.express_delivery) total += 4.99;
     
     // Appliquer le code promo
     if (promoDiscount > 0) {
@@ -161,25 +162,26 @@ export default function Commander() {
     if (formData.add_qr_code) total += 6.99;
     if (formData.add_client_video) total += 9.99;
     if (formData.add_album_cover) total += 7.99;
+    if (formData.express_delivery) total += 4.99;
     return total.toFixed(2);
     };
 
   // Calcul de la date de livraison (jours ouvrés)
   const calculateDeliveryDate = () => {
     const now = new Date();
-    let daysToAdd = 2; // 48h minimum
+    // 48h (2 jours) si express, sinon 72h (3 jours)
+    let daysToAdd = formData.express_delivery ? 2 : 3;
     let currentDate = new Date(now);
     
-    // Ajuster si on est le weekend
-    const dayOfWeek = currentDate.getDay();
-    if (dayOfWeek === 0) currentDate.setDate(currentDate.getDate() + 1);
-    else if (dayOfWeek === 6) currentDate.setDate(currentDate.getDate() + 2);
-    
+    // Ajuster si on est le weekend pour ne pas compter samedi/dimanche comme jours de production
+    // Simple logic: add days skipping weekends
     let addedDays = 0;
     while (addedDays < daysToAdd) {
       currentDate.setDate(currentDate.getDate() + 1);
       const day = currentDate.getDay();
-      if (day !== 0 && day !== 6) addedDays++;
+      if (day !== 0 && day !== 6) { // 0 = Dimanche, 6 = Samedi
+        addedDays++;
+      }
     }
     
     return currentDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
@@ -557,6 +559,35 @@ export default function Commander() {
                     </div>
                   </div>
 
+                  {/* Option Livraison Express */}
+                  <div className="py-4 border-t border-gray-100">
+                    <div 
+                      className={`flex items-start gap-3 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                        formData.express_delivery 
+                          ? "bg-rose-50 border-rose-200" 
+                          : "bg-white border-gray-100 hover:border-gray-200"
+                      }`}
+                      onClick={() => handleChange('express_delivery', !formData.express_delivery)}
+                    >
+                      <Checkbox 
+                        checked={formData.express_delivery}
+                        onCheckedChange={(checked) => handleChange('express_delivery', checked)}
+                        className="mt-1 data-[state=checked]:bg-rose-500 data-[state=checked]:border-rose-500"
+                      />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <Label className="text-base font-bold text-gray-900 cursor-pointer">
+                            Livraison Express 48h ⚡️
+                          </Label>
+                          <span className="text-sm font-bold text-rose-600">+4,99€</span>
+                        </div>
+                        <p className="text-sm text-gray-600">
+                          Passez en priorité dans notre studio. Réception garantie sous 2 jours ouvrés (au lieu de 3).
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Bouton final */}
                   <div className="pt-4 border-t border-gray-100">
                     {/* Affichage code promo actif */}
@@ -637,16 +668,13 @@ export default function Commander() {
                     {/* Date de livraison estimée */}
                     <div className="text-center mt-4 p-3 bg-rose-50 rounded-xl border border-rose-100">
                       <div className="flex items-center justify-center gap-2 mb-1">
-                        <Zap className="w-4 h-4 text-orange-500 fill-orange-500" />
+                        <Zap className={`w-4 h-4 ${formData.express_delivery ? "text-orange-500 fill-orange-500" : "text-gray-400"}`} />
                         <p className="text-sm font-bold text-rose-700">
-                          Livraison Rapide ⚡️
+                          {formData.express_delivery ? "Livraison Express Activée ⚡️" : "Livraison Standard"}
                         </p>
                       </div>
                       <p className="text-sm text-gray-700">
-                        Recevez votre chanson sous <span className="font-bold">48h à 72h</span>
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        (Livraison estimée : {calculateDeliveryDate()})
+                        Réception prévue le <span className="font-bold">{calculateDeliveryDate()}</span>
                       </p>
                     </div>
                     </div>
