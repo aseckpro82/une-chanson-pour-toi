@@ -14,6 +14,7 @@ import {
   Music, Sparkles, Star, Clock, Zap, FileText, Video, 
   Check, Heart, ArrowRight, Shield, Timer, Mail
 } from "lucide-react";
+import { toast } from "sonner";
 import SEO from "../components/SEO";
 import PlaylistPlayer from "../components/audio/PlaylistPlayer";
 import FAQSection from "../components/FAQSection";
@@ -262,7 +263,7 @@ export default function Commander() {
       }
     } catch (error) {
       console.error('Erreur:', error);
-      alert('Une erreur est survenue lors de la création de la commande : ' + (error.message || 'Erreur inconnue'));
+      toast.error('Une erreur est survenue lors de la création de la commande : ' + (error.message || 'Erreur inconnue'));
     } finally {
       setIsSubmitting(false);
     }
@@ -577,6 +578,7 @@ export default function Commander() {
                       }}
                     >
                       <Checkbox 
+                        type="button"
                         checked={formData.express_delivery}
                         onCheckedChange={(checked) => handleChange('express_delivery', checked)}
                         className="mt-1 data-[state=checked]:bg-rose-500 data-[state=checked]:border-rose-500"
