@@ -572,7 +572,11 @@ export default function Commander() {
                           : "bg-white border-gray-100 hover:border-gray-200"
                       }`}
                       onClick={(e) => {
-                        e.preventDefault();
+                        // Prevent any default behavior that might be triggered
+                        if (e) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
                         handleChange('express_delivery', !formData.express_delivery);
                       }}
                     >
@@ -584,9 +588,9 @@ export default function Commander() {
                           className="mt-1 data-[state=checked]:bg-rose-500 data-[state=checked]:border-rose-500"
                         />
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 pointer-events-none">
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-base font-bold text-gray-900 cursor-pointer">
+                          <span className="text-base font-bold text-gray-900">
                             Livraison Express 48h ⚡️
                           </span>
                           <span className="text-sm font-bold text-rose-600">+4,99€</span>
