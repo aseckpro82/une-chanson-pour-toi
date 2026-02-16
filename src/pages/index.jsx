@@ -135,8 +135,8 @@ export default function Index() {
               <div className="relative">
                 <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-purple-100">
                   <img 
-                    src="https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?w=800&q=80"
-                    alt="Moment d'émotion intense, câlin réconfortant"
+                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80"
+                    alt="Personnes heureuses partageant un moment de joie"
                     className="w-full h-full object-cover"
                   />
                 </div>
