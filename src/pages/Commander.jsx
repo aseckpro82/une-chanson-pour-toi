@@ -55,7 +55,9 @@ export default function Commander() {
     const savedData = localStorage.getItem('commander_form_data');
     if (savedData) {
       try {
-        return JSON.parse(savedData);
+        const parsed = JSON.parse(savedData);
+        // Force express_delivery à false même si true dans le cache
+        return { ...parsed, express_delivery: false };
       } catch (e) {
         console.error('Erreur restauration formulaire:', e);
       }
@@ -567,7 +569,11 @@ export default function Commander() {
                           ? "bg-rose-50 border-rose-200" 
                           : "bg-white border-gray-100 hover:border-gray-200"
                       }`}
-                      onClick={() => handleChange('express_delivery', !formData.express_delivery)}
+                      onClick={(e) => {
+                        // Empêcher le double déclenchement si on clique directement sur la checkbox
+                        if (e.target.closest('[role="checkbox"]')) return;
+                        handleChange('express_delivery', !formData.express_delivery);
+                      }}
                     >
                       <Checkbox 
                         checked={formData.express_delivery}
