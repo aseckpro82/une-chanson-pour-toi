@@ -44,60 +44,6 @@ const languages = [
   "Français", "Anglais", "Espagnol", "Arabe", "Portugais", "Italien", "Autre"
 ];
 
-// Composant Countdown Timer
-function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = new Date();
-      const valentineDate = new Date(now.getFullYear(), 1, 14, 23, 59, 59); // Feb 14
-      if (now > valentineDate) {
-         valentineDate.setFullYear(valentineDate.getFullYear() + 1);
-      }
-
-      const difference = valentineDate - now;
-
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / (1000 * 60)) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        });
-      }
-    };
-
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const items = [
-    { value: timeLeft.hours, label: "h" },
-    { value: timeLeft.minutes, label: "m" },
-    { value: timeLeft.seconds, label: "s" }
-  ];
-
-  if (timeLeft.days > 0) {
-      items.unshift({ value: timeLeft.days, label: "j" });
-      items.pop();
-  }
-
-  return (
-    <div className="flex items-center justify-center gap-2">
-      {items.map((item, index) => (
-        <React.Fragment key={item.label}>
-          <div className="bg-white/20 backdrop-blur-sm text-white font-bold text-lg md:text-xl px-2 md:px-3 py-1 rounded-lg border border-white/30">
-            {String(item.value).padStart(2, '0')}{item.label}
-          </div>
-          {index < items.length - 1 && <span className="text-white/60 font-bold">:</span>}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
-
 export default function Commander() {
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
