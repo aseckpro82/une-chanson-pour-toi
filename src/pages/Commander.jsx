@@ -470,7 +470,7 @@ export default function Commander() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="peu_importe" className="text-base py-3">Surprise (Recommandé)</SelectItem>
+                            <SelectItem value="peu_importe" className="text-base py-3">Peu importe</SelectItem>
                             <SelectItem value="femme" className="text-base py-3">Voix de femme</SelectItem>
                             <SelectItem value="homme" className="text-base py-3">Voix d'homme</SelectItem>
                           </SelectContent>
