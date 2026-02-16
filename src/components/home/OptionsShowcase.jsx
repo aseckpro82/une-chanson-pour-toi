@@ -364,8 +364,8 @@ export default function OptionsShowcase() {
             <div className="text-center mt-6 pt-6 border-t border-rose-200">
               <div className="flex items-center justify-center gap-3">
                 <span className="text-lg text-gray-400 line-through">90€</span>
-                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">24,99€</span>
-                <Badge className="bg-green-100 text-green-700 border-green-200">-70%</Badge>
+                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">29,99€</span>
+                <Badge className="bg-green-100 text-green-700 border-green-200">-67%</Badge>
               </div>
             </div>
           </div>

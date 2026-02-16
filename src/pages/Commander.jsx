@@ -82,7 +82,7 @@ export default function Commander() {
       add_qr_code: false,
       add_client_video: false,
       add_album_cover: false,
-      express_delivery: true // Default to true for promo
+      express_delivery: false // Default to false
     };
   });
 
