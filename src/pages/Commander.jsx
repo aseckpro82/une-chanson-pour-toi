@@ -250,8 +250,7 @@ export default function Commander() {
       const response = await base44.functions.invoke('createCheckoutSession', orderData);
 
       if (response.data && response.data.url) {
-        // Nettoyer le localStorage seulement après avoir initié le paiement
-        localStorage.removeItem('commander_form_data');
+        // Ne pas nettoyer le localStorage ici pour permettre le retour en arrière
         window.location.href = response.data.url;
       } else {
         throw new Error('URL de paiement non reçue');

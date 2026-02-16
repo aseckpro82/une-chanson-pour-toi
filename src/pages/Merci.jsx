@@ -27,6 +27,9 @@ export default function Merci() {
       if (testEventCode) console.log("🚀 [Merci] Début traitement commande (TEST MODE):", sessionId);
 
       try {
+        // Nettoyer le formulaire de commande maintenant que la commande est confirmée
+        localStorage.removeItem('commander_form_data');
+
         // Génération d'un Event ID unique et stable pour déduplication Pixel/CAPI
         const eventId = `ucpt_purchase_main_${sessionId}`;
 
