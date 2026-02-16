@@ -256,7 +256,7 @@ export default function Index() {
               {
                 step: "3",
                 icon: Gift,
-                title: "Vous recevez en 24-72h",
+                title: "Vous recevez en 48H-72H",
                 description: "Votre chanson arrive par email, prête à être écoutée et offerte.",
                 color: "from-blue-400 to-cyan-500"
               }
