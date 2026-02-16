@@ -5,6 +5,7 @@ import { Music, Heart, ShoppingBag, MessageCircle, Menu, LogIn, LogOut, User, Ho
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import FacebookPixel from "@/components/FacebookPixel";
+import { Toaster } from "@/components/ui/sonner";
 import {
   Sheet,
   SheetContent,
