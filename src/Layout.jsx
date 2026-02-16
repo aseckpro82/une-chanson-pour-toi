@@ -287,11 +287,11 @@ export default function Layout({ children, currentPageName }) {
           <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
             <div className="bg-gray-900/90 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl flex items-center justify-between border border-white/10 animate-in slide-in-from-bottom-20 duration-500">
               <div className="flex flex-col">
-                <span className="font-bold text-sm">Offrez une émotion</span>
-                <span className="text-xs text-rose-300 font-medium">Livraison avant le 14 Fév.</span>
+                <span className="font-bold text-sm">Une chanson unique</span>
+                <span className="text-xs text-rose-300 font-medium">Livraison 24h - 72h</span>
               </div>
               <div className="bg-rose-600 px-4 py-2 rounded-xl font-bold text-sm shadow-lg shadow-rose-900/20">
-                Créer (29€)
+                Créer ma chanson
               </div>
             </div>
           </Link>

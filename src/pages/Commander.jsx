@@ -321,45 +321,13 @@ export default function Commander() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50">
       <SEO 
-        title="Commander votre chanson personnalisée | 29,99€ Saint-Valentin"
-        description="Créez votre chanson personnalisée en 2 minutes. Offre Saint-Valentin -65%."
-        keywords="commander chanson personnalisée, cadeau original, saint valentin"
+        title="Commander votre chanson personnalisée | 29,99€ - Une Chanson Pour Toi"
+        description="Créez votre chanson personnalisée en 2 minutes. Un cadeau unique et émouvant."
+        keywords="commander chanson personnalisée, cadeau original, émotion, musique sur mesure"
       />
 
-      {/* Hero compact Saint-Valentin */}
-      <section className="relative py-8 md:py-12 px-4 bg-gradient-to-r from-rose-500 via-red-500 to-rose-500 overflow-hidden">
-        {/* Coeurs animés */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-white/20"
-              style={{ 
-                left: `${i * 5 + Math.random() * 3}%`, 
-                top: '-20px',
-                fontSize: `${10 + Math.random() * 14}px`
-              }}
-              animate={{ 
-                y: [0, 300], 
-                opacity: [0.8, 0],
-                rotate: [0, 45, -45, 0]
-              }}
-              transition={{ 
-                duration: 4 + Math.random() * 3, 
-                repeat: Infinity, 
-                delay: Math.random() * 3,
-                ease: "linear"
-              }}
-            >
-              💖
-            </motion.div>
-          ))}
-        </div>
-        
-        {/* Décorations */}
-        <div className="absolute bottom-0 left-4 text-4xl opacity-20">💝</div>
-        <div className="absolute bottom-0 right-4 text-4xl opacity-20">💝</div>
-        
+      {/* Hero compact */}
+      <section className="relative py-8 md:py-12 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-rose-500 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -367,31 +335,24 @@ export default function Commander() {
             transition={{ duration: 0.5 }}
           >
             <Badge className="bg-white/20 text-white border-white/30 mb-4 backdrop-blur-sm">
-              💖 OFFRE SPÉCIALE SAINT-VALENTIN
+              ✨ UNE ÉMOTION UNIQUE
             </Badge>
             
             <h1 className="text-2xl md:text-4xl font-bold text-white mb-4">
-              Créez votre chanson d'amour personnalisée
+              Créez votre chanson personnalisée
             </h1>
 
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-xl text-gray-200 line-through decoration-2">90€</span>
               <span className="text-4xl md:text-5xl font-bold text-white">29,99€</span>
             </div>
-            <p className="text-white/90 text-sm mb-4">Disponible pour livraison avant le 14 février</p>
-
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <span className="text-xl">💘</span>
-              <span className="text-white/80 text-sm">Fin de l'offre dans :</span>
-              <CountdownTimer />
-            </div>
+            <p className="text-white/90 text-sm mb-6">Livraison en 24h à 72h • Paiement sécurisé</p>
 
             <Button 
               onClick={scrollToForm}
               className="bg-white text-rose-600 hover:bg-rose-50 px-8 py-6 text-lg rounded-2xl font-bold shadow-xl"
             >
               <Heart className="w-5 h-5 mr-2 fill-rose-600" />
-              Créer ma chanson d’amour 💝
+              Créer ma chanson maintenant
             </Button>
           </motion.div>
         </div>
@@ -680,7 +641,7 @@ export default function Commander() {
                           </p>
                         )}
                       </div>
-                      <Badge className="bg-rose-100 text-rose-700 border-rose-200 text-xs sm:text-sm whitespace-nowrap">💖 SAINT-VALENTIN</Badge>
+                      <Badge className="bg-rose-100 text-rose-700 border-rose-200 text-xs sm:text-sm whitespace-nowrap">✨ PRIX UNIQUE</Badge>
                     </div>
 
                     <Button
@@ -696,7 +657,7 @@ export default function Commander() {
                       ) : (
                         <span className="flex items-center justify-center gap-1 sm:gap-2">
                           <Heart className="w-5 h-5 flex-shrink-0 fill-white" />
-                          <span className="truncate">Créer ma chanson d'amour — {calculateTotal()}€</span>
+                          <span className="truncate">Créer ma chanson — {calculateTotal()}€</span>
                         </span>
                       )}
                     </Button>
@@ -733,11 +694,11 @@ export default function Commander() {
                       <div className="flex items-center justify-center gap-2 mb-1">
                         <Zap className="w-4 h-4 text-orange-500 fill-orange-500" />
                         <p className="text-sm font-bold text-rose-700">
-                          Livraison Express OFFERTE ⚡️
+                          Livraison Rapide ⚡️
                         </p>
                       </div>
                       <p className="text-sm text-gray-700">
-                        Reçu avant le <span className="font-bold">14 Février</span>
+                        Recevez votre chanson sous <span className="font-bold">24h à 72h</span>
                       </p>
                       <p className="text-xs text-gray-500 mt-1">
                         (Livraison estimée : {calculateDeliveryDate()})

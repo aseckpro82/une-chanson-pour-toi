@@ -18,9 +18,9 @@ export default function HeroSection() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 leading-tight">
-            OFFREZ UN CADEAU
+            SON PRÉNOM.
             <br />
-            <span className="font-light italic text-gray-700">SURPRENANT !</span>
+            <span className="font-light italic text-gray-700">VOTRE HISTOIRE.</span>
           </h1>
         </motion.div>
 
