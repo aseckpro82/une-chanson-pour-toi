@@ -186,6 +186,21 @@ Deno.serve(async (req) => {
             });
         }
 
+        // 9. Livraison Express
+        if (orderData.express_delivery) {
+            lineItems.push({
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: '⚡️ Livraison Express 48h',
+                        description: 'Traitement prioritaire de votre commande',
+                    },
+                    unit_amount: 499, // 4.99€
+                },
+                quantity: 1,
+            });
+        }
+
         console.log('🎫 Creating Stripe session with', lineItems.length, 'item(s)');
         
         // LOGO URL - Remplacez par l'URL de votre logo hébergé

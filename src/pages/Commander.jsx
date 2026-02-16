@@ -248,7 +248,8 @@ export default function Commander() {
         add_video: formData.video_memory,
         add_qr_code: formData.add_qr_code,
         add_client_video: formData.add_client_video,
-        add_album_cover: formData.add_album_cover
+        add_album_cover: formData.add_album_cover,
+        express_delivery: formData.express_delivery
         };
 
       const response = await base44.functions.invoke('createCheckoutSession', orderData);
@@ -261,7 +262,7 @@ export default function Commander() {
       }
     } catch (error) {
       console.error('Erreur:', error);
-      alert('Une erreur est survenue. Veuillez réessayer.');
+      alert('Une erreur est survenue lors de la création de la commande : ' + (error.message || 'Erreur inconnue'));
     } finally {
       setIsSubmitting(false);
     }
