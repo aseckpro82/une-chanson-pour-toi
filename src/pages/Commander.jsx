@@ -30,7 +30,7 @@ const musicalStyles = [
 ];
 
 const occasions = [
-  "Anniversaire", "Mariage", "Demande en mariage", "Saint-Valentin",
+  "Anniversaire", "Mariage", "Demande en mariage",
   "Naissance", "Fête des mères", "Fête des pères", "Hommage à un proche",
   "Remerciement", "Déclaration d'amour", "Autre"
 ];

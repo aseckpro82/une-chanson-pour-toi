@@ -1,31 +1,25 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FileText, Wand2, Music, Gift } from "lucide-react";
+import { MessageCircle, Mic2, Gift } from "lucide-react";
 
 const steps = [
   {
-    icon: FileText,
-    title: "1. Choisissez votre forfait",
-    description: "Sélectionnez la formule qui correspond à vos besoins et votre budget",
+    icon: MessageCircle,
+    title: "1. Vous racontez votre histoire",
+    description: "Partagez vos souvenirs, les prénoms et l'émotion que vous voulez transmettre.",
     color: "from-rose-400 to-pink-500"
   },
   {
-    icon: Wand2,
-    title: "2. Partagez votre histoire",
-    description: "Répondez à notre questionnaire pour nous raconter vos émotions et souvenirs",
+    icon: Mic2,
+    title: "2. On compose sur mesure",
+    description: "Notre équipe crée une chanson unique, paroles et musique, rien que pour vous.",
     color: "from-purple-400 to-indigo-500"
   },
   {
-    icon: Music,
-    title: "3. Nous créons votre chanson",
-    description: "Notre équipe compose une chanson unique, rien que pour vous",
-    color: "from-blue-400 to-cyan-500"
-  },
-  {
     icon: Gift,
-    title: "4. Recevez votre création",
-    description: "Découvrez votre chanson en haute qualité, prête à offrir ou à chérir",
-    color: "from-green-400 to-emerald-500"
+    title: "3. Vous recevez en 24-72h",
+    description: "Votre chanson arrive par email, prête à être écoutée et offerte.",
+    color: "from-blue-400 to-cyan-500"
   }
 ];
 
@@ -44,11 +38,11 @@ export default function HowItWorks() {
             Comment ça marche ?
           </h2>
           <p className="text-xl text-gray-600">
-            Créez votre chanson personnalisée en 4 étapes simples
+            Créez votre chanson personnalisée en 3 étapes simples
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={index}
