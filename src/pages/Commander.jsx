@@ -572,14 +572,13 @@ export default function Commander() {
                           : "bg-white border-gray-100 hover:border-gray-200"
                       }`}
                       onClick={(e) => {
-                        // Empêcher le double déclenchement si on clique directement sur la checkbox
-                        if (e.target.closest('[role="checkbox"]')) return;
                         handleChange('express_delivery', !formData.express_delivery);
                       }}
                     >
                       <Checkbox 
                         type="button"
                         checked={formData.express_delivery}
+                        onClick={(e) => e.stopPropagation()}
                         onCheckedChange={(checked) => handleChange('express_delivery', checked)}
                         className="mt-1 data-[state=checked]:bg-rose-500 data-[state=checked]:border-rose-500"
                       />

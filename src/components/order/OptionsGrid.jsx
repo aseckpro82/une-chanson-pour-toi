@@ -284,6 +284,7 @@ export default function OptionsGrid({ formData, onToggle }) {
               {/* Checkbox */}
               <div className="absolute top-2 right-2" onClick={(e) => e.stopPropagation()}>
                 <Checkbox
+                  type="button"
                   checked={!!formData[option.id]}
                   onCheckedChange={(checked) => onToggle(option.id, checked)}
                   className="w-5 h-5"
