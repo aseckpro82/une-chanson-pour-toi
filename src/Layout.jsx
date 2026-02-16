@@ -20,7 +20,7 @@ import {
 
 
 const navigationItems = [
-  { title: "Accueil", url: createPageUrl("Accueil"), icon: Home },
+  { title: "Accueil", url: createPageUrl("index"), icon: Home },
   { title: "Exemples Audio", url: createPageUrl("Exemples"), icon: Music },
   { title: "Commander", url: createPageUrl("Commander"), icon: ShoppingBag },
   { title: "Suivre ma commande", url: createPageUrl("MesCommandes"), icon: Music },
@@ -124,7 +124,7 @@ export default function Layout({ children, currentPageName }) {
       <nav className="fixed top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 z-50 max-w-7xl mx-auto rounded-2xl bg-white/80 backdrop-blur-xl border border-white/50 shadow-lg shadow-purple-500/5 ring-1 ring-black/5 transition-all duration-300">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
-            <Link to={createPageUrl("Accueil")} onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
+            <Link to={createPageUrl("index")} onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
               <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:shadow-rose-500/40 transition-all duration-500 group-hover:scale-105">
                 <Music className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
