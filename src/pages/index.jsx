@@ -38,7 +38,7 @@ export default function Index() {
     <div className="min-h-screen bg-white">
       <SEO 
         title="Chanson personnalisée – Un cadeau unique et émouvant"
-        description="Créez une chanson personnalisée écrite à partir de votre histoire. Un cadeau inoubliable, livré en 24h à 72h."
+        description="Créez une chanson personnalisée écrite à partir de votre histoire. Un cadeau inoubliable, livraison 48H à 72H."
         keywords="chanson personnalisée, cadeau émotion, chanson sur mesure, musique personnalisée, cadeau unique"
       />
 
@@ -67,7 +67,7 @@ export default function Index() {
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-500 mb-8 leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                Offrez une chanson personnalisée qui touche vraiment. Un cadeau unique, livré en 24 à 72h.
+                Offrez une chanson personnalisée qui touche vraiment. Un cadeau unique, livraison 48H à 72H.
               </p>
 
               {/* Prix */}
@@ -76,8 +76,9 @@ export default function Index() {
                   <span className="text-5xl sm:text-6xl font-bold text-gray-900 tracking-tight">
                     29,99€
                   </span>
-                  <div className="flex flex-col items-start leading-none">
-                    <span className="text-sm text-gray-400 font-medium line-through decoration-rose-300">valeur 90€</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl text-gray-400 font-medium line-through decoration-rose-500 opacity-60">90€</span>
+                    <Badge className="bg-rose-500 text-white hover:bg-rose-600 text-lg px-3 py-1 rounded-lg shadow-sm">-67%</Badge>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
@@ -116,7 +117,7 @@ export default function Index() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-blue-600" />
-                  <span>Livraison 24h-72h</span>
+                  <span>Livraison 48H-72H</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-purple-500" />
