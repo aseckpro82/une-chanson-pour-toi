@@ -137,7 +137,7 @@ export default function Merci() {
                 <div className="w-6 h-6 rounded-full bg-purple-200 text-purple-700 flex items-center justify-center flex-shrink-0 text-sm font-bold">3</div>
                 <div>
                   <p className="font-medium text-purple-900">Livraison</p>
-                  <p className="text-sm text-purple-700">Vous recevrez votre chanson par email sous 24h à 72h.</p>
+                  <p className="text-sm text-purple-700">Vous recevrez votre chanson par email sous 72h maximum (48h si option express).</p>
                 </div>
               </div>
             </div>
