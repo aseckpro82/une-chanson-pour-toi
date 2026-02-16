@@ -298,6 +298,7 @@ export default function Layout({ children, currentPageName }) {
         </div>
       )}
 
+      <Toaster />
       {/* Footer V2 */}
       <footer className="relative bg-white py-16 sm:py-20 border-t border-gray-100 mb-20 md:mb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
