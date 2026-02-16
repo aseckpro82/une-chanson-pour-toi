@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
@@ -9,84 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { 
   Music, Heart, Sparkles, Star, ArrowRight, Check, Clock, Shield, 
-  Timer, Zap, MessageCircle, Mic2, Send, Gift, Play
+  Zap, MessageCircle, Mic2, Gift, Play, Mail, PartyPopper
 } from "lucide-react";
 import SEO from "../components/SEO";
 import PlaylistPlayer from "../components/audio/PlaylistPlayer";
 import RatingStats from "../components/RatingStats";
 import HeroSection from "../components/home/HeroSection";
 import OptionsShowcase from "../components/home/OptionsShowcase";
-
-// Composant Countdown Timer
-function CountdownTimer({ variant = "default" }) {
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = new Date();
-      const valentineDate = new Date(now.getFullYear(), 1, 14, 23, 59, 59); // Month is 0-indexed, so 1 is February
-      if (now > valentineDate) {
-         valentineDate.setFullYear(valentineDate.getFullYear() + 1);
-      }
-      
-      const difference = valentineDate - now;
-      
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / (1000 * 60)) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
-
-        setTimeLeft({ days, hours, minutes, seconds });
-      }
-    };
-
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  if (variant === "compact") {
-    return (
-      <div className="flex items-center gap-1 text-white font-mono">
-        {timeLeft.days > 0 && (
-          <>
-            <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.days).padStart(2, '0')}j</span>:
-          </>
-        )}
-        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.hours).padStart(2, '0')}h</span>:
-        <span className="bg-white/20 px-2 py-1 rounded">{String(timeLeft.minutes).padStart(2, '0')}m</span>
-      </div>
-    );
-  }
-
-  const items = [
-    { value: timeLeft.hours, label: "heures" },
-    { value: timeLeft.minutes, label: "min" },
-    { value: timeLeft.seconds, label: "sec" }
-  ];
-
-  if (timeLeft.days > 0) {
-    items.unshift({ value: timeLeft.days, label: "jours" });
-    items.pop(); // Remove seconds to keep 3 items if preferred, or keep 4
-  }
-
-  return (
-    <div className="flex items-center justify-center gap-2 md:gap-3">
-      {items.map((item, index) => (
-        <React.Fragment key={item.label}>
-          <div className="text-center">
-            <div className="bg-gray-900 text-white font-bold text-xl md:text-3xl px-3 md:px-4 py-2 rounded-xl min-w-[50px] md:min-w-[70px]">
-              {String(item.value).padStart(2, '0')}
-            </div>
-            <p className="text-xs text-gray-600 mt-1">{item.label}</p>
-          </div>
-          {index < items.length - 1 && <span className="text-xl md:text-2xl font-bold text-gray-400">:</span>}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
 
 export default function Index() {
   const { data: songExamples = [] } = useQuery({
@@ -108,39 +37,14 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-white">
       <SEO 
-        title="Chanson personnalisée – Cadeau Saint-Valentin unique – Livraison avant le 14 | -70%"
-        description="Créez une chanson personnalisée écrite à partir de votre histoire. Le cadeau de Saint-Valentin parfait ! Livraison garantie avant le 14 février. Offre spéciale."
-        keywords="chanson personnalisée, cadeau saint valentin, chanson sur mesure, cadeau couple, musique personnalisée, cadeau émouvant amour"
+        title="Chanson personnalisée – Un cadeau unique et émouvant"
+        description="Créez une chanson personnalisée écrite à partir de votre histoire. Un cadeau inoubliable, livré en 24h à 72h."
+        keywords="chanson personnalisée, cadeau émotion, chanson sur mesure, musique personnalisée, cadeau unique"
       />
 
-      {/* Bandeau Saint-Valentin fixe */}
-      <div className="relative bg-gradient-to-r from-rose-500 via-red-500 to-rose-500 py-3 px-4 overflow-hidden">
-        {/* Coeurs animés */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(12)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-white/30 text-xs"
-              style={{ left: `${i * 8 + 2}%`, top: '-10px' }}
-              animate={{ y: [0, 60], opacity: [1, 0] }}
-              transition={{ duration: 3 + Math.random(), repeat: Infinity, delay: Math.random() * 2 }}
-            >
-              💖
-            </motion.div>
-          ))}
-        </div>
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 relative z-10">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">💖</span>
-            <span className="text-white text-sm md:text-base font-bold">Offre Spéciale Saint-Valentin : Disponible pour livraison avant le 14 février !</span>
-          </div>
-          <CountdownTimer variant="compact" />
-        </div>
-      </div>
-
-      {/* Hero Section V2 */}
-      <section className="relative min-h-[90vh] flex items-center px-4 py-20 lg:py-0 overflow-hidden bg-white">
-        {/* Background V2 */}
+      {/* Hero Section */}
+      <section className="relative min-h-[85vh] flex items-center px-4 py-20 lg:py-0 overflow-hidden bg-white">
+        {/* Background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-50/50 rounded-full blur-[100px] opacity-60 translate-x-1/3 -translate-y-1/3" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-violet-50/50 rounded-full blur-[100px] opacity-60 -translate-x-1/3 translate-y-1/3" />
@@ -155,23 +59,18 @@ export default function Index() {
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50 border border-rose-100 mb-8 hover:bg-rose-100 transition-colors cursor-default">
-                <Heart className="w-4 h-4 fill-rose-500 text-rose-500 animate-pulse" />
-                <span className="text-sm font-bold text-rose-600 tracking-wide uppercase">Spécial Saint-Valentin</span>
-              </div>
-
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-[1.1] tracking-tight">
-                Offrez une émotion
+                Son prénom.
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-violet-600">
-                  inoubliable.
+                  Votre histoire.
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-500 mb-8 leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                Une chanson unique créée sur mesure à partir de votre histoire d'amour. <span className="text-gray-900 font-medium">Livraison garantie avant le 14 février.</span>
+                Offrez une chanson personnalisée qui touche vraiment. Un cadeau unique, livré en 24 à 72h.
               </p>
 
-              {/* Prix V2 - Premium */}
+              {/* Prix */}
               <div className="mb-8 flex flex-col items-center lg:items-start">
                 <div className="inline-flex items-baseline gap-3 mb-2">
                   <span className="text-5xl sm:text-6xl font-bold text-gray-900 tracking-tight">
@@ -179,9 +78,6 @@ export default function Index() {
                   </span>
                   <div className="flex flex-col items-start leading-none">
                     <span className="text-sm text-gray-400 font-medium line-through decoration-rose-300">valeur 90€</span>
-                    <Badge variant="secondary" className="bg-rose-100 text-rose-700 hover:bg-rose-200 border-none mt-1">
-                      -65% Saint-Valentin
-                    </Badge>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
@@ -196,44 +92,35 @@ export default function Index() {
                 </div>
               </div>
 
-              {/* Timer V2 */}
-              <div className="mb-10 p-6 rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/50 max-w-md mx-auto lg:mx-0">
-                <p className="text-sm font-medium text-gray-500 mb-4 text-center uppercase tracking-widest">Temps restant pour commander</p>
-                <div className="flex justify-center">
-                  <CountdownTimer />
-                </div>
-              </div>
-
-              {/* CTA V2 */}
+              {/* CTA */}
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)} className="w-full sm:w-auto">
                   <Button className="w-full sm:w-auto bg-gray-900 hover:bg-black text-white h-16 px-8 text-lg rounded-2xl shadow-xl shadow-gray-900/20 hover:shadow-gray-900/40 transform hover:-translate-y-1 transition-all duration-300">
                     <Heart className="w-6 h-6 mr-3 fill-rose-500 text-rose-500" />
-                    <span className="font-bold">Créer ma chanson (29,99€)</span>
+                    <span className="font-bold">Créer ma chanson</span>
                   </Button>
                 </Link>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <div className="flex -space-x-2">
-                    {[1,2,3].map(i => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-100" />
-                    ))}
-                  </div>
-                  <span>+500 clients ravis</span>
-                </div>
+                <Link to={createPageUrl("Exemples")} onClick={() => window.scrollTo(0, 0)} className="w-full sm:w-auto">
+                  <Button variant="outline" className="w-full sm:w-auto h-16 px-8 text-lg rounded-2xl border-2 border-gray-200 hover:bg-gray-50 hover:border-gray-300 text-gray-700">
+                    <Play className="w-5 h-5 mr-3 fill-gray-700" />
+                    <span className="font-bold">Écouter des exemples</span>
+                  </Button>
+                </Link>
               </div>
-              {/* Trust badges */}
+              
+              {/* Micro-réassurance */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-6 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-green-600" />
-                  <span>Satisfait ou remboursé</span>
+                  <span>Paiement sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-blue-600" />
-                  <span>Livraison 48h incluse</span>
+                  <span>Livraison 24h-72h</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-orange-500" />
-                  <span>Express 24h disponible</span>
+                  <Sparkles className="w-4 h-4 text-purple-500" />
+                  <span>100% Personnalisé</span>
                 </div>
               </div>
             </motion.div>
@@ -248,8 +135,8 @@ export default function Index() {
               <div className="relative">
                 <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-rose-100 to-purple-100">
                   <img 
-                    src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=750&fit=crop"
-                    alt="Moment d'émotion avec une chanson personnalisée"
+                    src="https://images.unsplash.com/photo-1516575150278-77136aed6920?w=800&q=80"
+                    alt="Moment d'émotion"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -271,38 +158,105 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Section Occasions */}
+      <section className="py-16 md:py-24 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pour quelles occasions ?</h2>
+            <p className="text-lg text-gray-600">Il n'y a pas de petit moment pour dire je t'aime</p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { title: "Dire merci", icon: Heart, text: "À ceux qui comptent." },
+              { title: "S’excuser", icon: MessageCircle, text: "Les mots qui réparent." },
+              { title: "Hommage", icon: Star, text: "Pour ne jamais oublier." },
+              { title: "Anniversaire", icon: PartyPopper, text: "Un cadeau inoubliable." },
+              { title: "Demande spéciale", icon: Sparkles, text: "Faites votre déclaration." },
+            ].map((occ, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
+                  <Card className="h-full p-6 text-center hover:shadow-lg transition-all border-gray-100 hover:border-rose-200 group cursor-pointer">
+                    <div className="w-12 h-12 mx-auto bg-white rounded-full flex items-center justify-center shadow-sm mb-4 group-hover:scale-110 transition-transform">
+                      <occ.icon className="w-6 h-6 text-rose-500" />
+                    </div>
+                    <h3 className="font-bold text-gray-900 mb-2">{occ.title}</h3>
+                    <p className="text-sm text-gray-500 mb-4">{occ.text}</p>
+                    <span className="text-xs font-semibold text-rose-600 group-hover:underline">Créer la mienne →</span>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bloc Émotion */}
+      <section className="py-20 px-4 bg-white overflow-hidden relative">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="p-8 md:p-12 rounded-3xl bg-gradient-to-br from-rose-50 to-purple-50 border border-white shadow-xl"
+          >
+            <h2 className="text-3xl md:text-5xl font-serif italic text-gray-900 mb-6">
+              "Il y a des choses qu’on n’arrive pas à dire…"
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-light mb-8">
+              Alors on les chante. <br/>
+              Votre message, vos prénoms, votre histoire. <br/>
+              <span className="font-medium text-rose-600">Une chanson qu’on garde pour la vie.</span>
+            </p>
+            <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
+              <Button className="bg-gray-900 text-white hover:bg-black rounded-full px-8 py-6 text-lg">
+                Raconter mon histoire
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Comment ça marche - 3 étapes */}
       <section className="py-16 md:py-24 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <Badge className="mb-4 bg-purple-100 text-purple-700 border-purple-200">Simple comme bonjour</Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Comment ça marche ?
             </h2>
-            <p className="text-lg text-gray-600">3 étapes pour créer un souvenir inoubliable</p>
+            <p className="text-lg text-gray-600">3 étapes simples</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
+             {/* Ligne de connexion (desktop) */}
+             <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-rose-100 via-purple-100 to-blue-100 -z-10" />
+
             {[
               {
                 step: "1",
                 icon: MessageCircle,
-                title: "Racontez votre histoire",
-                description: "Partagez le prénom, les souvenirs et émotions que vous voulez transmettre",
+                title: "Vous racontez votre histoire",
+                description: "Partagez vos souvenirs, les prénoms et l'émotion que vous voulez transmettre.",
                 color: "from-rose-400 to-pink-500"
               },
               {
                 step: "2",
                 icon: Mic2,
-                title: "Nous composons votre chanson",
-                description: "Notre équipe crée une mélodie unique basée sur votre histoire",
+                title: "On compose sur mesure",
+                description: "Notre équipe crée une chanson unique, paroles et musique, rien que pour vous.",
                 color: "from-purple-400 to-indigo-500"
               },
               {
                 step: "3",
                 icon: Gift,
-                title: "Recevez en 48h",
-                description: "Téléchargez votre chanson et offrez un moment d'émotion pure",
+                title: "Vous recevez en 24-72h",
+                description: "Votre chanson arrive par email, prête à être écoutée et offerte.",
                 color: "from-blue-400 to-cyan-500"
               }
             ].map((item, index) => (
@@ -312,14 +266,13 @@ export default function Index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center bg-white"
               >
-                <div className={`w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-xl`}>
+                <div className={`w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg border-4 border-white`}>
                   <item.icon className="w-10 h-10 text-white" />
                 </div>
-                <div className="text-4xl font-bold text-gray-200 mb-3">{item.step}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
+                <p className="text-gray-600 px-4">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -340,11 +293,11 @@ export default function Index() {
         <section className="py-16 md:py-24 px-4 bg-gradient-to-br from-gray-50 to-purple-50">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <Badge className="mb-4 bg-rose-100 text-rose-700 border-rose-200">Nos créations</Badge>
+              <Badge className="mb-4 bg-rose-100 text-rose-700 border-rose-200">Exemples</Badge>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
                 🎵 Écoutez nos réalisations
               </h2>
-              <p className="text-lg text-gray-600">Des chansons qui ont fait pleurer de joie</p>
+              <p className="text-lg text-gray-600">Des chansons qui restent gravées</p>
             </div>
 
             <PlaylistPlayer songs={songExamples} />
@@ -352,7 +305,7 @@ export default function Index() {
         </section>
       )}
 
-      {/* Section Photo + Mockup "Offrez un cadeau surprenant" */}
+      {/* Hero secondaire (Phone mockup) */}
       <HeroSection />
 
       {/* Options et ce que vous recevez */}
@@ -364,12 +317,12 @@ export default function Index() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <Badge className="mb-4 bg-yellow-100 text-yellow-700 border-yellow-200">
-                <Star className="w-3 h-3 mr-1 fill-yellow-500" /> Témoignages vérifiés
+                <Star className="w-3 h-3 mr-1 fill-yellow-500" /> Avis vérifiés
               </Badge>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                Ils ont fait pleurer leurs proches de bonheur
+                Ils ont offert une émotion unique
               </h2>
-              <p className="text-lg text-gray-600">Plus de 500 chansons créées • Note moyenne : 4.9/5</p>
+              <p className="text-lg text-gray-600">Note moyenne : 4.9/5</p>
             </div>
 
             {/* Rating Stats */}
@@ -424,65 +377,15 @@ export default function Index() {
               <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
                 <Button className="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white px-6 sm:px-8 py-5 text-sm sm:text-lg rounded-2xl shadow-xl">
                   <Heart className="w-5 h-5 mr-2 flex-shrink-0" />
-                  <span className="sm:hidden">Commander • 24,99€</span>
+                  <span className="sm:hidden">Commander • 29,99€</span>
                   <span className="hidden sm:inline">Créer ma chanson personnalisée</span>
                   <ArrowRight className="w-5 h-5 ml-2 flex-shrink-0" />
                 </Button>
               </Link>
-              <p className="text-gray-500 text-sm mt-3">Rejoignez nos clients satisfaits</p>
             </div>
           </div>
         </section>
       )}
-
-      {/* Pourquoi ça marche */}
-      <section className="py-16 md:py-24 px-4 bg-gradient-to-br from-purple-50 to-rose-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Pourquoi ça marche ?
-            </h2>
-            <p className="text-lg text-gray-600">Ce qui rend nos chansons si spéciales</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Heart,
-                title: "Ultra personnalisé",
-                description: "Chaque chanson est créée uniquement pour vous, à partir de votre histoire",
-                color: "text-rose-500"
-              },
-              {
-                icon: Mic2,
-                title: "Qualité vocale premium",
-                description: "Des voix naturelles et émouvantes, sélectionnées par nos experts",
-                color: "text-purple-500"
-              },
-              {
-                icon: Zap,
-                title: "Livraison rapide",
-                description: "Recevez votre chanson en 48h, ou en 24h avec l'option express",
-                color: "text-blue-500"
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="p-6 rounded-2xl bg-white border border-gray-100 h-full text-center hover:shadow-lg transition-all">
-                  <item.icon className={`w-12 h-12 mx-auto mb-4 ${item.color}`} />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Final */}
       <section className="py-16 md:py-24 px-4 bg-gradient-to-r from-rose-500 via-purple-600 to-rose-500">
@@ -494,20 +397,17 @@ export default function Index() {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 px-2">
-              Prêt à créer un souvenir inoubliable ?
+              Prêt à offrir un cadeau inoubliable ?
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 px-2">
-              💖 Offre Spéciale Saint-Valentin : <span className="line-through opacity-75">90€</span> → <span className="font-bold">29,99€</span> 🎁
+              Une chanson qu’on garde pour la vie.
             </p>
             <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
               <Button className="bg-white hover:bg-gray-100 text-gray-900 px-6 sm:px-10 py-6 sm:py-7 text-base sm:text-lg md:text-xl rounded-2xl shadow-2xl font-bold transform hover:scale-105 transition-all w-full sm:w-auto max-w-xs sm:max-w-none mx-auto">
                 <Heart className="w-5 h-5 sm:w-6 sm:h-6 mr-2 flex-shrink-0 text-rose-500 fill-rose-500" />
-                <span className="truncate">Créer ma chanson d'amour 💝</span>
+                <span className="truncate">Créer ma chanson</span>
               </Button>
             </Link>
-            <p className="text-white/80 text-sm mt-6 font-medium">
-              Saint-Valentin : pensez à commander avant le 14 février 💖
-            </p>
           </motion.div>
         </div>
       </section>
