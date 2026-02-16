@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
 
         // 1. Détection intelligente du mode (Test vs Live) via le préfixe de session
         const isTestSession = session_id.startsWith('cs_test_');
-        console.log("🔑 Stripe mode: " + (isTestSession ? "TEST" : "LIVE"));
+        // console.log("🔑 Stripe mode: " + (isTestSession ? "TEST" : "LIVE"));
 
         const stripeKey = isTestSession ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
         
@@ -92,6 +92,7 @@ Deno.serve(async (req) => {
                         }]
                     };
 
+                    // Ajout du test_event_code uniquement si fourni
                     if (test_event_code) {
                         payload.test_event_code = test_event_code;
                     }
@@ -107,14 +108,15 @@ Deno.serve(async (req) => {
                     capiResponse = {
                         sent: true,
                         status: metaResponse.status,
-                        body: metaResult
+                        // On ne renvoie le body complet qu'en cas d'erreur ou de test pour éviter de polluer la réponse
+                        body: (metaResult.error || test_event_code) ? metaResult : undefined
                     };
 
                     if (metaResult.error) {
                         console.error('❌ [CAPI] Error:', metaResult.error);
                         capiResponse.error = metaResult.error;
-                    } else {
-                        console.log('✅ [CAPI] Sent successfully');
+                    } else if (test_event_code) {
+                        console.log('✅ [CAPI] Sent successfully (TEST)');
                     }
                 } else {
                     capiResponse = { sent: false, error: "Missing Pixel ID or Access Token" };

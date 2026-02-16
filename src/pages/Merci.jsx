@@ -24,7 +24,7 @@ export default function Merci() {
     processedRef.current = true;
 
     const processOrder = async () => {
-      console.log("🚀 [Merci] Début traitement commande:", sessionId);
+      if (testEventCode) console.log("🚀 [Merci] Début traitement commande (TEST MODE):", sessionId);
 
       try {
         // Génération d'un Event ID unique et stable pour déduplication Pixel/CAPI
@@ -34,8 +34,6 @@ export default function Merci() {
         const isTracked = localStorage.getItem(`purchase_sent_${sessionId}`);
         
         // 1. Appel Backend : Récupère session + Déclenche CAPI (Server-Side) Toujours
-        console.log(`📡 [Merci] Calling CAPI with test_event_code=${testEventCode || 'none'}...`);
-
         const sessionRes = await base44.functions.invoke("retrieveCheckoutSession", {
           session_id: sessionId,
           event_id: eventId,
@@ -48,12 +46,12 @@ export default function Merci() {
         const sessionData = responseData.stripe || responseData;
         const capiData = responseData.capi;
 
+        // Logs CAPI uniquement si erreur ou mode test
         if (capiData) {
-            console.log(`📡 [Merci] CAPI Debug:`, capiData);
-            if (capiData.sent) {
-                console.log("✅ [Merci] CAPI sent successfully by backend");
-            } else if (capiData.error) {
+            if (capiData.error) {
                 console.error("❌ [Merci] CAPI backend error:", capiData.error);
+            } else if (testEventCode && capiData.sent) {
+                console.log("✅ [Merci] CAPI sent successfully by backend (Test Mode)");
             }
         }
 
@@ -65,25 +63,17 @@ export default function Merci() {
             const value = sessionData.amount_total / 100;
             const currency = sessionData.currency ? sessionData.currency.toUpperCase() : "EUR";
 
-            console.log(`✅ [Merci] Tracking Pixel Purchase: ${value} ${currency} | EventID: ${eventId}`);
+            if (testEventCode) console.log(`✅ [Merci] Tracking Pixel Purchase: ${value} ${currency} | EventID: ${eventId}`);
+            
             // trackPurchase supporte eventId en 3ème argument
             trackPurchase(value, currency, eventId);
 
             localStorage.setItem(`purchase_sent_${sessionId}`, 'true');
-          } else {
-            console.log("ℹ️ [Merci] Purchase déjà tracké (localStorage)");
           }
 
           // 3. Validation Commande (Emails, PDF, Telegram...)
-          // On lance ça en parallèle ou juste après, c'est idempotent côté serveur normalement
-          console.log("📧 [Merci] Lancement validation commande (emails/pdf)...");
           base44.functions.invoke("confirmPayment", { sessionId })
-            .then(res => console.log("✅ [Merci] Validation commande OK", res))
             .catch(err => console.error("❌ [Merci] Erreur validation commande", err));
-
-          // 4. Redirection Upsell
-          // Plus de redirection Upsell - Fin du tunnel sur /Merci
-          console.log("✅ [Merci] Commande terminée. Pas de redirection Upsell.");
 
         } else {
           console.error("❌ [Merci] Paiement non validé par Stripe:", sessionData);
