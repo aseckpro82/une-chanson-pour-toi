@@ -167,7 +167,7 @@ export default function Commander() {
   // Calcul de la date de livraison (jours ouvrés)
   const calculateDeliveryDate = () => {
     const now = new Date();
-    let daysToAdd = 1; // 24h express (OFFERT)
+    let daysToAdd = 2; // 48h minimum
     let currentDate = new Date(now);
     
     // Ajuster si on est le weekend
@@ -291,7 +291,7 @@ export default function Commander() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="text-4xl md:text-5xl font-bold text-white">29,99€</span>
             </div>
-            <p className="text-white/90 text-sm mb-6">Livraison en 24h à 72h • Paiement sécurisé</p>
+            <p className="text-white/90 text-sm mb-6">Livraison en 48h à 72h • Paiement sécurisé</p>
 
             <Button 
               onClick={scrollToForm}
@@ -644,7 +644,7 @@ export default function Commander() {
                         </p>
                       </div>
                       <p className="text-sm text-gray-700">
-                        Recevez votre chanson sous <span className="font-bold">24h à 72h</span>
+                        Recevez votre chanson sous <span className="font-bold">48h à 72h</span>
                       </p>
                       <p className="text-xs text-gray-500 mt-1">
                         (Livraison estimée : {calculateDeliveryDate()})

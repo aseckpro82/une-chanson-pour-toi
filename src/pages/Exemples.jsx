@@ -445,7 +445,7 @@ export default function Exemples() {
               </Link>
               <div className="flex items-center justify-center gap-1 mt-3 text-xs text-gray-400">
                 <Zap className="w-3 h-3 text-rose-400" />
-                <span>Livraison 48h • Satisfait ou remboursé</span>
+                <span>Livraison 48H-72H • Satisfait ou remboursé</span>
               </div>
             </Card>
           </div>
@@ -489,7 +489,7 @@ export default function Exemples() {
           </Link>
           <p className="text-gray-400 text-sm mt-4 flex items-center justify-center gap-2">
             <Zap className="w-4 h-4 text-green-400" />
-            Livraison 48h • Satisfait ou remboursé
+            Livraison 48H-72H • Satisfait ou remboursé
           </p>
         </Card>
       </div>
