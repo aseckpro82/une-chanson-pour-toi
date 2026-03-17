@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une Chanson Pour Toi — Chanson Personnalisée Unique | Cadeau Original</title>
+    <meta name="description" content="Offrez une chanson personnalisée unique créée sur mesure. Anniversaire, mariage, naissance, fête des mères... Un cadeau original et émouvant livré en 48h. À partir de 29,99€.">
+    <meta name="keywords" content="chanson personnalisée, cadeau original, chanson sur mesure, cadeau anniversaire, chanson mariage, cadeau fête des mères, chanson naissance, cadeau unique">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Une Chanson Pour Toi — Chanson Personnalisée Unique">
+    <meta property="og:description" content="Offrez un cadeau qui ne s'oublie jamais. Une chanson 100% personnalisée, créée sur mesure à partir de vos souvenirs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://unechansonpourtoi.fr">
+    <meta property="og:image" content="/images/og-cover.jpg">
+    
+    <link rel="canonical" href="https://unechansonpourtoi.fr">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Product -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Chanson Personnalisée",
+        "description": "Une chanson 100% personnalisée créée sur mesure à partir de vos souvenirs et anecdotes.",
+        "brand": { "@type": "Brand", "name": "Une Chanson Pour Toi" },
+        "offers": {
+            "@type": "Offer",
+            "price": "29.99",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitCode": "DAY" }
+        },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "36" }
+    }
+    </script>
+    
+    <!-- JSON-LD FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "Comment fonctionne la création d'une chanson personnalisée ?", "acceptedAnswer": { "@type": "Answer", "text": "Remplissez un formulaire avec le prénom du destinataire, l'occasion, vos anecdotes et le style musical souhaité. Nous créons une chanson unique avec des paroles sur mesure. Livraison sous 48h par email." } },
+            { "@type": "Question", "name": "Combien coûte une chanson personnalisée ?", "acceptedAnswer": { "@type": "Answer", "text": "29,99€ tout compris. Paroles sur mesure, composition musicale, enregistrement professionnel et livraison en 48h au format MP3." } },
+            { "@type": "Question", "name": "Quel est le délai de livraison ?", "acceptedAnswer": { "@type": "Answer", "text": "48h après validation de votre commande. Vous recevez le fichier MP3 par email." } },
+            { "@type": "Question", "name": "Quelles occasions sont possibles ?", "acceptedAnswer": { "@type": "Answer", "text": "Toutes ! Anniversaire, mariage, naissance, fête des mères/pères, EVJF/EVG, Saint-Valentin, Noël, retraite, hommage, déclaration d'amour..." } },
+            { "@type": "Question", "name": "Peut-on choisir le style musical ?", "acceptedAnswer": { "@type": "Answer", "text": "Absolument ! Pop, rock, rap, variété, jazz, reggae, afro, R&B... Indiquez vos préférences dans le formulaire." } }
+        ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary: #E91E8C;
+            --primary-dark: #C4166F;
+            --primary-light: #F472B6;
+            --purple: #7C3AED;
+            --purple-light: #A78BFA;
+            --accent: #F59E0B;
+            --bg: #FFFFFF;
+            --bg-soft: #FDF2F8;
+            --bg-card: #FFFFFF;
+            --bg-section: #FAF5FF;
+            --text: #1F2937;
+            --text-muted: #6B7280;
+            --text-light: #9CA3AF;
+            --border: #F3E8FF;
+            --gradient-1: linear-gradient(135deg, #E91E8C 0%, #7C3AED 100%);
+            --gradient-2: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+            --gradient-hero: linear-gradient(135deg, #FDF2F8 0%, #FAF5FF 50%, #FDF2F8 100%);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAV ========== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(233,30,140,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            background: var(--gradient-1) !important;
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(233,30,140,0.3);
+        }
+
+        .mobile-menu { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text); }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233,30,140,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(233,30,140,0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--text);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border: 2px solid #E5E7EB;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat { text-align: center; }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* ========== SECTION COMMON ========== */
+        section { padding: 6rem 2rem; }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .text-center { text-align: center; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+
+        /* ========== STEPS ========== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .step p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ========== OCCASIONS ========== */
+        .occasions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1.25rem;
+            margin-top: 3rem;
+        }
+
+        .occasion-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .occasion-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .occasion-icon { font-size: 2.8rem; margin-bottom: 0.75rem; }
+        .occasion-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .occasion-card p { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ========== PRICING ========== */
+        .pricing-card {
+            max-width: 480px;
+            margin: 3rem auto 0;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 40px rgba(233,30,140,0.1);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-old {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-amount span {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: #10B981;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.3s;
+        }
+
+        .testimonial:hover { box-shadow: var(--shadow-md); }
+
+        .testimonial-stars { color: var(--accent); font-size: 1.1rem; margin-bottom: 1rem; }
+
+        .testimonial-text {
+            font-size: 0.93rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+
+        .testimonial-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .testimonial-name { font-weight: 600; font-size: 0.93rem; color: var(--text); }
+        .testimonial-occasion { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ========== TIKTOK ========== */
+        .tiktok-section { text-align: center; }
+
+        .tiktok-embed-placeholder {
+            max-width: 550px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tiktok-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #000;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.3s;
+        }
+
+        .tiktok-link:hover { transform: translateY(-2px); }
+
+        /* ========== FAQ ========== */
+        .faq-list { max-width: 700px; margin: 3rem auto 0; }
+
+        .faq-item { border-bottom: 1px solid #F3F4F6; }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.02rem;
+            font-weight: 600;
+            padding: 1.4rem 0;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .faq-question.active::after { transform: rotate(45deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.open { max-height: 300px; padding-bottom: 1.5rem; }
+
+        .faq-answer p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ========== CTA FINAL ========== */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: var(--gradient-1);
+            color: white;
+            position: relative;
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #FAFAFA;
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid #F3F4F6;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h4 { font-weight: 700; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text); }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            padding: 0.3rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover { color: var(--primary); }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.83rem;
+            padding-top: 2rem;
+            border-top: 1px solid #F3F4F6;
+        }
+
+        .footer-bottom a { color: var(--text-muted); text-decoration: none; }
+        .footer-bottom a:hover { color: var(--primary); }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu { display: block; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            section { padding: 4rem 1.5rem; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="/" class="logo">🎵 Une Chanson Pour Toi</a>
+    <ul class="nav-links">
+        <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+        <li><a href="#occasions">Occasions</a></li>
+        <li><a href="#tarif">Tarif</a></li>
+        <li><a href="#avis">Avis</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://unechansonpourtoi.fr/Commander" class="nav-cta">Commander 🎶</a></li>
+    </ul>
+    <div class="mobile-menu" onclick="toggleMenu()">☰</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+    <div class="hero-content">
+        <div class="hero-badge">⭐ 4.9/5 — 36 avis clients vérifiés</div>
+        <h1>Son prénom.<br><span>Votre histoire.</span></h1>
+        <p>Transformez vos souvenirs et anecdotes en une chanson personnalisée unique. Le cadeau le plus original et émouvant que vous puissiez offrir.</p>
+        <div class="hero-buttons">
+            <a href="https://unechansonpourtoi.fr/Commander" class="btn-primary">🎵 Créer ma chanson — 29,99€</a>
+            <a href="#comment-ca-marche" class="btn-secondary">▶ Comment ça marche</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number">48h</div>
+                <div class="stat-label">Livraison rapide</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">29,99€</div>
+                <div class="stat-label">Tout compris</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Clients satisfaits</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">🎹</div>
+                <div class="stat-label">Tous styles musicaux</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section id="comment-ca-marche">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Simple & rapide</div>
+            <h2 class="section-title">Comment ça marche ?</h2>
+            <p class="section-subtitle mx-auto">En 3 étapes simples, recevez une chanson unique qui fera pleurer de joie celui ou celle qui la recevra.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-icon">📝</div>
+                <h3>Racontez votre histoire</h3>
+                <p>Remplissez notre formulaire : prénom du destinataire, occasion, anecdotes, style musical souhaité, voix homme ou femme.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-icon">🎵</div>
+                <h3>On compose votre chanson</h3>
+                <p>Notre équipe crée une chanson unique avec des paroles 100% personnalisées et une mélodie professionnelle dans le style de votre choix.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-icon">🎁</div>
+                <h3>Surprenez vos proches</h3>
+                <p>Recevez votre chanson en 48h par email au format MP3. Prête à être offerte, partagée et écoutée en boucle !</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OCCASIONS -->
+<section id="occasions" style="background: var(--bg-soft);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Pour chaque moment</div>
+            <h2 class="section-title">Une chanson pour toutes les occasions</h2>
+            <p class="section-subtitle mx-auto">Anniversaire, mariage ou simple déclaration d'amour — chaque occasion mérite sa chanson sur mesure.</p>
+        </div>
+        <div class="occasions-grid">
+            <div class="occasion-card"><div class="occasion-icon">🎂</div><h3>Anniversaire</h3><p>Bien plus original qu'un "Joyeux anniversaire"</p></div>
+            <div class="occasion-card"><div class="occasion-icon">💍</div><h3>Mariage</h3><p>La bande-son parfaite pour le plus beau jour</p></div>
+            <div class="occasion-card"><div class="occasion-icon">❤️</div><h3>Déclaration d'amour</h3><p>Dites "je t'aime" en musique</p></div>
+            <div class="occasion-card"><div class="occasion-icon">👶</div><h3>Naissance</h3><p>Une chanson avec son prénom, pour la vie</p></div>
+            <div class="occasion-card"><div class="occasion-icon">🌹</div><h3>Fête des mères</h3><p>Un cadeau qui fera pleurer maman</p></div>
+            <div class="occasion-card"><div class="occasion-icon">👔</div><h3>Fête des pères</h3><p>Pour le meilleur papa, en musique</p></div>
+            <div class="occasion-card"><div class="occasion-icon">🎉</div><h3>EVJF / EVG</h3><p>La surprise fun et mémorable</p></div>
+            <div class="occasion-card"><div class="occasion-icon">💝</div><h3>Saint-Valentin</h3><p>Romantique et unique au monde</p></div>
+            <div class="occasion-card"><div class="occasion-icon">🎄</div><h3>Noël</h3><p>Le cadeau qui se garde pour toujours</p></div>
+            <div class="occasion-card"><div class="occasion-icon">👵</div><h3>Grands-parents</h3><p>Un hommage musical touchant</p></div>
+            <div class="occasion-card"><div class="occasion-icon">🏖️</div><h3>Retraite</h3><p>Un départ en musique inoubliable</p></div>
+            <div class="occasion-card"><div class="occasion-icon">🕊️</div><h3>Hommage</h3><p>En mémoire d'un être cher</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- TARIF -->
+<section id="tarif">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Un prix, zéro surprise</div>
+            <h2 class="section-title">Simple, transparent, tout compris</h2>
+            <p class="section-subtitle mx-auto">Pas d'options cachées ni de frais supplémentaires.</p>
+        </div>
+        <div class="pricing-card">
+            <div class="pricing-badge">🔥 -65% — Offre limitée</div>
+            <div class="pricing-old">90€</div>
+            <div class="pricing-amount">29,99€ <span>/ chanson</span></div>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Tout compris, livré en 48h</p>
+            <ul class="pricing-features">
+                <li>Paroles 100% personnalisées avec vos anecdotes</li>
+                <li>Composition musicale professionnelle</li>
+                <li>Choix du style : pop, rap, rock, jazz, variété, afro...</li>
+                <li>Choix de la voix : homme ou femme</li>
+                <li>Livraison MP3 par email sous 48h</li>
+                <li>Écoute et partage illimités</li>
+                <li>Option : version instrumentale disponible</li>
+                <li>Option : lettre personnalisée</li>
+            </ul>
+            <a href="https://unechansonpourtoi.fr/Commander" class="btn-primary" style="width: 100%; justify-content: center;">🎵 Commander ma chanson</a>
+        </div>
+    </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section id="avis" style="background: var(--bg-section);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Ils ont adoré</div>
+            <h2 class="section-title">Ce que disent nos clients</h2>
+            <p class="section-subtitle mx-auto">98% de nos clients recommandent Une Chanson Pour Toi.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Pour ma deuxième chanson, vous avez été à la hauteur pourtant le défi était de taille. L'Amour de 2 sœurs dont la plus jeune est en soins palliatifs ! Magnifique chanson qui nous a tous touché aux larmes."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">A</div>
+                    <div>
+                        <div class="testimonial-name">André B.</div>
+                        <div class="testimonial-occasion">Hommage — Perte d'une sœur</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Le résultat a vraiment dépassé toutes mes attentes. Ma chanson est incroyable !!!! Je vous remercierai jamais assez de donner autant d'importance à notre histoire. Je suis bluffée. Merci !"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">K</div>
+                    <div>
+                        <div class="testimonial-name">Karine B.</div>
+                        <div class="testimonial-occasion">Cadeau pour son amour</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Commande passée pour la Saint Valentin. L'équipe est hyper professionnelle, réactive et vraiment au top ! Ils ont su parfaitement cerner mes besoins. Je recommande à 100% !"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">L</div>
+                    <div>
+                        <div class="testimonial-name">Ludivine M.</div>
+                        <div class="testimonial-occasion">Saint-Valentin</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Je n'arrête pas de pleurer... Chanson formidable... Vous êtes exceptionnels et j'ai hâte que ma fille l'écoute... Un si merveilleux cadeau... Bravo !"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">D</div>
+                    <div>
+                        <div class="testimonial-name">Deslandes</div>
+                        <div class="testimonial-occasion">Noël</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Super expérience ! Un cadeau original pour Noël qui témoigne mes sentiments depuis 32 ans de vie commune. 100% de réussite, elle a ému mon épouse aux larmes. Je recommande."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">D</div>
+                    <div>
+                        <div class="testimonial-name">Didier P.</div>
+                        <div class="testimonial-occasion">Noël — 32 ans ensemble</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Très bonne expérience, ma chérie a été très touchée. On envisage de passer sa chanson en ouverture de bal à notre mariage. Bravo à toute l'équipe !"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">B</div>
+                    <div>
+                        <div class="testimonial-name">Bérenguer A.</div>
+                        <div class="testimonial-occasion">Rencontre → Mariage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIKTOK -->
+<section class="tiktok-section">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Suivez-nous</div>
+            <h2 class="section-title">Découvrez nos créations sur TikTok</h2>
+            <p class="section-subtitle mx-auto">Des chansons émouvantes, drôles, surprenantes... Découvrez les réactions de nos clients !</p>
+        </div>
+        <div class="tiktok-embed-placeholder">
+            <p style="font-size: 3rem; margin-bottom: 1rem;">🎬</p>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Des centaines de chansons partagées par nos clients</p>
+            <a href="https://www.tiktok.com/@unechansonpourtoi_off" target="_blank" rel="noopener" class="tiktok-link">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.54a8.27 8.27 0 0 0 4.85 1.56V6.69h-1.09z"/></svg>
+                @unechansonpourtoi_off
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background: var(--bg-soft);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Questions fréquentes</div>
+            <h2 class="section-title">Tout ce que vous devez savoir</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">Comment fonctionne la création d'une chanson personnalisée ?</button>
+                <div class="faq-answer"><p>Vous remplissez un formulaire en ligne avec le prénom du destinataire, l'occasion, vos anecdotes et souvenirs, et le style musical souhaité. Notre équipe crée une chanson unique avec des paroles 100% personnalisées et une mélodie professionnelle. Livraison sous 48h par email en MP3.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">Quel est le délai de livraison ?</button>
+                <div class="faq-answer"><p>Votre chanson est livrée sous 48 heures après validation de votre commande. Vous recevez le fichier MP3 directement par email.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">Puis-je choisir le style musical ?</button>
+                <div class="faq-answer"><p>Absolument ! Pop, rock, rap, variété française, jazz, reggae, afro, R&B, électro... Vous indiquez vos préférences dans le formulaire.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">La chanson est-elle vraiment unique ?</button>
+                <div class="faq-answer"><p>Oui, à 100%. Chaque chanson est créée de zéro à partir de vos anecdotes et souvenirs. Les paroles sont écrites sur mesure, la mélodie composée spécialement. C'est une création unique au monde.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">Pour quelles occasions peut-on commander ?</button>
+                <div class="faq-answer"><p>Toutes ! Anniversaire, mariage, naissance, EVJF/EVG, fête des mères/pères, Saint-Valentin, Noël, retraite, hommage, déclaration d'amour... Si vous avez une histoire, nous avons une chanson.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">Que se passe-t-il si la chanson ne me plaît pas ?</button>
+                <div class="faq-answer"><p>Avec 98% de satisfaction, c'est rare ! Mais contactez-nous si vous souhaitez des ajustements. Nous voulons que chaque client soit pleinement satisfait.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">La livraison est-elle internationale ?</button>
+                <div class="faq-answer"><p>Oui ! La chanson est envoyée par email au format MP3. Paris, Dakar, Montréal ou Tokyo — vous la recevez instantanément. 100% digital, pas de frais de port.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+    <div>
+        <h2>Prêt à offrir un moment<br>qu'on n'oublie jamais ?</h2>
+        <p>Créez votre chanson personnalisée en 2 minutes. Livraison sous 48h.</p>
+        <a href="https://unechansonpourtoi.fr/Commander" class="btn-white">🎵 Créer ma chanson — 29,99€</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>🎵 Une Chanson Pour Toi</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;">Des chansons personnalisées uniques créées avec passion. Le cadeau original qui touche le cœur.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Occasions</h4>
+            <a href="#occasions">Anniversaire</a>
+            <a href="#occasions">Mariage</a>
+            <a href="#occasions">Naissance</a>
+            <a href="#occasions">Fête des mères</a>
+            <a href="#occasions">EVJF / EVG</a>
+            <a href="#occasions">Saint-Valentin</a>
+        </div>
+        <div class="footer-col">
+            <h4>Informations</h4>
+            <a href="#comment-ca-marche">Comment ça marche</a>
+            <a href="#tarif">Tarif</a>
+            <a href="#avis">Avis clients</a>
+            <a href="#faq">FAQ</a>
+            <a href="mailto:contact@unechansonpourtoi.fr">Contact</a>
+        </div>
+        <div class="footer-col">
+            <h4>Suivez-nous</h4>
+            <a href="https://www.tiktok.com/@unechansonpourtoi_off" target="_blank" rel="noopener">TikTok</a>
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Une Chanson Pour Toi. Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">CGV</a> | <a href="#">Confidentialité</a></p>
+    </div>
+</footer>
+
+<script>
+    function toggleFaq(btn) {
+        const answer = btn.nextElementSibling;
+        const isOpen = answer.classList.contains('open');
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+        if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
+    }
+
+    function toggleMenu() {
+        const links = document.querySelector('.nav-links');
+        links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+        if (links.style.display === 'flex') {
+            links.style.flexDirection = 'column';
+            links.style.position = 'absolute';
+            links.style.top = '100%';
+            links.style.left = '0';
+            links.style.right = '0';
+            links.style.background = 'rgba(255,255,255,0.98)';
+            links.style.padding = '1rem 2rem';
+            links.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+        }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.step, .occasion-card, .testimonial, .faq-item').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>
