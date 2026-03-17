@@ -823,20 +823,34 @@
             <h2 class="section-title">Découvrez une de nos créations</h2>
             <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem; font-size: 1.05rem;">Cette chanson a ému des milliers de personnes. Chaque chanson est unique, créée sur mesure à partir de votre histoire.</p>
         </div>
-        <div style="max-width: 550px; margin: 0 auto; background: white; border: 1px solid var(--border); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-md);">
-            <div style="text-align: center; margin-bottom: 1.5rem;">
-                <span style="font-size: 2.5rem;">🎵</span>
-                <h3 style="font-size: 1.15rem; font-weight: 700; margin-top: 0.5rem;">« Ce que je n'ai jamais su te dire »</h3>
-                <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0.25rem;">Chanson hommage — Voix femme, style pop émotion</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 700px; margin: 0 auto;">
+            <!-- Chanson 1 - Best seller -->
+            <div style="background: white; border: 2px solid var(--primary); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-md); position: relative;">
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-2); color: white; padding: 0.3rem 1rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">⭐ LA PLUS DEMANDÉE</div>
+                <div style="text-align: center; margin-bottom: 1.25rem; margin-top: 0.5rem;">
+                    <span style="font-size: 2rem;">💝</span>
+                    <h3 style="font-size: 1.05rem; font-weight: 700; margin-top: 0.5rem;">« Ce que je n'ai jamais su te dire »</h3>
+                    <p style="color: var(--text-muted); font-size: 0.82rem; margin-top: 0.25rem;">Hommage / Absence — Voix femme, pop émotion</p>
+                </div>
+                <audio controls preload="metadata" style="width: 100%; border-radius: 10px; height: 42px;">
+                    <source src="/audio/ce-que-je-nai-jamais-su-te-dire.mp3" type="audio/mpeg">
+                </audio>
             </div>
-            <audio controls preload="metadata" style="width: 100%; border-radius: 10px;">
-                <source src="/audio/ce-que-je-nai-jamais-su-te-dire.mp3" type="audio/mpeg">
-                Votre navigateur ne supporte pas le lecteur audio.
-            </audio>
-            <p style="text-align: center; color: var(--text-light); font-size: 0.8rem; margin-top: 1rem; font-style: italic;">🔒 Chanson exemple — Chaque création est 100% unique et personnalisée</p>
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="https://unechansonpourtoi.fr/Commander" class="btn-primary" style="font-size: 0.95rem; padding: 0.85rem 2rem;">🎵 Créer la mienne — 29,99€</a>
+            <!-- Chanson 2 - Cancer/résilience -->
+            <div style="background: white; border: 1px solid var(--border); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-sm);">
+                <div style="text-align: center; margin-bottom: 1.25rem;">
+                    <span style="font-size: 2rem;">🌟</span>
+                    <h3 style="font-size: 1.05rem; font-weight: 700; margin-top: 0.5rem;">« Merci mon cœur »</h3>
+                    <p style="color: var(--text-muted); font-size: 0.82rem; margin-top: 0.25rem;">Résilience / Gratitude — Voix femme, ballade</p>
+                </div>
+                <audio controls preload="metadata" style="width: 100%; border-radius: 10px; height: 42px;">
+                    <source src="/audio/merci-mon-coeur.mp3" type="audio/mpeg">
+                </audio>
             </div>
+        </div>
+        <p style="text-align: center; color: var(--text-light); font-size: 0.8rem; margin-top: 1.5rem; font-style: italic;">🔒 Chansons exemples — Chaque création est 100% unique et personnalisée</p>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="https://unechansonpourtoi.fr/Commander" class="btn-primary" style="font-size: 0.95rem; padding: 0.85rem 2rem;">🎵 Créer la mienne — 29,99€</a>
         </div>
     </div>
 </section>
