@@ -578,84 +578,91 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Upload Audio */}
+          {/* Upload Audio - Versions multiples */}
           <div>
             <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <Music className="w-5 h-5 text-purple-500" />
-              Fichier audio final
+              Versions audio
             </h3>
-            <div className="p-4 rounded-xl bg-purple-50 border border-purple-200">
-              {localOrder.audio_versions?.[0]?.mp3_url ? (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-green-600" />
-                      <span className="text-green-700 font-medium">Audio uploadé</span>
+            <div className="space-y-3">
+              {/* Versions existantes */}
+              {(localOrder.audio_versions || []).map((version, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-purple-50 border border-purple-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                      <span className="text-sm font-medium text-green-700">Version {idx + 1}</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         size="sm" 
                         variant="outline"
                         onClick={() => {
-                          if (playingAudio === 'main') {
+                          if (playingAudio === `v${idx}`) {
                             audioRef.current?.pause();
                             setPlayingAudio(null);
                           } else {
-                            audioRef.current.src = localOrder.audio_versions[0].mp3_url;
+                            audioRef.current.src = version.mp3_url;
                             audioRef.current.play();
-                            setPlayingAudio('main');
+                            setPlayingAudio(`v${idx}`);
                           }
                         }}
                       >
-                        {playingAudio === 'main' ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                        {playingAudio === `v${idx}` ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                       </Button>
                       <Button 
                         size="sm" 
                         variant="outline" 
                         className="text-red-600"
                         onClick={async () => {
-                          await base44.entities.Order.update(order.id, { audio_versions: [] });
-                          setLocalOrder(prev => ({ ...prev, audio_versions: [] }));
+                          if (!confirm(`Supprimer la version ${idx + 1} ?`)) return;
+                          const newVersions = localOrder.audio_versions.filter((_, i) => i !== idx);
+                          await base44.entities.Order.update(order.id, { audio_versions: newVersions });
+                          setLocalOrder(prev => ({ ...prev, audio_versions: newVersions }));
                         }}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
-                  
-                  {/* Renommer */}
                   <div className="flex gap-2 items-center">
                     <Input 
-                      value={localOrder.audio_versions[0].name} 
+                      value={version.name} 
                       onChange={(e) => {
                         const newVersions = [...localOrder.audio_versions];
-                        newVersions[0].name = e.target.value;
+                        newVersions[idx].name = e.target.value;
                         setLocalOrder(prev => ({ ...prev, audio_versions: newVersions }));
                       }}
                       className="h-8 text-sm"
-                      placeholder="Titre de la chanson"
+                      placeholder="Nom de la version"
                     />
                     <Button 
                       size="sm" 
-                      onClick={() => handleRenameVersion(0, localOrder.audio_versions[0].name)}
+                      onClick={() => handleRenameVersion(idx, localOrder.audio_versions[idx].name)}
                       variant="secondary"
                     >
                       Renommer
                     </Button>
                   </div>
                 </div>
-              ) : (
+              ))}
+
+              {/* Bouton ajouter une version */}
+              <div className="p-4 rounded-xl bg-gray-50 border-2 border-dashed border-purple-300">
+                <p className="text-sm font-medium text-purple-700 mb-2 flex items-center gap-2">
+                  <Plus className="w-4 h-4" />
+                  Ajouter une version audio {(localOrder.audio_versions || []).length > 0 ? `(Version ${(localOrder.audio_versions || []).length + 1})` : '(Version 1)'}
+                </p>
                 <div className="flex items-center gap-3">
                   <Input
                     type="file"
                     accept="audio/*"
-                    onChange={(e) => handleVersionUpload(e.target.files[0], 0)}
-                    disabled={uploading.version_0_mp3}
+                    onChange={(e) => handleVersionUpload(e.target.files[0], (localOrder.audio_versions || []).length)}
+                    disabled={uploading[`version_${(localOrder.audio_versions || []).length}_mp3`]}
                   />
-                  {uploading.version_0_mp3 && <Loader2 className="w-5 h-5 animate-spin text-purple-600" />}
-                  {uploadSuccess.version_0_mp3 && <CheckCircle2 className="w-5 h-5 text-green-600" />}
+                  {uploading[`version_${(localOrder.audio_versions || []).length}_mp3`] && <Loader2 className="w-5 h-5 animate-spin text-purple-600" />}
                 </div>
-              )}
+              </div>
             </div>
           </div>
 
