@@ -362,10 +362,12 @@ export default function Layout({ children, currentPageName }) {
               <ul className="space-y-4">
                 {[
                   { label: "Accueil", url: "Accueil" },
+                  { label: "À propos", url: "APropos" },
                   { label: "Commander", url: "Commander" },
                   { label: "Exemples Audio", url: "Exemples" },
                   { label: "Témoignages", url: "Temoignages" },
-                  { label: "FAQ", url: "FAQ" }
+                  { label: "FAQ", url: "FAQ" },
+                  { label: "Contact", url: "Contact" }
                 ].map((link, i) => (
                   <li key={i}>
                     <Link 

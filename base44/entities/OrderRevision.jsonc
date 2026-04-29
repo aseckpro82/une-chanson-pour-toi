@@ -1,0 +1,48 @@
+{
+  "name": "OrderRevision",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "ID de la commande"
+    },
+    "revision_type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "audio"
+      ],
+      "description": "Type de r\u00e9vision demand\u00e9e"
+    },
+    "message_text": {
+      "type": "string",
+      "description": "Message texte de la r\u00e9vision"
+    },
+    "message_audio_url": {
+      "type": "string",
+      "description": "URL du message audio"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed"
+      ],
+      "default": "pending"
+    },
+    "admin_response": {
+      "type": "string",
+      "description": "R\u00e9ponse de l'admin"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Description optionnelle (max 1000 caract\u00e8res)"
+    }
+  },
+  "required": [
+    "order_id",
+    "revision_type"
+  ]
+}

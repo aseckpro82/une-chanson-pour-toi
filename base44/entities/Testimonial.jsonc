@@ -1,0 +1,63 @@
+{
+  "name": "Testimonial",
+  "type": "object",
+  "properties": {
+    "customer_name": {
+      "type": "string",
+      "description": "Nom du client"
+    },
+    "occasion": {
+      "type": "string",
+      "description": "Occasion (anniversaire, mariage, etc.)"
+    },
+    "message": {
+      "type": "string",
+      "description": "T\u00e9moignage du client"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Note sur 5"
+    },
+    "photo_url": {
+      "type": "string",
+      "description": "URL de la photo (optionnel)"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Mettre en avant sur la page d'accueil"
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "chanson_seule",
+        "chanson_avec_video",
+        "chanson_avec_instrumental",
+        "chanson_premium"
+      ],
+      "description": "Type de prestation command\u00e9e"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "ID de la commande associ\u00e9e"
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false,
+      "description": "T\u00e9moignage approuv\u00e9 par l'admin"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Description optionnelle (max 1000 caract\u00e8res)"
+    }
+  },
+  "required": [
+    "customer_name",
+    "occasion",
+    "message",
+    "rating"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "PromoCode",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Code promo unique"
+    },
+    "discount_percent": {
+      "type": "number",
+      "description": "Pourcentage de r\u00e9duction"
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date d'expiration"
+    },
+    "customer_email": {
+      "type": "string",
+      "description": "Email du client concern\u00e9"
+    },
+    "order_id": {
+      "type": "string",
+      "description": "ID de la commande li\u00e9e"
+    },
+    "used": {
+      "type": "boolean",
+      "default": false,
+      "description": "Code utilis\u00e9 ou non"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Description optionnelle (max 1000 caract\u00e8res)"
+    }
+  },
+  "required": [
+    "code",
+    "discount_percent",
+    "valid_until",
+    "customer_email"
+  ]
+}
