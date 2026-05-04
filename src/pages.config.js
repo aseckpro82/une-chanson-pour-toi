@@ -49,6 +49,7 @@
  */
 import Accueil from './pages/Accueil';
 import Admin from './pages/Admin';
+import APropos from './pages/APropos';
 import CGV from './pages/CGV';
 import Commander from './pages/Commander';
 import Contact from './pages/Contact';
@@ -76,6 +77,7 @@ import __Layout from './Layout.jsx';
 export const PAGES = {
     "Accueil": Accueil,
     "Admin": Admin,
+    "APropos": APropos,
     "CGV": CGV,
     "Commander": Commander,
     "Contact": Contact,
