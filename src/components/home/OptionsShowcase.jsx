@@ -363,7 +363,7 @@ export default function OptionsShowcase() {
             {/* Prix */}
             <div className="text-center mt-6 pt-6 border-t border-rose-200">
               <div className="flex items-center justify-center gap-3">
-                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">29,99€</span>
+                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">39€</span>
               </div>
             </div>
           </div>

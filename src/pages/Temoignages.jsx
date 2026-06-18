@@ -94,7 +94,7 @@ export default function Temoignages() {
               <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-6 py-3 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
                 <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2 fill-white" />
                 <span className="hidden sm:inline">Créer ma chanson personnalisée</span>
-                <span className="sm:hidden">Commander • 29,99€</span>
+                <span className="sm:hidden">Commander • 39€</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -218,9 +218,7 @@ export default function Temoignages() {
                   Offrez une chanson unique à quelqu'un que vous aimez
                 </p>
                 <div className="flex items-center justify-center gap-2 mb-4">
-                  <span className="text-white/60 line-through decoration-2">90€</span>
-                  <span className="text-2xl sm:text-3xl font-bold">29,99€</span>
-                  <Badge className="bg-white text-rose-600 border-0 font-bold">-65%</Badge>
+                  <span className="text-2xl sm:text-3xl font-bold">39€</span>
                 </div>
                 <Link to={createPageUrl("Commander")}>
                   <Button className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-4 text-base font-semibold shadow-xl">
@@ -239,7 +237,7 @@ export default function Temoignages() {
         <Link to={createPageUrl("Commander")}>
           <Button className="w-full bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-xl py-4 text-sm sm:text-base font-semibold shadow-lg">
             <Heart className="w-5 h-5 mr-2 fill-white" />
-            Commander ma chanson (29,99€)
+            Commander ma chanson (39€)
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </Link>
