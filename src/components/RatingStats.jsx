@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 export default function RatingStats({ 
   title = "Avis clients",
   averageRating = 4.9,
-  totalReviews = 523,
+  totalReviews = 36,
   distribution = { 5: 92, 4: 6, 3: 2, 2: 0, 1: 0 }
 }) {
   return (
@@ -23,7 +23,7 @@ export default function RatingStats({
             />
           ))}
         </div>
-        <p className="text-rose-200 text-sm">{totalReviews} avis</p>
+        <p className="text-rose-200 text-sm">{totalReviews} avis vérifiés</p>
       </div>
 
       {/* Distribution bars */}

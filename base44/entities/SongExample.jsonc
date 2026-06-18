@@ -1,0 +1,40 @@
+{
+  "name": "SongExample",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Titre de l'exemple"
+    },
+    "occasion": {
+      "type": "string",
+      "description": "Type d'occasion (mariage, anniversaire, etc.)"
+    },
+    "style": {
+      "type": "string",
+      "description": "Style musical"
+    },
+    "audio_url": {
+      "type": "string",
+      "description": "URL du fichier audio OU ID Suno (ex: 10bacfc3-3c77-4a8f-a20d-0df933aa6fc2)"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Dur\u00e9e de l'extrait"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description de l'exemple"
+    },
+    "is_suno_embed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Si true, audio_url contient un ID Suno"
+    }
+  },
+  "required": [
+    "title",
+    "occasion",
+    "audio_url"
+  ]
+}

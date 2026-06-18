@@ -175,14 +175,14 @@ export default function Exemples() {
         </div>
       </div>
 
-      {/* Bandeau promo Spécial */}
+      {/* Bandeau prix */}
       <div className="bg-gradient-to-r from-rose-500/20 to-purple-500/20 border-y border-rose-500/30 py-3 px-4 mb-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-rose-500 fill-rose-500" />
-            <span className="text-rose-300 font-bold">OFFRE SPÉCIALE ✨</span>
+            <span className="text-rose-300 font-bold">Votre chanson personnalisée ✨</span>
           </div>
-          <span className="text-gray-300 text-sm"><span className="line-through text-gray-500">90€</span> → <span className="font-bold text-white">29,99€</span> <span className="text-rose-400 font-bold">-67%</span></span>
+          <span className="text-gray-300 text-sm"><span className="font-bold text-white">29,99€</span></span>
           <Link to={createPageUrl("Commander")} className="hidden sm:block">
             <Button size="sm" className="bg-rose-500 text-white hover:bg-rose-600 rounded-full px-4 border-0">
               En profiter <ArrowRight className="w-3 h-3 ml-1" />
@@ -427,14 +427,12 @@ export default function Exemples() {
             <Card className="mt-4 p-5 bg-gradient-to-r from-rose-500/20 to-purple-500/20 backdrop-blur-xl border-rose-500/30 rounded-2xl relative z-0">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-5 h-5 text-rose-500 fill-rose-500" />
-                <span className="text-rose-400 text-sm font-bold">OFFRE LIMITÉE</span>
+                <span className="text-rose-400 text-sm font-bold">Chanson personnalisée</span>
               </div>
               <h3 className="text-white font-bold text-lg mb-1">Votre chanson unique</h3>
               <p className="text-gray-300 text-sm mb-3">Offrez un moment d'émotion inoubliable</p>
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-gray-400 line-through decoration-2">90€</span>
                 <span className="text-2xl font-bold text-white">29,99€</span>
-                <Badge className="bg-rose-500 text-white border-0 text-xs font-bold">-67%</Badge>
               </div>
               <Link to={createPageUrl("Commander")}>
                 <Button className="w-full bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-xl py-5 text-base font-semibold">
@@ -456,8 +454,8 @@ export default function Exemples() {
       <div className="lg:hidden fixed bottom-0 left-0 right-0 p-3 bg-gray-900/95 backdrop-blur-xl border-t border-gray-700/50 z-50 safe-area-pb">
         <div className="flex items-center gap-3">
           <div className="hidden sm:block text-left flex-shrink-0">
-            <p className="text-white font-bold text-sm">29,99€ <span className="text-gray-400 line-through text-xs">90€</span></p>
-            <p className="text-rose-400 text-xs font-semibold">Offre Spéciale</p>
+            <p className="text-white font-bold text-sm">29,99€</p>
+            <p className="text-rose-400 text-xs font-semibold">Chanson personnalisée</p>
           </div>
           <Link to={createPageUrl("Commander")} className="flex-1">
             <Button className="w-full bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-xl py-4 text-sm sm:text-base font-semibold shadow-lg shadow-rose-500/30">
@@ -476,9 +474,7 @@ export default function Exemples() {
           <h2 className="text-2xl font-bold text-white mb-2">Prêt à créer votre chanson unique ?</h2>
           <p className="text-gray-300 mb-4">Offrez un cadeau inoubliable, personnalisé rien que pour vous</p>
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-gray-400 line-through text-xl">90€</span>
             <span className="text-4xl font-bold text-white">29,99€</span>
-            <Badge className="bg-rose-500 text-white border-0 text-sm font-bold">-67% Offre Spéciale</Badge>
           </div>
           <Link to={createPageUrl("Commander")}>
             <Button className="bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white rounded-full px-10 py-6 text-lg font-semibold shadow-lg shadow-rose-500/30">

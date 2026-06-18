@@ -1,0 +1,366 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "package_type": {
+      "type": "string",
+      "enum": [
+        "simple",
+        "standard",
+        "premium"
+      ],
+      "description": "Type de forfait choisi"
+    },
+    "price": {
+      "type": "number",
+      "description": "Prix total pay\u00e9"
+    },
+    "song_objective": {
+      "type": "string",
+      "description": "Objectif de la chanson"
+    },
+    "emotions": {
+      "type": "string",
+      "description": "\u00c9motions \u00e0 transmettre"
+    },
+    "musical_style": {
+      "type": "string",
+      "description": "Style musical souhait\u00e9"
+    },
+    "voice_gender": {
+      "type": "string",
+      "enum": [
+        "peu_importe",
+        "femme",
+        "homme"
+      ],
+      "default": "peu_importe",
+      "description": "Pr\u00e9f\u00e9rence de voix (femme, homme, peu importe)"
+    },
+    "reference_artists": {
+      "type": "string",
+      "description": "Artistes de r\u00e9f\u00e9rence"
+    },
+    "person_details": {
+      "type": "string",
+      "description": "D\u00e9tails sur la personne concern\u00e9e"
+    },
+    "own_lyrics": {
+      "type": "string",
+      "description": "Paroles fournies par le client"
+    },
+    "preferred_language": {
+      "type": "string",
+      "description": "Langue souhait\u00e9e"
+    },
+    "add_writing_help": {
+      "type": "boolean",
+      "default": false,
+      "description": "Option aide \u00e0 la r\u00e9daction (forfait Simple)"
+    },
+    "add_video": {
+      "type": "boolean",
+      "default": false
+    },
+    "video_type": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "premium"
+      ]
+    },
+    "video_photos_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs des photos upload\u00e9es pour le montage vid\u00e9o"
+    },
+    "add_instrumental": {
+      "type": "boolean",
+      "default": false
+    },
+    "add_calligraphy": {
+      "type": "boolean",
+      "default": false
+    },
+    "add_letter": {
+      "type": "boolean",
+      "default": false,
+      "description": "Option lettre personnalis\u00e9e / carte message"
+    },
+    "add_voice_message": {
+      "type": "boolean",
+      "default": false
+    },
+    "voice_message_text": {
+      "type": "string"
+    },
+    "voice_message_audio_url": {
+      "type": "string"
+    },
+    "add_karaoke_lyrics": {
+      "type": "boolean",
+      "default": false,
+      "description": "Option paroles karaok\u00e9 synchronis\u00e9es"
+    },
+    "final_lyrics_text": {
+      "type": "string",
+      "description": "Paroles de la chanson en texte brut pour affichage karaok\u00e9"
+    },
+    "add_qr_code": {
+      "type": "boolean",
+      "default": false,
+      "description": "Option QR Code musical partageable"
+    },
+    "qr_code_url": {
+      "type": "string",
+      "description": "URL de l'image QR Code g\u00e9n\u00e9r\u00e9e"
+    },
+    "add_client_video": {
+      "type": "boolean",
+      "default": false,
+      "description": "Option carte vid\u00e9o personnalis\u00e9e du client"
+    },
+    "client_video_url": {
+      "type": "string",
+      "description": "URL de la vid\u00e9o upload\u00e9e par le client"
+    },
+    "add_album_cover": {
+      "type": "boolean",
+      "default": false,
+      "description": "Option pochette d'album artistique"
+    },
+    "album_cover_url": {
+      "type": "string",
+      "description": "URL de la pochette d'album g\u00e9n\u00e9r\u00e9e"
+    },
+    "express_delivery": {
+      "type": "boolean",
+      "default": false,
+      "description": "Livraison express 24h"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "customer_phone": {
+      "type": "string"
+    },
+    "customer_user_id": {
+      "type": "string",
+      "description": "ID du user associ\u00e9"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_payment",
+        "pending",
+        "in_progress",
+        "preview_ready",
+        "revision_requested",
+        "revision_in_progress",
+        "completed",
+        "delivered",
+        "refunded"
+      ],
+      "default": "pending_payment"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "paid",
+        "refunded"
+      ],
+      "default": "pending"
+    },
+    "stripe_session_id": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string",
+      "description": "ID client Stripe pour paiements futurs"
+    },
+    "delivery_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "delivered_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date r\u00e9elle de livraison (quand status passe \u00e0 delivered)"
+    },
+    "first_download_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date du premier t\u00e9l\u00e9chargement par le client"
+    },
+    "welcome_audio_url": {
+      "type": "string",
+      "description": "URL du message audio de bienvenue personnalis\u00e9"
+    },
+    "preview_audio_url": {
+      "type": "string",
+      "description": "URL de la pr\u00e9-\u00e9coute"
+    },
+    "audio_versions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "mp3_url": {
+            "type": "string"
+          },
+          "wav_url": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Versions audio multiples (Simple: 1, Standard: 2, Premium: 4)"
+    },
+    "final_audio_mp3_url": {
+      "type": "string",
+      "description": "URL fichier MP3 final"
+    },
+    "final_audio_wav_url": {
+      "type": "string",
+      "description": "URL fichier WAV final"
+    },
+    "final_lyrics_pdf_url": {
+      "type": "string",
+      "description": "URL paroles PDF"
+    },
+    "final_video_url": {
+      "type": "string",
+      "description": "URL vid\u00e9o finale"
+    },
+    "final_instrumental_url": {
+      "type": "string",
+      "description": "URL instrumental"
+    },
+    "final_calligraphy_url": {
+      "type": "string",
+      "description": "URL calligraphie"
+    },
+    "final_letter_url": {
+      "type": "string",
+      "description": "URL lettre personnalis\u00e9e"
+    },
+    "final_certificate_url": {
+      "type": "string",
+      "description": "URL certificat de cr\u00e9ation (Premium)"
+    },
+    "revisions_used": {
+      "type": "number",
+      "default": 0,
+      "description": "Nombre de r\u00e9visions utilis\u00e9es"
+    },
+    "revisions_max": {
+      "type": "number",
+      "description": "Nombre max de r\u00e9visions autoris\u00e9es"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes administratives"
+    },
+    "reminder_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_reminder_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "testimonial_request_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Email de demande de t\u00e9moignage envoy\u00e9"
+    },
+    "testimonial_request_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date d'envoi de la demande de t\u00e9moignage"
+    },
+    "reminder_30days_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Rappel J-30 envoy\u00e9"
+    },
+    "reminder_30days_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reminder_1day_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Rappel J-1 envoy\u00e9"
+    },
+    "reminder_1day_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "files_deleted": {
+      "type": "boolean",
+      "default": false,
+      "description": "Fichiers supprim\u00e9s"
+    },
+    "files_deleted_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date de suppression des fichiers"
+    },
+    "abandoned_reminder_1_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Premier email de relance panier abandonn\u00e9 envoy\u00e9"
+    },
+    "abandoned_reminder_1_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "abandoned_reminder_2_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Deuxi\u00e8me email de relance panier abandonn\u00e9 envoy\u00e9"
+    },
+    "abandoned_reminder_2_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "abandoned_reminder_3_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Troisi\u00e8me email de relance avec promo envoy\u00e9"
+    },
+    "abandoned_reminder_3_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "abandoned_promo_code": {
+      "type": "string",
+      "description": "Code promo g\u00e9n\u00e9r\u00e9 pour relance 3"
+    },
+    "abandoned_webhook_sent": {
+      "type": "boolean",
+      "default": false,
+      "description": "Webhook n8n envoy\u00e9 pour panier abandonn\u00e9"
+    },
+    "abandoned_webhook_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date d'envoi du webhook n8n"
+    }
+  },
+  "required": [
+    "package_type",
+    "price",
+    "customer_name",
+    "customer_email"
+  ]
+}

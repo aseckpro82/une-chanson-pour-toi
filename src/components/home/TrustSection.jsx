@@ -30,8 +30,8 @@ const trustPoints = [
   },
   {
     icon: Users,
-    title: "Des Centaines de Clients Ravis",
-    description: "Plus de 500 chansons créées avec un taux de satisfaction de 98%. Rejoignez nos clients enchantés qui ont immortalisé leurs plus beaux moments avec nos créations musicales",
+    title: "Des Clients Ravis",
+    description: "Une cinquantaine de chansons créées avec un taux de satisfaction très élevé. Rejoignez nos clients enchantés qui ont immortalisé leurs plus beaux moments avec nos créations musicales",
     color: "from-purple-400 to-indigo-500"
   },
   {

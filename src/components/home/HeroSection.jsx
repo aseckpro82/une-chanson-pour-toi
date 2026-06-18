@@ -143,7 +143,7 @@ export default function HeroSection() {
                         </svg>
                       ))}
                     </div>
-                    <span className="text-[10px] text-gray-500">4.9 sur +500 avis</span>
+                    <span className="text-[10px] text-gray-500">4.9 sur 36 avis vérifiés</span>
                   </div>
 
                   {/* Player mockup */}
@@ -212,7 +212,7 @@ export default function HeroSection() {
               </svg>
             ))}
           </div>
-          <span className="text-sm sm:text-base text-gray-600">Noté 4.9 sur +500 avis</span>
+          <span className="text-sm sm:text-base text-gray-600">Noté 4.9 sur 36 avis vérifiés</span>
         </motion.div>
 
         {/* CTA principal */}

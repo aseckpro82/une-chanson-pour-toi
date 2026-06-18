@@ -71,8 +71,9 @@ export default function APropos() {
                 compositeurs et techniciens audio basée en France travaille avec
                 soin chaque commande. Nous combinons sensibilité artistique et
                 technologie de production professionnelle pour livrer en 48h à 72h
-                des œuvres qui touchent le cœur. Plus de 500 clients nous ont déjà
-                fait confiance, avec une note moyenne de 4,9/5 étoiles. Notre
+                des œuvres qui touchent le cœur. Une cinquantaine de clients nous ont
+                déjà fait confiance, avec une note moyenne de 4,9/5 étoiles sur
+                36 avis vérifiés. Notre
                 engagement : qualité studio, livraison rapide, et une satisfaction
                 garantie ou remboursée.
               </p>

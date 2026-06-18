@@ -76,10 +76,6 @@ export default function Index() {
                   <span className="text-5xl sm:text-6xl font-bold text-gray-900 tracking-tight">
                     29,99€
                   </span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl text-gray-400 font-medium line-through decoration-rose-500 opacity-60">90€</span>
-                    <Badge className="bg-rose-500 text-white hover:bg-rose-600 text-lg px-3 py-1 rounded-lg shadow-sm">-67%</Badge>
-                  </div>
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
                   <div className="flex -space-x-1">
@@ -148,7 +144,7 @@ export default function Index() {
                       <Heart className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900">+500</p>
+                      <p className="font-bold text-gray-900">+50</p>
                       <p className="text-sm text-gray-600">Clients heureux</p>
                     </div>
                   </div>
@@ -331,7 +327,7 @@ export default function Index() {
               <RatingStats 
                 title="Avis vérifiés"
                 averageRating={4.9}
-                totalReviews={523}
+                totalReviews={36}
                 distribution={{ 5: 92, 4: 6, 3: 2, 2: 0, 1: 0 }}
               />
             </div>

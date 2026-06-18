@@ -727,7 +727,7 @@ export default function Commander() {
               <RatingStats 
                 title="Avis vérifiés"
                 averageRating={4.9}
-                totalReviews={523}
+                totalReviews={36}
                 distribution={{ 5: 92, 4: 6, 3: 2, 2: 0, 1: 0 }}
               />
               <div className="flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-6">
