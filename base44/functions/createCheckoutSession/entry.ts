@@ -207,14 +207,14 @@ Deno.serve(async (req) => {
             customer_email: orderData.customer_email,
             submit_type: 'pay',
             payment_intent_data: {
-                description: '🎵 Chanson personnalisée - Livraison en 24-72h - 98% de satisfaction client',
+                description: '🎵 Chanson personnalisée - Livraison en 24-72h',
             },
             metadata: {
                 orderId: order.id,
                 customerEmail: orderData.customer_email,
                 packageType: orderData.package_type,
                 isBlackFriday: orderData.is_black_friday || false,
-                trust_message: '500+ clients satisfaits - Paiement 100% sécurisé',
+                trust_message: 'Paiement 100% sécurisé',
             },
             locale: 'fr',
             billing_address_collection: 'auto',
