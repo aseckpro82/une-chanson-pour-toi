@@ -74,7 +74,7 @@ export default function Index() {
               <div className="mb-8 flex flex-col items-center lg:items-start">
                 <div className="inline-flex items-baseline gap-3 mb-2">
                   <span className="text-5xl sm:text-6xl font-bold text-gray-900 tracking-tight">
-                    29,99€
+                    39€
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
@@ -374,7 +374,7 @@ export default function Index() {
               <Link to={createPageUrl("Commander")} onClick={() => window.scrollTo(0, 0)}>
                 <Button className="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-purple-600 hover:from-rose-600 hover:to-purple-700 text-white px-6 sm:px-8 py-5 text-sm sm:text-lg rounded-2xl shadow-xl">
                   <Heart className="w-5 h-5 mr-2 flex-shrink-0" />
-                  <span className="sm:hidden">Commander • 29,99€</span>
+                  <span className="sm:hidden">Commander • 39€</span>
                   <span className="hidden sm:inline">Créer ma chanson personnalisée</span>
                   <ArrowRight className="w-5 h-5 ml-2 flex-shrink-0" />
                 </Button>

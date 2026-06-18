@@ -85,7 +85,7 @@ Deno.serve(async (req) => {
                     name: '🎵 Chanson Personnalisée',
                     description: 'Composition musicale unique créée spécialement pour vous',
                 },
-                unit_amount: 2999, // 29.99€
+                unit_amount: 3900, // 39€
             },
             quantity: 1,
         });

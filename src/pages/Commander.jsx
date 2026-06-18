@@ -111,7 +111,7 @@ export default function Commander() {
     }
     
     // Track ViewContent
-    trackViewContent('Chanson Personnalisée', 'Service', 29.99, 'EUR');
+    trackViewContent('Chanson Personnalisée', 'Service', 39, 'EUR');
   }, []);
 
   const { data: songExamples = [] } = useQuery({
@@ -140,7 +140,7 @@ export default function Commander() {
   };
 
   const calculateTotal = () => {
-    let total = 29.99;
+    let total = 39;
     if (formData.add_calligraphy_pdf) total += 4.99;
     if (formData.video_memory) total += 19.99;
     if (formData.add_letter) total += 4.99;
@@ -158,7 +158,7 @@ export default function Commander() {
   };
   
   const calculateTotalBeforeDiscount = () => {
-    let total = 29.99;
+    let total = 39;
     if (formData.add_calligraphy_pdf) total += 4.99;
     if (formData.video_memory) total += 19.99;
     if (formData.add_letter) total += 4.99;
@@ -272,7 +272,7 @@ export default function Commander() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50">
       <SEO 
-        title="Commander votre chanson personnalisée | 29,99€ - Une Chanson Pour Toi"
+        title="Commander votre chanson personnalisée | 39€ - Une Chanson Pour Toi"
         description="Créez votre chanson personnalisée en 2 minutes. Un cadeau unique et émouvant."
         keywords="commander chanson personnalisée, cadeau original, émotion, musique sur mesure"
       />
@@ -294,7 +294,7 @@ export default function Commander() {
             </h1>
 
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-4xl md:text-5xl font-bold text-white">29,99€</span>
+              <span className="text-4xl md:text-5xl font-bold text-white">39€</span>
             </div>
             <p className="text-white/90 text-sm mb-6">Livraison standard 72h • Option Express 48h (+4,99€)</p>
 
