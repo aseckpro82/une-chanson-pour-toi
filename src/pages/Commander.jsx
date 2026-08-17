@@ -21,6 +21,7 @@ import FAQSection from "../components/FAQSection";
 import RatingStats from "../components/RatingStats";
 import ProductShowcase from "../components/ProductShowcase";
 import OptionsGrid from "../components/order/OptionsGrid";
+import PromoCodeField from "../components/order/PromoCodeField";
 import { CreditCard, Lock } from "lucide-react";
 import { trackViewContent, trackInitiateCheckout } from "@/components/FacebookPixel";
 
@@ -48,8 +49,7 @@ const languages = [
 export default function Commander() {
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [promoCode, setPromoCode] = useState(null);
-  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [appliedPromo, setAppliedPromo] = useState(null);
   
   const [formData, setFormData] = useState(() => {
     // Restaurer les données sauvegardées du localStorage
@@ -92,22 +92,18 @@ export default function Commander() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     
-    // Détection du code promo dans l'URL
+    // Détection du code promo dans l'URL (validé côté serveur)
     const urlParams = new URLSearchParams(window.location.search);
     const promoFromUrl = urlParams.get('promo');
     if (promoFromUrl) {
-      // Vérifier le code promo (ajouter d'autres codes si besoin)
-      const promoCodes = {
-        'CHANSON10': 10,
-        'CHANSON15': 15,
-        'CHANSON20': 20,
-        'BIENVENUE10': 10
-      };
-      const discount = promoCodes[promoFromUrl.toUpperCase()];
-      if (discount) {
-        setPromoCode(promoFromUrl.toUpperCase());
-        setPromoDiscount(discount);
-      }
+      base44.functions.invoke('validatePromoCode', { code: promoFromUrl })
+        .then((res) => {
+          const result = res.data || res;
+          if (result.valid) {
+            setAppliedPromo({ code: result.code, discount_percent: result.discount_percent });
+          }
+        })
+        .catch(() => {});
     }
     
     // Track ViewContent
@@ -150,8 +146,8 @@ export default function Commander() {
     if (formData.express_delivery) total += 4.99;
     
     // Appliquer le code promo
-    if (promoDiscount > 0) {
-      total = total * (1 - promoDiscount / 100);
+    if (appliedPromo?.discount_percent > 0) {
+      total = total * (1 - appliedPromo.discount_percent / 100);
     }
     
     return total.toFixed(2);
@@ -250,7 +246,8 @@ export default function Commander() {
         add_qr_code: formData.add_qr_code,
         add_client_video: formData.add_client_video,
         add_album_cover: formData.add_album_cover,
-        express_delivery: formData.express_delivery
+        express_delivery: formData.express_delivery,
+        promo_code: appliedPromo?.code || null
         };
 
       const response = await base44.functions.invoke('createCheckoutSession', orderData);
@@ -604,21 +601,18 @@ export default function Commander() {
 
                   {/* Bouton final */}
                   <div className="pt-4 border-t border-gray-100">
-                    {/* Affichage code promo actif */}
-                    {promoCode && (
-                      <div className="mb-4 p-3 bg-green-50 border-2 border-green-200 rounded-xl flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Check className="w-5 h-5 text-green-600" />
-                          <span className="font-semibold text-green-700">Code promo : {promoCode}</span>
-                        </div>
-                        <Badge className="bg-green-600 text-white">-{promoDiscount}%</Badge>
-                      </div>
-                    )}
+                    {/* Code promo */}
+                    <PromoCodeField
+                      appliedPromo={appliedPromo}
+                      customerEmail={formData.customer_email}
+                      onApply={setAppliedPromo}
+                      onRemove={() => setAppliedPromo(null)}
+                    />
                     
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
                       <div>
                         <p className="text-sm text-gray-600">Total</p>
-                        {promoCode ? (
+                        {appliedPromo ? (
                           <div className="flex items-center gap-2">
                             <span className="text-lg text-gray-400 line-through">{calculateTotalBeforeDiscount()}€</span>
                             <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">

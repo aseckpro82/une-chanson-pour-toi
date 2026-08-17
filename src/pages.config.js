@@ -60,7 +60,6 @@ import MentionsLegales from './pages/MentionsLegales';
 import Merci from './pages/Merci';
 import MesCommandes from './pages/MesCommandes';
 import OrderDetail from './pages/OrderDetail';
-import OrderReview from './pages/OrderReview';
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
 import PolitiqueRemboursement from './pages/PolitiqueRemboursement';
 import Revelation from './pages/Revelation';
@@ -88,7 +87,6 @@ export const PAGES = {
     "Merci": Merci,
     "MesCommandes": MesCommandes,
     "OrderDetail": OrderDetail,
-    "OrderReview": OrderReview,
     "PolitiqueConfidentialite": PolitiqueConfidentialite,
     "PolitiqueRemboursement": PolitiqueRemboursement,
     "Revelation": Revelation,

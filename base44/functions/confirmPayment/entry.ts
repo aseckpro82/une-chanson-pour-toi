@@ -393,6 +393,25 @@ ${optionsList.join('\n')}
         });
         console.log('✅ Commande mise à jour');
 
+        // Marquer le code promo nominatif comme utilisé (uniquement après paiement réel)
+        if (currentOrder.applied_promo_code) {
+            try {
+                const usedPromos = await base44.asServiceRole.entities.PromoCode.filter({
+                    code: currentOrder.applied_promo_code,
+                    used: false
+                });
+                if (usedPromos && usedPromos.length > 0) {
+                    await base44.asServiceRole.entities.PromoCode.update(usedPromos[0].id, {
+                        used: true,
+                        order_id: orderId
+                    });
+                    console.log('🎟️ Code promo marqué comme utilisé:', currentOrder.applied_promo_code);
+                }
+            } catch (promoError) {
+                console.error('⚠️ Erreur marquage code promo:', promoError.message);
+            }
+        }
+
         const updatedOrders = await base44.asServiceRole.entities.Order.filter({ id: orderId });
         let updatedOrder = updatedOrders[0];
         

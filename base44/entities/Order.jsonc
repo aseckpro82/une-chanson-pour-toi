@@ -15,6 +15,15 @@
       "type": "number",
       "description": "Prix total pay\u00e9"
     },
+    "applied_promo_code": {
+      "type": "string",
+      "description": "Code promo appliqu\u00e9 \u00e0 cette commande"
+    },
+    "discount_percent": {
+      "type": "number",
+      "default": 0,
+      "description": "Pourcentage de r\u00e9duction appliqu\u00e9"
+    },
     "song_objective": {
       "type": "string",
       "description": "Objectif de la chanson"
@@ -138,7 +147,7 @@
     "express_delivery": {
       "type": "boolean",
       "default": false,
-      "description": "Livraison express 24h"
+      "description": "Livraison express 48h"
     },
     "customer_name": {
       "type": "string"
