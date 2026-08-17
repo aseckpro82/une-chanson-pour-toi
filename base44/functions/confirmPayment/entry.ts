@@ -121,7 +121,7 @@ async function sendToN8n(order) {
     
     // Déterminer si express et le délai de livraison
     const isExpress = order.express_delivery || false;
-    const estimatedDelivery = isExpress ? '24 heures' : '48 heures';
+    const estimatedDelivery = isExpress ? '48 heures' : '72 heures';
     
     const payload = {
         event: 'order.confirmed',
@@ -464,9 +464,11 @@ ${optionsList.join('\n')}
         console.log('📄 Génération des PDFs...');
         const productName = 'Chanson personnalisée';
         const orderDate = new Date(currentOrder.created_date);
-        const daysToAdd = currentOrder.package_type === 'premium' ? 2 : 3;
-        const deliveryDate = calculateDeliveryDate(orderDate, daysToAdd);
-        const deliveryDays = currentOrder.package_type === 'premium' ? '24-48h' : '48-72h';
+        // Utiliser la date calculée à la commande (cohérence avec ce que le client a vu),
+        // sinon la recalculer : 48h express / 72h standard en jours ouvrés
+        const deliveryDate = currentOrder.delivery_date
+            ? new Date(currentOrder.delivery_date)
+            : calculateDeliveryDate(orderDate, currentOrder.express_delivery ? 2 : 3);
 
         // Récap PDF
         const recapDoc = new jsPDF();
@@ -822,7 +824,7 @@ ${optionsList.join('\n')}
 💰 <b>Montant:</b> ${currentOrder.price}€
 
 🚀 <b>Options:</b>
-${currentOrder.add_calligraphy ? '✓ Calligraphie\n' : ''}${currentOrder.add_video ? '✓ Vidéo\n' : ''}${currentOrder.add_letter ? '✓ Lettre\n' : ''}${currentOrder.express_delivery ? '⚡ Express 24h\n' : ''}
+${currentOrder.add_calligraphy ? '✓ Calligraphie\n' : ''}${currentOrder.add_video ? '✓ Vidéo\n' : ''}${currentOrder.add_letter ? '✓ Lettre\n' : ''}${currentOrder.express_delivery ? '⚡ Express 48h\n' : ''}
 
 📅 <b>Livraison estimée:</b> ${deliveryDate.toLocaleDateString('fr-FR')}
 

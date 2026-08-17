@@ -82,9 +82,8 @@ export default function CGV() {
                 email indiquée par le client lors de la commande.
               </p>
               <ul className="list-disc pl-6 text-gray-700 mb-6 space-y-2">
-                <li><strong>Délai standard :</strong> 48 à 72 heures ouvrées</li>
-                <li><strong>Livraison express :</strong> 24 heures (option payante)</li>
-                <li><strong>Option vidéo :</strong> +2 à 3 jours supplémentaires</li>
+                <li><strong>Délai standard :</strong> 72 heures ouvrées maximum</li>
+                <li><strong>Livraison express :</strong> 48 heures ouvrées (option payante)</li>
               </ul>
               <p className="text-gray-700 mb-6">
                 <strong>Une Chanson Pour Toi</strong> ne saurait être tenue responsable des retards de livraison 

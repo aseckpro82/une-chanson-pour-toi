@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 export default function SEO({ 
-  title = "Chanson personnalisée – Cadeau unique – Livraison 48h",
-  description = "Créez une chanson personnalisée écrite à partir de votre histoire. Livraison 48h. Paroles calligraphiées et options exclusives. -50% Black Friday.",
+  title = "Chanson personnalisée – Cadeau unique – Livraison 72h",
+  description = "Créez une chanson personnalisée écrite à partir de votre histoire. Livraison standard 72h (option Express 48h). Paroles calligraphiées et options exclusives.",
   keywords = "chanson personnalisée, cadeau original, chanson sur mesure, cadeau unique, musique personnalisée, cadeau émouvant, livraison rapide",
   ogImage = "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&h=630&fit=crop"
 }) {

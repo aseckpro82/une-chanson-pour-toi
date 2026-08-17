@@ -289,7 +289,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="bg-gray-900/90 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl flex items-center justify-between border border-white/10 animate-in slide-in-from-bottom-20 duration-500">
               <div className="flex flex-col">
                 <span className="font-bold text-sm">Une chanson unique</span>
-                <span className="text-xs text-rose-300 font-medium">Livraison 24h - 72h</span>
+                <span className="text-xs text-rose-300 font-medium">Livraison 72h • Express 48h</span>
               </div>
               <div className="bg-rose-600 px-4 py-2 rounded-xl font-bold text-sm shadow-lg shadow-rose-900/20">
                 Créer ma chanson
@@ -319,7 +319,7 @@ export default function Layout({ children, currentPageName }) {
               {
                 icon: Clock,
                 title: "Livraison Express",
-                desc: "Option 24h disponible"
+                desc: "Option 48h disponible"
               },
               {
                 icon: Heart,
