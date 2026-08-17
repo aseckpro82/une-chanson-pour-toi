@@ -264,9 +264,6 @@ Deno.serve(async (req) => {
         }
 
         const stripe = new Stripe(stripeKey);
-            console.error('❌ Session ID manquant');
-            return Response.json({ error: 'Session ID manquant' }, { status: 400 });
-        }
 
         console.log('🔄 Récupération de la session Stripe...');
         const session = await stripe.checkout.sessions.retrieve(sessionId);
