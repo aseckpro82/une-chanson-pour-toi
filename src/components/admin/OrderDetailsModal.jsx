@@ -131,7 +131,7 @@ export default function OrderDetailsModal({ isOpen, onClose, order }) {
             <div className="flex flex-wrap gap-2">
               {order.add_video && (
                 <Badge className="bg-pink-100 text-pink-700 gap-1">
-                  <Video className="w-3 h-3" /> {order.video_type === 'premium' ? 'Vidéo Premium' : 'Vidéo Souvenir (Montage Photos)'}
+                  <Video className="w-3 h-3" /> Vidéo Souvenir (Montage Photos)
                 </Badge>
               )}
               {order.add_calligraphy && (
@@ -149,9 +149,6 @@ export default function OrderDetailsModal({ isOpen, onClose, order }) {
               {order.add_karaoke_lyrics && (
                 <Badge className="bg-violet-100 text-violet-700">🎤 Paroles karaoké</Badge>
               )}
-              {order.add_writing_help && (
-                <Badge className="bg-teal-100 text-teal-700">📝 Aide à la rédaction</Badge>
-              )}
               {order.add_qr_code && (
                 <Badge className="bg-gray-100 text-gray-700 border-gray-300">📱 QR Code musical</Badge>
               )}
@@ -167,7 +164,7 @@ export default function OrderDetailsModal({ isOpen, onClose, order }) {
                 </Badge>
               )}
               {!order.add_video && !order.add_calligraphy && !order.add_instrumental && 
-               !order.add_letter && !order.add_voice_message && !order.add_writing_help && 
+               !order.add_letter && !order.add_voice_message && 
                !order.add_qr_code && !order.add_client_video && !order.add_album_cover &&
                !order.express_delivery && (
                 <span className="text-gray-400 italic text-sm">Aucune option supplémentaire</span>
@@ -196,7 +193,6 @@ export default function OrderDetailsModal({ isOpen, onClose, order }) {
             <InfoRow label="Date de livraison effective" value={
               order.delivered_date ? format(new Date(order.delivered_date), 'dd MMMM yyyy à HH:mm', { locale: fr }) : null
             } />
-            <InfoRow label="Révisions utilisées" value={`${order.revisions_used || 0} / ${order.revisions_max || 0}`} />
           </Section>
 
           {/* Notes admin */}

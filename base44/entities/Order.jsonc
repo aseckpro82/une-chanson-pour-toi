@@ -2,15 +2,6 @@
   "name": "Order",
   "type": "object",
   "properties": {
-    "package_type": {
-      "type": "string",
-      "enum": [
-        "simple",
-        "standard",
-        "premium"
-      ],
-      "description": "Type de forfait choisi"
-    },
     "price": {
       "type": "number",
       "description": "Prix total pay\u00e9"
@@ -62,21 +53,10 @@
       "type": "string",
       "description": "Langue souhait\u00e9e"
     },
-    "add_writing_help": {
-      "type": "boolean",
-      "default": false,
-      "description": "Option aide \u00e0 la r\u00e9daction (forfait Simple)"
-    },
     "add_video": {
       "type": "boolean",
-      "default": false
-    },
-    "video_type": {
-      "type": "string",
-      "enum": [
-        "standard",
-        "premium"
-      ]
+      "default": false,
+      "description": "Option vid\u00e9o souvenir (montage photos)"
     },
     "video_photos_urls": {
       "type": "array",
@@ -231,7 +211,7 @@
           }
         }
       },
-      "description": "Versions audio multiples (Simple: 1, Standard: 2, Premium: 4)"
+      "description": "Versions audio livr\u00e9es au client"
     },
     "final_audio_mp3_url": {
       "type": "string",
@@ -263,7 +243,7 @@
     },
     "final_certificate_url": {
       "type": "string",
-      "description": "URL certificat de cr\u00e9ation (Premium)"
+      "description": "URL certificat de cr\u00e9ation"
     },
     "revisions_used": {
       "type": "number",
@@ -367,7 +347,6 @@
     }
   },
   "required": [
-    "package_type",
     "price",
     "customer_name",
     "customer_email"

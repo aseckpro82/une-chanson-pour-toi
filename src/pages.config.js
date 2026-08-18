@@ -55,7 +55,6 @@ import Commander from './pages/Commander';
 import Contact from './pages/Contact';
 import Exemples from './pages/Exemples';
 import FAQ from './pages/FAQ';
-import Home from './pages/Home';
 import MentionsLegales from './pages/MentionsLegales';
 import Merci from './pages/Merci';
 import MesCommandes from './pages/MesCommandes';
@@ -68,7 +67,6 @@ import Temoignage from './pages/Temoignage';
 import Temoignages from './pages/Temoignages';
 import TestOptions from './pages/TestOptions';
 import UploadPhotos from './pages/UploadPhotos';
-import home from './pages/home';
 import index from './pages/index';
 import __Layout from './Layout.jsx';
 
@@ -82,7 +80,6 @@ export const PAGES = {
     "Contact": Contact,
     "Exemples": Exemples,
     "FAQ": FAQ,
-    "Home": Home,
     "MentionsLegales": MentionsLegales,
     "Merci": Merci,
     "MesCommandes": MesCommandes,
@@ -95,7 +92,6 @@ export const PAGES = {
     "Temoignages": Temoignages,
     "TestOptions": TestOptions,
     "UploadPhotos": UploadPhotos,
-    "home": home,
     "index": index,
 }
 

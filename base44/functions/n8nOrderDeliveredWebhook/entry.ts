@@ -32,7 +32,7 @@ Deno.serve(async (req) => {
     
     // Chanson audio (toujours inclus si audio_versions existe)
     if (order.audio_versions && order.audio_versions.length > 0) {
-      items.push('Chanson personnalisée (MP3 + WAV)');
+      items.push('Chanson personnalisée (MP3)');
     }
     
     // Paroles PDF (seulement si le fichier existe)
@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
     // Options (seulement si commandées ET fichier uploadé)
     if (order.add_calligraphy && order.final_calligraphy_url) items.push('Paroles calligraphiées');
     if (order.add_letter && order.final_letter_url) items.push('Lettre personnalisée');
-    if (order.add_video && order.final_video_url) items.push(`Vidéo souvenir ${order.video_type === 'premium' ? 'Premium' : 'Standard'}`);
+    if (order.add_video && order.final_video_url) items.push('Vidéo souvenir');
     if (order.add_instrumental && order.final_instrumental_url) items.push('Version instrumentale');
     if (order.add_voice_message && order.voice_message_audio_url) items.push('Message vocal personnalisé');
 

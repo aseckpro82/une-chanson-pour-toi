@@ -48,9 +48,7 @@ Deno.serve(async (req) => {
       
       // Détails de la commande
       order: {
-        package_type: order.package_type,
-        package_name: order.package_type === 'simple' ? 'Simple' : 
-                      order.package_type === 'standard' ? 'Standard' : 'Premium',
+        package_name: 'Chanson personnalisée',
         price: order.price,
         currency: 'EUR',
         status: order.status,

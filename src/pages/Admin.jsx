@@ -358,7 +358,6 @@ function OrderCard({ order, onViewDetails, onManage, onDelete }) {
         
         <div className="flex items-center gap-2 flex-wrap">
           <Badge className={config.color}>{config.label}</Badge>
-          <Badge variant="outline" className="capitalize">{order.package_type}</Badge>
           <Badge variant="outline">{order.price}€</Badge>
           {order.express_delivery && <Badge className="bg-orange-100 text-orange-700">⚡ Express</Badge>}
         </div>
@@ -572,7 +571,6 @@ function UploadModal({ isOpen, onClose, order, queryClient }) {
           </div>
           <div className="flex gap-2 mt-3">
             <Badge className={config.color}>{config.label}</Badge>
-            <Badge className="bg-white/20 text-white capitalize">{localOrder.package_type}</Badge>
             {localOrder.express_delivery && <Badge className="bg-orange-400 text-white">⚡ Express</Badge>}
           </div>
         </div>

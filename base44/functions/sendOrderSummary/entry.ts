@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
             <h2 style="margin-top: 0; color: #111827;">📦 Détails de la Commande</h2>
             <div class="value"><span class="label">ID Commande :</span> ${order.id}</div>
             <div class="value"><span class="label">Date :</span> ${new Date(order.created_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
-            <div class="value"><span class="label">Forfait :</span> ${order.package_type.toUpperCase()}</div>
+            <div class="value"><span class="label">Produit :</span> Chanson personnalisée</div>
             <div class="value"><span class="label">Prix Total :</span> ${order.price}€</div>
             <div class="value"><span class="label">Statut Paiement :</span> ${order.payment_status === 'paid' ? '✅ Payé' : '⏳ En attente'}</div>
             <div class="value"><span class="label">Statut Commande :</span> ${order.status}</div>
@@ -82,8 +82,7 @@ Deno.serve(async (req) => {
 
         <div class="section">
             <h2 style="margin-top: 0; color: #111827;">✨ Options Incluses</h2>
-            <div class="value">• Aide à la rédaction : ${order.add_writing_help ? '✅ Oui' : '❌ Non'}</div>
-            <div class="value">• Montage vidéo : ${order.add_video ? `✅ Oui (${order.video_type})` : '❌ Non'}</div>
+            <div class="value">• Vidéo souvenir : ${order.add_video ? '✅ Oui' : '❌ Non'}</div>
             <div class="value">• Version instrumentale : ${order.add_instrumental ? '✅ Oui' : '❌ Non'}</div>
             <div class="value">• Paroles calligraphiées : ${order.add_calligraphy ? '✅ Oui' : '❌ Non'}</div>
             <div class="value">• Message audio : ${order.add_voice_message ? '✅ Oui' : '❌ Non'}</div>

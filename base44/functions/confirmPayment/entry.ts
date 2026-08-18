@@ -381,17 +381,11 @@ ${optionsList.join('\n')}
             }
         }
 
-        // Calculer revisions_max selon le forfait
-        let revisionsMax = 0;
-        if (currentOrder.package_type === 'standard') revisionsMax = 2;
-        if (currentOrder.package_type === 'premium') revisionsMax = 3;
-
         console.log('💾 Mise à jour de la commande...');
         await base44.asServiceRole.entities.Order.update(orderId, {
             status: 'pending',
             payment_status: 'paid',
             stripe_session_id: sessionId,
-            revisions_max: revisionsMax,
             welcome_audio_url: welcomeAudioUrl
         });
         console.log('✅ Commande mise à jour');
@@ -859,7 +853,7 @@ ${webhookResult.sent ? '✅ Webhook N8N envoyé' : '❌ WEBHOOK N8N ÉCHOUÉ - V
                     phone: currentOrder.customer_phone || null
                 },
                 order: {
-                    package_type: currentOrder.package_type,
+                    package_name: 'Chanson personnalisée',
                     price: currentOrder.price,
                     currency: 'EUR'
                 },

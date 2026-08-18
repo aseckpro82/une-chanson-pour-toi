@@ -176,7 +176,6 @@ export default async function (req) {
       metadata: {
         orderId: order.id,
         customerEmail: orderFields.customer_email,
-        packageType: orderFields.package_type,
         promoCode: appliedPromoCode || '',
         isBlackFriday: isBlackFriday || false,
         trust_message: 'Paiement 100% sécurisé',

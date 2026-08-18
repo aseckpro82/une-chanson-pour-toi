@@ -53,22 +53,18 @@ Deno.serve(async (req) => {
         
         // Détails de la commande
         order: {
-          package_type: cart.package_type,
-          package_name: cart.package_type === 'simple' ? 'Simple' : 
-                        cart.package_type === 'standard' ? 'Standard' : 'Premium',
+          package_name: 'Chanson personnalisée',
           price: cart.price,
           currency: 'EUR',
           
           // Options sélectionnées
           options: {
             add_video: cart.add_video || false,
-            video_type: cart.video_type || null,
             add_calligraphy: cart.add_calligraphy || false,
             add_instrumental: cart.add_instrumental || false,
             add_letter: cart.add_letter || false,
             add_voice_message: cart.add_voice_message || false,
-            express_delivery: cart.express_delivery || false,
-            add_writing_help: cart.add_writing_help || false
+            express_delivery: cart.express_delivery || false
           },
           
           // Détails créatifs

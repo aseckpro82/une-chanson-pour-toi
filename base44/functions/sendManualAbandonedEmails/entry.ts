@@ -71,7 +71,7 @@ function getEmailTemplate(reminderNumber, order, checkoutUrl) {
 
                             <div style="background: #f3f4f6; border-radius: 12px; padding: 20px; margin-top: 25px;">
                                 <p style="margin: 0; color: #6b7280; font-size: 14px; text-align: center;">
-                                    🔒 Paiement 100% sécurisé • ⚡ Livraison 48h • 😊 Satisfait ou remboursé
+                                    🔒 Paiement 100% sécurisé • ⚡ Livraison 72h (Express 48h)
                                 </p>
                             </div>
                         </td>

@@ -73,7 +73,7 @@ function getEmailTemplate(reminderNumber, order, checkoutUrl) {
 
                             <div style="background: #f3f4f6; border-radius: 12px; padding: 20px; margin-top: 25px;">
                                 <p style="margin: 0; color: #6b7280; font-size: 14px; text-align: center;">
-                                    🔒 Paiement 100% sécurisé • ⚡ Livraison 48h • 😊 Satisfait ou remboursé
+                                    🔒 Paiement 100% sécurisé • ⚡ Livraison 72h (Express 48h)
                                 </p>
                             </div>
                         </td>
@@ -150,9 +150,8 @@ function getEmailTemplate(reminderNumber, order, checkoutUrl) {
                                 <ul style="margin: 0; padding-left: 20px; color: #047857; font-size: 15px; line-height: 2;">
                                     <li>Une chanson <strong>100% originale</strong> créée par des professionnels</li>
                                     <li>Paroles personnalisées avec <strong>votre histoire</strong></li>
-                                    <li>Qualité studio professionnelle (MP3 + WAV)</li>
-                                    <li>Livraison en <strong>48h</strong> (ou 24h en express)</li>
-                                    <li><strong>Satisfait ou intégralement remboursé</strong></li>
+                                    <li>Fichier MP3 haute qualité</li>
+                                    <li>Livraison en <strong>72h ouvrées</strong> (ou 48h en express)</li>
                                 </ul>
                             </div>
 

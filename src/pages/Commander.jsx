@@ -229,7 +229,6 @@ export default function Commander() {
       
       // Stripe checkout
       const orderData = {
-        package_type: 'simple',
         price: totalPrice,
         song_objective: finalOccasion,
         emotions: '',

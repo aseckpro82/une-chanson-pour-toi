@@ -114,7 +114,7 @@ Deno.serve(async (req) => {
             phone: order.customer_phone || ''
           },
           cart: {
-            package_type: order.package_type,
+            package_name: 'Chanson personnalisée',
             price: order.price,
             occasion: order.song_objective,
             musical_style: order.musical_style,
