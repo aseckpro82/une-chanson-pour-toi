@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.4';
+import { isSessionPaid } from '../../shared/stripe.ts';
 
 // Configuration des relances
 const RELANCE_CONFIG = [
@@ -38,6 +39,7 @@ Deno.serve(async (req) => {
 
     const results = {
       processed: 0,
+      recovered: 0,
       relance1_sent: 0,
       relance2_sent: 0,
       relance3_sent: 0,
@@ -47,6 +49,19 @@ Deno.serve(async (req) => {
     for (const order of abandonedOrders) {
       const orderCreatedAt = new Date(order.created_date);
       const minutesSinceCreation = (now - orderCreatedAt) / (1000 * 60);
+
+      // Sécurité : la commande est peut-être payée chez Stripe sans que la
+      // confirmation nous soit revenue. On ne relance jamais un client qui a payé.
+      if (order.stripe_session_id && await isSessionPaid(order.stripe_session_id)) {
+        console.log('💳 Commande en réalité payée, récupération au lieu de relance:', order.id);
+        try {
+          await base44.asServiceRole.functions.invoke('confirmPayment', { sessionId: order.stripe_session_id });
+          results.recovered++;
+        } catch (e) {
+          results.errors.push({ order_id: order.id, error: `Récupération échouée: ${e.message}` });
+        }
+        continue;
+      }
 
       // Parcourir les niveaux de relance
       for (const config of RELANCE_CONFIG) {
@@ -166,6 +181,7 @@ Deno.serve(async (req) => {
       message: `${results.processed} relance(s) envoyée(s)`,
       details: {
         total_abandoned: abandonedOrders.length,
+        recovered_paid_orders: results.recovered,
         relance1_sent: results.relance1_sent,
         relance2_sent: results.relance2_sent,
         relance3_sent: results.relance3_sent,

@@ -252,6 +252,9 @@ Deno.serve(async (req) => {
 
         console.log('📋 Session ID reçu:', sessionId);
 
+        // Appelé depuis le navigateur (origin présent) ou depuis le webhook Stripe (pas d'origin)
+        const appOrigin = req.headers.get('origin') || 'https://unechansonpourtoi.fr';
+
         // Détection auto du mode via le préfixe
         const isTestSession = sessionId.startsWith('cs_test_');
         const stripeKey = isTestSession ? Deno.env.get('STRIPE_SECRET_KEY_TEST') : Deno.env.get('STRIPE_SECRET_KEY');
@@ -424,7 +427,7 @@ ${optionsList.join('\n')}
         if (currentOrder.add_qr_code) {
             try {
                 console.log('📱 Génération du QR Code Musical...');
-                const revelationUrl = `${req.headers.get('origin')}/Revelation?id=${currentOrder.id}`;
+                const revelationUrl = `${appOrigin}/Revelation?id=${currentOrder.id}`;
                 
                 // Générer le QR code en Data URL
                 const qrDataUrl = await QRCode.toDataURL(revelationUrl, {
@@ -600,7 +603,7 @@ ${optionsList.join('\n')}
         console.log('✅ PDFs uploadés');
 
         // Email de confirmation amélioré
-        const loginUrl = `${req.headers.get('origin')}/MesCommandes`;
+        const loginUrl = `${appOrigin}/MesCommandes`;
         
         const emailBody = `<!DOCTYPE html>
 <html>
@@ -781,7 +784,7 @@ ${optionsList.join('\n')}
                                               <div style="font-size: 32px; margin-bottom: 10px;">🎬</div>
                                               <h3 style="color: #be185d; font-size: 18px; margin: 0 0 10px 0;">Vidéo souvenir commandée !</h3>
                                               <p style="color: #6b7280; font-size: 14px; margin: 0 0 20px 0;">Envoyez-nous vos photos préférées (5 à 15 photos) pour créer votre vidéo personnalisée</p>
-                                              <a href="${req.headers.get('origin')}/UploadPhotos?order=${currentOrder.id}" style="display: inline-block; background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 50px; font-size: 15px; font-weight: 600; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);">
+                                              <a href="${appOrigin}/UploadPhotos?order=${currentOrder.id}" style="display: inline-block; background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 50px; font-size: 15px; font-weight: 600; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);">
                                                   📸 Envoyer mes photos →
                                               </a>
                                           </td>
