@@ -10,15 +10,15 @@ import { createPageUrl } from "@/utils";
 const faqs = [
   {
     question: "Comment fonctionne le processus de création ?",
-    answer: "Après votre commande, vous recevez un questionnaire détaillé. Votre chanson unique est ensuite composée sur mesure en fonction de vos réponses. Vous recevez une pré-écoute (forfait Premium), puis la version finale après validation."
+    answer: "Vous remplissez le formulaire de commande avec votre histoire, vos émotions et le style souhaité. Votre chanson unique est ensuite composée sur mesure à partir de vos réponses, puis vous la recevez par email."
   },
   {
     question: "Combien de temps prend la création ?",
-    answer: "Livraison Standard : 3 jours ouvrés (72h) maximum. Option Livraison Express disponible pour recevoir votre chanson sous 2 jours ouvrés (48h)."
+    answer: "Livraison standard : 3 jours ouvrés (72h) maximum. Option Livraison Express à +4,99€ pour recevoir votre chanson sous 2 jours ouvrés (48h)."
   },
   {
     question: "Puis-je demander des modifications ?",
-    answer: "Oui ! Selon votre forfait : Simple (0 révision), Standard (2 révisions), Premium (3 révisions). Les révisions sont incluses dans le prix."
+    answer: "Nous mettons tout en œuvre pour votre satisfaction. Si le résultat ne correspond pas à votre demande, contactez-nous : nous étudions chaque situation pour trouver une solution ensemble."
   },
   {
     question: "Dans quelles langues puis-je avoir ma chanson ?",
@@ -26,11 +26,11 @@ const faqs = [
   },
   {
     question: "Quels formats de fichiers vais-je recevoir ?",
-    answer: "Vous recevez : MP3 haute qualité (tous forfaits), WAV (Standard & Premium), Paroles PDF joliment mise en page (Standard & Premium), et vidéo si option choisie."
+    answer: "Vous recevez votre chanson en MP3 haute qualité, ainsi que les options que vous avez choisies (paroles calligraphiées en PDF, vidéo souvenir, QR code musical, pochette d'album...)."
   },
   {
     question: "Puis-je fournir mes propres paroles ?",
-    answer: "Oui, avec le forfait Simple ! Vous nous envoyez vos paroles (max 100 mots ou 1 minute) et nous les mettons en musique."
+    answer: "Oui ! Un champ du formulaire vous permet d'envoyer vos propres paroles, et nous les mettons en musique."
   },
   {
     question: "La chanson sera-t-elle vraiment unique ?",
@@ -38,7 +38,7 @@ const faqs = [
   },
   {
     question: "Que faire si je ne suis pas satisfait ?",
-    answer: "Nous mettons tout en œuvre pour votre satisfaction avec les révisions incluses. Si malgré tout vous n'êtes pas satisfait, contactez-nous pour trouver une solution ensemble."
+    answer: "Écrivez-nous en expliquant ce qui ne vous convient pas. Chaque demande est étudiée au cas par cas et nous cherchons toujours une solution avec vous."
   },
   {
     question: "Comment puis-je utiliser ma chanson ?",

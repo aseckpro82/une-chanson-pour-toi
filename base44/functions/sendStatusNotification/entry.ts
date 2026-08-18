@@ -237,7 +237,7 @@ function generatePreviewReadyEmail(order, orderUrl) {
                                         <h3 style="color: #4338ca; font-size: 16px; margin: 0 0 15px 0;">Deux options s'offrent à vous :</h3>
                                         <p style="color: #6b7280; font-size: 14px; line-height: 1.8; margin: 0;">
                                             ✅ <strong>Valider</strong> → Production finale immédiate<br>
-                                            🔄 <strong>Demander des modifications</strong> → ${order.revisions_max} révision(s) incluse(s)
+                                            🔄 <strong>Nous écrire</strong> → dites-nous ce qui mérite d'être ajusté
                                         </p>
                                     </td>
                                 </tr>
@@ -292,7 +292,7 @@ function generateRevisionEmail(order, orderUrl) {
                                 <tr>
                                     <td style="padding: 25px; text-align: center;">
                                         <p style="color: #92400e; font-size: 14px; margin: 0 0 5px 0;">⏱️ Délai estimé</p>
-                                        <p style="color: #78350f; font-size: 24px; font-weight: 700; margin: 0;">24-48h</p>
+                                        <p style="color: #78350f; font-size: 24px; font-weight: 700; margin: 0;">48h ouvrées</p>
                                     </td>
                                 </tr>
                             </table>
@@ -325,8 +325,7 @@ function generateDeliveryEmail(order, loginUrl, testimonialUrl, productName) {
     let filesHtml = '';
     
     // Chanson audio (toujours incluse)
-    filesHtml += '<li style="padding: 8px 0;">🎵 Votre chanson personnalisée (MP3 + WAV)</li>';
-    filesHtml += '<li style="padding: 8px 0;">📄 Paroles de la chanson (PDF)</li>';
+    filesHtml += '<li style="padding: 8px 0;">🎵 Votre chanson personnalisée (MP3)</li>';
     
     // Options commandées par le client
     if (order.add_video) {

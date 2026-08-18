@@ -47,8 +47,10 @@ export default function CGV() {
                 précision possible sur notre site.
               </p>
               <p className="text-gray-700 mb-6">
-                <strong>Une Chanson Pour Toi</strong> propose des forfaits de création musicale personnalisée avec 
-                différentes options (paroles calligraphiées, montage vidéo, version instrumentale, livraison express, etc.).
+                <strong>Une Chanson Pour Toi</strong> propose une prestation unique de création musicale personnalisée 
+                au tarif de 39 €, à laquelle le client peut librement ajouter des options payantes (paroles calligraphiées, 
+                montage vidéo, lettre personnalisée, QR code musical, pochette d'album, livraison express, etc.). 
+                Le prix de chaque option est affiché avant le paiement.
               </p>
 
               <hr className="my-8 border-rose-100" />
@@ -114,9 +116,10 @@ export default function CGV() {
 
               <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Révisions et Modifications</h2>
               <p className="text-gray-700 mb-4">
-                Le nombre de révisions incluses varie selon le forfait choisi. En cas d'erreur manifeste de notre part 
-                (ex : nom incorrect malgré les informations fournies), nous proposons une <strong>modification gratuite</strong> 
-                pour corriger le problème.
+                En cas d'erreur manifeste de notre part (ex : prénom incorrect malgré les informations fournies), 
+                nous procédons à une <strong>correction gratuite</strong>. Toute autre demande de modification 
+                est étudiée au cas par cas et n'est pas garantie, la prestation portant sur une création artistique 
+                réalisée d'après les informations transmises par le client.
               </p>
 
               <hr className="my-8 border-rose-100" />
@@ -202,7 +205,7 @@ export default function CGV() {
               </p>
 
               <p className="text-sm text-gray-500 mt-8">
-                Dernière mise à jour : Décembre 2025
+                Dernière mise à jour : Août 2026
               </p>
             </div>
           </Card>
